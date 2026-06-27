@@ -4,6 +4,7 @@ from config.settings import APP_NAME, VERSION, THEME
 from core.engine import SimulationEngine
 from core.substances import Chemical
 from features.ai_assistant import ChemAIAssistant
+from ui.canvas import ChemCanvas  # Yeni dinamik kanvasımızı içe aktarıyoruz
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -20,11 +21,11 @@ class MainWindow(QMainWindow):
         main_widget = QWidget()
         main_layout = QHBoxLayout(main_widget)
         
-        # SOL TARAF: Simülasyon Kontrol ve Beher Alanı
+        # SOL TARAF: Simülasyon Kontrol ve Dinamik Beher Alanı
         sim_layout = QVBoxLayout()
-        self.canvas_label = QLabel("Beher Simülasyon Alanı (2D/3D Particle Canvas)")
-        self.canvas_label.setStyleSheet(f"background-color: {THEME['surface']}; border: 2px dashed {THEME['secondary']}; color: {THEME['text_muted']}; font-size: 16px;")
-        self.canvas_label.setProperty("alignment", "Center")
+        
+        # Eski kuru metin yerine yeni hareketli kimya kanvasımızı yerleştiriyoruz
+        self.canvas = ChemCanvas()
         
         btn_add_water = QPushButton("Saf Su Ekle (H2O)")
         btn_add_sodium = QPushButton("Sodyum Ekle (Na)")
@@ -32,7 +33,7 @@ class MainWindow(QMainWindow):
         btn_add_water.clicked.connect(self.add_water)
         btn_add_sodium.clicked.connect(self.add_sodium)
         
-        sim_layout.addWidget(self.canvas_label, stretch=4)
+        sim_layout.addWidget(self.canvas, stretch=4)  # Kanvas artık burada çiziliyor
         sim_layout.addWidget(btn_add_water)
         sim_layout.addWidget(btn_add_sodium)
         
@@ -60,7 +61,6 @@ class MainWindow(QMainWindow):
         self.apply_global_styles()
 
     def apply_global_styles(self):
-        # Uygulamanın modern koyu görünümü
         self.setStyleSheet(f"""
             QMainWindow {{ background-color: {THEME['background']}; }}
             QPushButton {{
@@ -80,12 +80,20 @@ class MainWindow(QMainWindow):
     def add_water(self):
         water = Chemical("H2O", "Saf Su", "liquid", "#3483FA", 1.0, 7.0, 298.15)
         res = self.engine.add_substance(water)
+        
+        # Kanvasta sıvı seviyesini %40'a çıkar ve suyun mavi rengini bas
+        self.canvas.set_liquid(0.4, THEME["accent_bio"])
         self.update_log(f"Behere H2O eklendi. {res['reaction'] if res['triggered'] else ''}")
 
     def add_sodium(self):
         sodium = Chemical("Na", "Sodyum Metal", "solid", "#C0C0C0", 0.97, 7.0, 298.15)
         res = self.engine.add_substance(sodium)
+        
         if res['triggered']:
+            # Reaksiyon tetiklendiyse kanvasta patlama partiküllerini fırlat!
+            self.canvas.add_explosion_particles()
+            # Beherdeki yeni sıvı rengini (NaOH çözeltisi) ve seviyesini güncelle
+            self.canvas.set_liquid(0.5, "#EAEAEA")
             self.update_log(f"⚠️ REAKSİYON: {res['reaction']}! Sıcaklık Artışı: +{res['temp_rise']}K")
         else:
             self.update_log("Behere Na eklendi.")
