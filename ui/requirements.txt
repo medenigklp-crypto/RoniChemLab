@@ -1,5 +1,0 @@
-PyQt6==6.6.1
-numpy==1.26.4
-ollama==0.2.1
-SpeechRecognition==3.10.1
-PyAudio==0.2.14
