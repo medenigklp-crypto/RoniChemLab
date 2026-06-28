@@ -23,71 +23,73 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 KESİN KONUMLANDIRMALI SAF GİRİŞ EKRANI */
+        /* 🌌 GİRİŞ EKRANI ANA ARKA PLANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('image_14.png') no-repeat center center;
+            background: url('image_6.png') no-repeat center center;
             background-size: cover;
             z-index: 9999;
             opacity: 1;
             transition: opacity 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
-        /* LOGO VE BAŞLIK BLOĞU (ÜST ORTA KARANLIK ALAN) */
-        .brand-wrapper {
-            position: absolute;
-            top: 7%; 
-            left: 50%;
-            transform: translateX(-50%);
+        /* 💎 PREMIUM FLOATING GLASS PANEL (Kusursuz Çözüm) */
+        .glass-card {
+            background: rgba(10, 15, 26, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 162, 255, 0.25);
+            border-radius: 32px;
+            width: 100%;
+            max-width: 360px;
+            padding: 30px 24px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            gap: 20px;
         }
+        
+        /* LOGO BÜYÜKLÜĞÜ */
         .user-logo-container {
-            width: 155px; /* Belirgin, büyük premium logo */
-            height: 155px;
+            width: 130px; 
+            height: 130px;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
-            border-radius: 28px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: 24px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
-            background-color: rgba(5, 7, 10, 0.4);
+            background: #05070a;
         }
         .user-logo-container img {
             width: 100%; height: 100%; object-fit: cover;
         }
+
+        /* UYUM İÇİNDEKİ BAŞLIK */
         .splash-title {
             font-size: 15pt; 
-            font-weight: 600; 
-            letter-spacing: 4px; 
+            font-weight: 700; 
+            letter-spacing: 3px; 
             color: #ffffff;
-            margin-top: 16px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
             white-space: nowrap;
-            opacity: 0.95;
         }
         
-        /* 🎭 TAM ORTAK DEPO BOŞLUĞUNA ORTALANMIŞ İKİ SATIRLI SLOGAN */
-        .slogan-positioner {
-            position: absolute;
-            top: 48%; /* Ne fullerele değecek ne de jojenin ışığını kapatacak orta vadi */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            text-align: center;
-            pointer-events: none;
-        }
+        /* İKİ SATIRLI ŞIK NEON SLOGAN */
         .premium-slogan {
             font-family: 'Great Vibes', cursive;
-            font-size: 26pt;
+            font-size: 25pt;
             font-weight: normal;
-            line-height: 1.45;
-            display: inline-block;
+            line-height: 1.4;
+            margin: 5px 0;
             
-            /* İstediğiniz Renk Geçişleri */
+            /* Renk Geçişleri */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -96,48 +98,46 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            /* İstediğiniz Kodlarla Çift Taraflı Neon Filtresi */
-            filter: drop-shadow(-10px -4px 8px rgba(0, 162, 255, 0.6))  
-                    drop-shadow(10px 4px 8px rgba(255, 102, 0, 0.6));   
+            /* Çift Taraflı Işıma */
+            filter: drop-shadow(-8px -3px 6px rgba(0, 162, 255, 0.5))  
+                    drop-shadow(8px 3px 6px rgba(255, 102, 0, 0.5));   
             
             animation: gentleGlow 2.5s ease-in-out infinite alternate;
         }
 
         @keyframes gentleGlow {
             0% {
-                filter: drop-shadow(-8px -3px 6px rgba(0, 162, 255, 0.5)) 
-                        drop-shadow(8px 3px 6px rgba(255, 102, 0, 0.5));
+                filter: drop-shadow(-6px -2px 5px rgba(0, 162, 255, 0.4)) 
+                        drop-shadow(6px 2px 5px rgba(255, 102, 0, 0.4));
                 transform: scale(0.99);
             }
             100% {
-                filter: drop-shadow(-14px -5px 12px rgba(0, 162, 255, 0.75)) 
-                        drop-shadow(14px 5px 12px rgba(255, 102, 0, 0.75));
+                filter: drop-shadow(-10px -4px 9px rgba(0, 162, 255, 0.6)) 
+                        drop-shadow(10px 4px 9px rgba(255, 102, 0, 0.6));
                 transform: scale(1.01);
             }
         }
 
-        /* 💎 SAĞ ALT KÖŞEYE, JOJEDEN UZAĞA ÇİVİLENEN BUTON */
-        .start-btn-container {
-            position: absolute;
-            right: 35px; /* Sağ kenara güvenli asil sabitleme */
-            bottom: 85px; /* Jojenin geniş taban parlamasından yukarıda */
-        }
+        /* SİSTEMİ BAŞLAT BUTONU */
         .start-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 162, 255, 0.45);
-            color: #bceeff;
-            padding: 14px 44px; font-size: 13px;
-            font-weight: 700; border-radius: 25px; cursor: pointer; letter-spacing: 2px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.05);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, rgba(0, 162, 255, 0.2) 0%, rgba(0, 80, 255, 0.4) 100%);
+            border: 1px solid rgba(0, 162, 255, 0.6);
+            color: #ffffff;
+            padding: 14px 0; 
+            width: 100%;
+            font-size: 13px;
+            font-weight: 700; 
+            border-radius: 18px; 
+            cursor: pointer; 
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0, 162, 255, 0.2);
+            transition: all 0.2s ease;
         }
         .start-btn:active {
-            transform: scale(0.96);
-            background: rgba(0, 162, 255, 0.15);
+            transform: scale(0.97);
+            background: rgba(0, 162, 255, 0.3);
             border-color: #00a2ff;
-            box-shadow: 0 0 20px rgba(0, 162, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.4);
         }
 
         /* 🧪 ANA LABORATUVAR PANELİ VE SİMÜLASYON ALANI */
@@ -193,28 +193,23 @@
 </head>
 <body>
 
-    <!-- 🌌 ELİT GİRİŞ EKRANI -->
+    <!-- 🌌 GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <div class="brand-wrapper">
+        <!-- 💎 ARKA PLANDAN BAĞIMSIZ PREMIUM PANEL -->
+        <div class="glass-card">
             <div class="user-logo-container">
                 <img src="image_13.png" alt="Roni Logo">
             </div>
-            <!-- Üst-orta karanlık alana güvenle ortalanmış başlık -->
+            
             <div class="splash-title">QUANTUM LAB CORE</div>
-        </div>
-        
-        <!-- İki nesne arasındaki ferah vadiye ortalanmış iki satırlı sanatsal slogan -->
-        <div class="slogan-positioner">
+            
             <h2 class="premium-slogan">Never Trust an Atom,<br>They Make up Everything</h2>
-        </div>
-        
-        <!-- Sağ alt köşedeki derin karanlığa çivilenen buton ünitesi -->
-        <div class="start-btn-container">
+            
             <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
         </div>
     </div>
 
-    <!-- 📊 LAB İÇERİĞİ -->
+    <!-- 📊 LAB PANELİ -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
@@ -379,7 +374,6 @@
             else { btn.className = "btn-tool"; btn.innerText = "🔓 LID (KAPAK AÇIK)"; }
         }
 
-        // Kapak çizimindeki eksik ctx. metodu düzeltildi
         function toggleBurner() {
             isBurnerOn = !isBurnerOn;
             const btn = document.getElementById('burnerToggle');
