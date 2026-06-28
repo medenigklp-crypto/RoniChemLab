@@ -23,7 +23,7 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 GİRİŞ EKRANI */
+        /* 🌌 GİRİŞ EKRANI (Açılış Splash) */
         #splash-screen {
             position: fixed;
             top: 0; 
@@ -31,7 +31,7 @@
             width: 100vw; 
             height: 100vh;
             background-color: #05070a;
-            background-image: url('image_5.png');
+            background-image: url('image.png'); /* Saf arka plan görseliniz */
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
@@ -40,45 +40,58 @@
             transition: opacity 0.4s ease;
         }
         
-        /* LOGO VE SLOGAN ÜST BLOK (ORTALANMIŞ ÜST KORİDOR) */
+        /* LOGO VE SLOGAN ÜST BLOK */
         .brand-header-block {
             position: absolute;
-            top: 5vh; 
+            top: 6vh; 
             left: 50vw;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            width: 90vw;
+            gap: 14px;
+            width: 95vw;
             text-align: center;
         }
 
-        /* İsteğin Üzerine Küçültülmüş Logo */
+        /* Küçük ve Kibar Ortalı Logo */
         .user-logo-container {
-            width: 90px; 
-            height: 90px;
+            width: 75px; 
+            height: 75px;
             display: flex; 
             justify-content: center; 
             align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.08);
             background: #000;
         }
         .user-logo-container img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
         }
 
-        /* 💎 TAM İSTEDİĞİN RENK, NEON VE TEK SIRA SLOGAN YAPISI */
+        /* "QUANTUM LAB CORE" Başlığı */
+        .main-title {
+            color: #ffffff;
+            font-size: 14pt;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+            margin-bottom: -4px;
+        }
+
+        /* 💎 TEK SIRA, DOĞRU RENK VE NEONLU SLOGAN YAPISI */
         .premium-slogan-one-line {
             font-family: 'Great Vibes', cursive;
-            font-size: 19pt; /* Tek sırada şık duracak ideal büyüklük */
+            font-size: 21pt;
             font-weight: normal;
             white-space: nowrap; /* Kesinlikle alt satıra geçmez, tek sıra kalır */
+            display: block;
             
-            /* Yazı içi renk geçişi (Sol Mavi: #BCEEFF -> Orta: #F7EAD7 -> Sağ Turuncu: #FFD59A) */
+            /* Renk Geçişleri: Sol Mavi (#BCEEFF) -> Orta (#F7EAD7) -> Sağ Turuncu (#FFD59A) */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -87,43 +100,44 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* Neon Işıma Filtreleri (Sol Mavi Neon: #00A2FF, Sağ Turuncu Neon: #FF6600) */
-            filter: drop-shadow(-8px 2px 6px rgba(0, 162, 255, 0.7)) 
-                    drop-shadow(8px 2px 6px rgba(255, 102, 0, 0.7))
-                    drop-shadow(0px 4px 10px rgba(0,0,0,0.9));
+            /* Neon Işıma Filtreleri: Sol Mavi (#00A2FF) ve Sağ Turuncu (#FF6600) */
+            filter: drop-shadow(-10px 2px 6px rgba(0, 162, 255, 0.75)) 
+                    drop-shadow(10px 2px 6px rgba(255, 102, 0, 0.75))
+                    drop-shadow(0px 4px 12px rgba(0,0,0,0.95));
+            padding: 4px 10px;
         }
 
-        /* 🔘 SOL SİYAH ALANA YERLEŞTİRİLEN YUVARLAK GİRİŞ BUTONU */
+        /* 🔘 SOL SİYAH ALANDA YUVARLAK GİRİŞ BUTONU */
         .btn-positioner {
             position: absolute;
-            left: 8vw;       /* Görselin sol tarafındaki siyah alana çektik */
-            bottom: 12vh;    /* Alt kısımdan yukarıda, rahat tıklanabilir konum */
+            left: 10vw;       /* Tamamen sol taraftaki siyah/boş alana hizalı */
+            bottom: 14vh;     /* Antik beherin hizasında rahat dokunma alanı */
         }
 
         .start-btn-round {
-            background: rgba(10, 15, 25, 0.65);
-            border: 1px solid rgba(0, 162, 255, 0.5);
+            background: rgba(8, 12, 20, 0.7);
+            border: 1.5px solid rgba(0, 162, 255, 0.6);
             color: #bceeff;
-            padding: 14px 32px; 
+            padding: 15px 36px; 
             font-size: 11px;   
             font-weight: 800; 
-            border-radius: 25px; /* Tam yuvarlak/oval modern kapsül yapı */
+            border-radius: 30px; /* Tam yuvarlak/oval kapsül */
             cursor: pointer; 
             letter-spacing: 2px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0, 162, 255, 0.2), inset 0 1px 1px rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 162, 255, 0.25), inset 0 1px 1px rgba(255,255,255,0.1);
             transition: all 0.2s ease;
             white-space: nowrap;
         }
         .start-btn-round:active {
             transform: scale(0.95);
-            background: rgba(0, 162, 255, 0.2);
+            background: rgba(0, 162, 255, 0.25);
             border-color: #00a2ff;
-            box-shadow: 0 4px 10px rgba(0, 162, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 162, 255, 0.5);
         }
 
-        /* 🧪 ANA LABORATUVAR ARABİRİMİ */
+        /* 🧪 ANA LABORATUVAR PANELİ */
         .dashboard {
             display: flex; gap: 10px; padding: 16px 16px 6px 16px;
             background: #0e1117;
@@ -180,8 +194,8 @@
     <div id="splash-screen">
         <div class="brand-header-block">
             <div class="user-logo-container">
-                <img src="image_13.png" alt="Logo">
-            </div>
+                <img src="image.png" alt="Logo"> </div>
+            <div class="main-title">Quantum Lab Core</div>
             <div class="premium-slogan-one-line">
                 Never Trust an Atom, They Make up Everything
             </div>
