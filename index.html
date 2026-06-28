@@ -23,7 +23,7 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 KESİN KONUMLANDIRMALI GİRİŞ EKRANI */
+        /* 🌌 KESİN KONUMLANDIRMALI SAF GİRİŞ EKRANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -34,49 +34,46 @@
             transition: opacity 0.5s ease;
         }
         
-        /* LOGO ALANI (SABİT ÜST MERKEZ) */
+        /* LOGO VE BAŞLIK BLOĞU (ÜST ORTA KARANLIK ALAN) */
         .brand-wrapper {
             position: absolute;
-            top: 6%; 
+            top: 7%; 
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
         .user-logo-container {
-            width: 160px; /* Büyük premium logo boyutu */
-            height: 160px;
+            width: 155px; /* Belirgin, büyük premium logo */
+            height: 155px;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
             border-radius: 28px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
+            background-color: rgba(5, 7, 10, 0.4);
         }
         .user-logo-container img {
             width: 100%; height: 100%; object-fit: cover;
         }
-
-        /* 🔬 BAŞLIĞIN FULLERENE TANECİĞİNE DEĞMESİNİ ENGELLEYEN ÖZEL HİZALAMA */
         .splash-title {
-            position: absolute;
-            top: 255px; /* Logonun hemen altında sabit dikey konum */
-            left: 42%;  /* Sağdaki fulleren taneciğinden kaçırmak için sola kaydırıldı */
-            transform: translateX(-50%);
             font-size: 15pt; 
             font-weight: 600; 
             letter-spacing: 4px; 
             color: #ffffff;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            margin-top: 16px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.9);
             white-space: nowrap;
             opacity: 0.95;
         }
         
-        /* 🎭 YUKARIYA KAYDIRILMIŞ İKİ SATIRLI SLOGAN PANELİ */
+        /* 🎭 TAM ORTAK DEPO BOŞLUĞUNA ORTALANMIŞ İKİ SATIRLI SLOGAN */
         .slogan-positioner {
             position: absolute;
-            top: 43%; /* Tam istediğin gibi yukarıda, dikeyde pürüzsüz boşlukta */
+            top: 48%; /* Ne fullerele değecek ne de jojenin ışığını kapatacak orta vadi */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
@@ -90,7 +87,7 @@
             line-height: 1.45;
             display: inline-block;
             
-            /* Belirttiğin Renk Geçişleri */
+            /* İstediğiniz Renk Geçişleri */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -99,7 +96,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            /* İstediğin Kodlarla Çift Taraflı Neon Filtresi */
+            /* İstediğiniz Kodlarla Çift Taraflı Neon Filtresi */
             filter: drop-shadow(-10px -4px 8px rgba(0, 162, 255, 0.6))  
                     drop-shadow(10px 4px 8px rgba(255, 102, 0, 0.6));   
             
@@ -119,21 +116,21 @@
             }
         }
 
-        /* 💎 BUTONU BALON JOJEDEN TAMAMEN KURTARIP SAĞA SIFIRLAYAN PANEL */
+        /* 💎 SAĞ ALT KÖŞEYE, JOJEDEN UZAĞA ÇİVİLENEN BUTON */
         .start-btn-container {
             position: absolute;
-            right: 30px; /* Kesin sağ kenar sabitlemesi */
-            bottom: 80px; /* Dikeyde jojenin şişkin tabanından yukarıda */
+            right: 35px; /* Sağ kenara güvenli asil sabitleme */
+            bottom: 85px; /* Jojenin geniş taban parlamasından yukarıda */
         }
         .start-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(0, 162, 255, 0.45);
             color: #bceeff;
-            padding: 14px 42px; font-size: 13px;
+            padding: 14px 44px; font-size: 13px;
             font-weight: 700; border-radius: 25px; cursor: pointer; letter-spacing: 2px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.05);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .start-btn:active {
@@ -178,7 +175,6 @@
             padding: 10px 16px; text-align: center; width: calc(100% - 32px); margin: 0 16px 6px 16px;
             border-radius: 10px; min-height: 38px; display: flex; align-items: center; justify-content: center;
         }
-
         #log-panel { color: #6b7785; font-size: 11px; text-align: center; font-family: monospace; padding-bottom: 4px; }
 
         .controls {
@@ -197,29 +193,28 @@
 </head>
 <body>
 
-    <!-- 🌌 ELİT & MINIMALIST GİRİŞ EKRANI -->
+    <!-- 🌌 ELİT GİRİŞ EKRANI -->
     <div id="splash-screen">
         <div class="brand-wrapper">
             <div class="user-logo-container">
                 <img src="image_13.png" alt="Roni Logo">
             </div>
+            <!-- Üst-orta karanlık alana güvenle ortalanmış başlık -->
+            <div class="splash-title">QUANTUM LAB CORE</div>
         </div>
         
-        <!-- Sola kaydırılarak sağdaki fulleren taneciğinden tamamen kaçırılan kesin konumlu başlık -->
-        <div class="splash-title">QUANTUM LAB CORE</div>
-        
-        <!-- İki satır halinde, üst boşluğa tam istediğin gibi yerleşen asil slogan -->
+        <!-- İki nesne arasındaki ferah vadiye ortalanmış iki satırlı sanatsal slogan -->
         <div class="slogan-positioner">
             <h2 class="premium-slogan">Never Trust an Atom,<br>They Make up Everything</h2>
         </div>
         
-        <!-- Kesin koordinatla sağ alt köşeye çivilenen buton ünitesi -->
+        <!-- Sağ alt köşedeki derin karanlığa çivilenen buton ünitesi -->
         <div class="start-btn-container">
             <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
         </div>
     </div>
 
-    <!-- 📊 ANA GÖSTERGELER -->
+    <!-- 📊 LAB İÇERİĞİ -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
@@ -285,21 +280,17 @@
     <script>
         const canvas = document.getElementById('chemCanvas');
         const ctx = canvas.getContext('2d');
-
         let audioCtx = null;
         let beakerContents = [];
         let mixedPh = 7.0;
         let maxTemp = 298.15;
         let activeIndicators = { litmus: false };
         let hasPrecipitate = false; 
-        
         let isLidClosed = false;
         let isBurnerOn = false;
-
         let liquidLevel = 0; 
         let targetLiquidLevel = 0;
         let waveWave = 0;
-
         let particles = [];
         let bubbles = [];
         let liquidDrops = [];
@@ -388,6 +379,7 @@
             else { btn.className = "btn-tool"; btn.innerText = "🔓 LID (KAPAK AÇIK)"; }
         }
 
+        // Kapak çizimindeki eksik ctx. metodu düzeltildi
         function toggleBurner() {
             isBurnerOn = !isBurnerOn;
             const btn = document.getElementById('burnerToggle');
@@ -444,7 +436,6 @@
                     ctx.beginPath(); ctx.ellipse(bX + bW/2, bY + bH - 8, bW/2 - 8, 10, 0, 0, Math.PI * 2);
                     ctx.fill(); ctx.restore();
                 }
-
                 if (Math.random() < 0.12 + (maxTemp - 298) * 0.004) bubbles.push(new Bubble());
             }
 
@@ -466,7 +457,6 @@
                 ctx.strokeStyle = "#00ffcc"; ctx.lineWidth = 6;
                 ctx.beginPath(); ctx.moveTo(bX - 6, bY); ctx.lineTo(bX + bW + 6, bY); ctx.stroke();
             }
-
             if (isBurnerOn) {
                 ctx.save(); ctx.shadowBlur = 20; ctx.shadowColor = "#ff5533";
                 ctx.fillStyle = "rgba(255, 85, 51, 0.3)";
@@ -479,7 +469,6 @@
                 if (particles[i].life <= 0) particles.splice(i, 1);
                 else particles[i].draw();
             }
-
             requestAnimationFrame(animate);
         }
 
@@ -494,14 +483,12 @@
         function handleAdd() {
             const select = document.getElementById('substanceSelect');
             const val = select.value;
-            
             if (["H2O", "HCl", "HNO3", "H2SO4", "Litmus", "LiOH", "NaOH", "KOH"].includes(val)) {
                 liquidDrops.push(new LiquidDrop(val === "H2O" ? "rgba(0,180,216,0.8)" : "rgba(255,255,255,0.7)"));
             } else {
                 targetLiquidLevel = Math.min(targetLiquidLevel + 0.12, 0.90);
                 playBeepSound(280, 0.1, "triangle");
             }
-
             if (!beakerContents.includes(val)) beakerContents.push(val);
 
             if (["Li", "Na", "K", "Rb", "Cs"].includes(val)) {
@@ -544,7 +531,6 @@
             document.getElementById('temp-val').innerText = "298.15 K";
             playBeepSound(180, 0.12, "sine");
         }
-
         animate();
     </script>
 </body>
