@@ -22,7 +22,7 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 ELİT & MINIMALIST GİRİŞ EKRANI */
+        /* 🌌 ELİT, SADE VE DENGELİ GİRİŞ EKRANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -33,52 +33,56 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 50px 24px 70px 24px;
+            padding: 45px 24px 60px 24px;
             opacity: 1;
             transition: opacity 0.5s ease;
         }
         
-        /* Üst Kurumsal Alan (Kibar ve Dengeli) */
+        /* 1. İKON BÜYÜTME VE ÜST ALAN DÜZENİ */
         .brand-wrapper {
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: env(safe-area-inset-top, 20px);
+            width: 100%;
         }
         .user-logo-container {
-            width: 75px; height: 75px;
+            width: 105px; /* İstediğin gibi ikon belirgin şekilde büyütüldü */
+            height: 105px;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+            border-radius: 24px;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .user-logo-container img {
             width: 100%; height: 100%; object-fit: cover;
         }
         .splash-title {
-            font-size: 14pt; font-weight: 600; letter-spacing: 4px; color: #ffffff;
-            margin-top: 12px; text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            font-size: 15pt; font-weight: 600; letter-spacing: 4px; color: #ffffff;
+            margin-top: 14px; text-shadow: 0 4px 12px rgba(0,0,0,0.7);
             opacity: 0.95;
         }
         
-        /* 🎭 SANATSAL DIAGONAL SLOGAN ALANI (Tam joje ve fullerene arasına) */
+        /* 3. DÜZ VE İKİ SATIRLI MÜKEMMEL SLOGAN YERLEŞİMİ */
         .slogan-positioner {
             position: absolute;
-            top: 48%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-36deg); /* Işık çizgisine tam paralel eğiklik */
-            width: 95%;
+            top: 46%; /* Ekranın dikey eksenindeki en kusursuz ve nefes alan boşluk */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Eğiklik kalktı, pürüzsüz ortalandı */
+            width: 90%;
             text-align: center;
             pointer-events: none;
         }
         .premium-slogan {
             font-family: 'Great Vibes', cursive;
-            font-size: 27pt;
+            font-size: 26pt; /* İki satır için ideal, taşma yapmayan asil boyut */
             font-weight: normal;
-            white-space: nowrap;
+            line-height: 1.45; /* Satırların zarafetle açılması için */
             display: inline-block;
             
-            /* Yazı İçi Renk Geçişi (Sol Mavi -> Orta Geçiş -> Sağ Turuncu) */
+            /* Belirttiğin Muazzam Renk Geçişi (Sol Mavi -> Orta Geçiş -> Sağ Turuncu) */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   /* Sol Mavi Yazı İçi */
                 #F7EAD7 50%,  /* Orta Geçiş */
@@ -87,46 +91,53 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            /* Çift Taraflı Neon Işıma Filtresi */
-            filter: drop-shadow(-12px -4px 10px rgba(0, 162, 255, 0.65))  /* Sol Mavi Neon */
-                    drop-shadow(12px 4px 10px rgba(255, 102, 0, 0.65));   /* Sağ Turuncu Neon */
+            /* İstediğin Tam Renk Kodlarıyla Çift Taraflı Neon Işıma Filtresi */
+            filter: drop-shadow(-10px -4px 8px rgba(0, 162, 255, 0.6))  /* Sol Mavi Neon parlaması */
+                    drop-shadow(10px 4px 8px rgba(255, 102, 0, 0.6));   /* Sağ Turuncu Neon parlaması */
             
             animation: gentleGlow 2.5s ease-in-out infinite alternate;
         }
 
         @keyframes gentleGlow {
             0% {
-                filter: drop-shadow(-10px -3px 8px rgba(0, 162, 255, 0.5)) 
-                        drop-shadow(10px 3px 8px rgba(255, 102, 0, 0.5));
+                filter: drop-shadow(-8px -3px 6px rgba(0, 162, 255, 0.5)) 
+                        drop-shadow(8px 3px 6px rgba(255, 102, 0, 0.5));
                 transform: scale(0.99);
             }
             100% {
-                filter: drop-shadow(-15px -5px 14px rgba(0, 162, 255, 0.8)) 
-                        drop-shadow(15px 5px 14px rgba(255, 102, 0, 0.8));
+                filter: drop-shadow(-14px -5px 12px rgba(0, 162, 255, 0.75)) 
+                        drop-shadow(14px 5px 12px rgba(255, 102, 0, 0.75));
                 transform: scale(1.01);
             }
         }
 
-        /* 💎 BUZLU CAM (GLASSMORPHISM) PREMIUM BUTON */
+        /* 2. BUTONU SAĞA KAYDIRMA (Balon Jojeden Uzaklaştırma) */
+        .start-btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end; /* Butonu tamamen sağ tarafa yaslar */
+            padding-right: 24px; /* Sınıra sıfır yapışmaması için şık bir boşluk */
+            margin-bottom: env(safe-area-inset-bottom, 15px);
+        }
         .start-btn {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 162, 255, 0.4);
+            border: 1px solid rgba(0, 162, 255, 0.45);
             color: #bceeff;
-            padding: 14px 44px; font-size: 12px;
+            padding: 14px 42px; font-size: 12px;
             font-weight: 700; border-radius: 25px; cursor: pointer; letter-spacing: 2px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.05);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .start-btn:active {
             transform: scale(0.96);
             background: rgba(0, 162, 255, 0.15);
             border-color: #00a2ff;
-            box-shadow: 0 0 20px rgba(0, 162, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.3);
         }
 
-        /* 🧪 ANA LABORATUVAR ARAYÜZÜ */
+        /* 🧪 ANA LABORATUVAR PANELİ VE SİMÜLASYON ALANI */
         .dashboard {
             display: flex; gap: 10px; padding: 16px 16px 6px 16px;
             background: linear-gradient(to bottom, #0e1117, #05070a);
@@ -189,10 +200,12 @@
         </div>
         
         <div class="slogan-positioner">
-            <h2 class="premium-slogan">Never Trust an Atom, They Make up Everything</h2>
+            <h2 class="premium-slogan">Never Trust an Atom,<br>They Make up Everything</h2>
         </div>
         
-        <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
+        <div class="start-btn-container">
+            <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
+        </div>
     </div>
 
     <div class="dashboard">
