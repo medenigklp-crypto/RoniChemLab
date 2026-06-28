@@ -2,115 +2,142 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Roni 3D Kimya Laboratuvarı</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Roni 3D Kimya Laboratuvarı Ultra</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
         body {
-            background-color: #121212;
-            color: #eeeeee;
+            background-color: #08090c;
+            color: #e0e6ed;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
+            padding-bottom: env(safe-area-inset-bottom);
         }
-        /* Dashboard */
+        
+        /* Cyber Lab Göstergeleri */
         .dashboard {
             display: flex;
-            gap: 10px;
-            padding: 15px;
-            background-color: #1a1a1a;
+            gap: 15px;
+            padding: 24px 20px 10px 20px;
+            background: linear-gradient(to bottom, #11141a, #08090c);
         }
         .indicator {
             flex: 1;
-            background-color: #222831;
-            border: 2px solid #393E46;
-            border-radius: 8px;
-            padding: 12px;
+            background: rgba(20, 24, 33, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px;
             text-align: center;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            font-weight: bold;
+            font-family: 'SF Pro Text', -apple-system, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        #ph-val { color: #00FF66; }
-        #temp-val { color: #FF3333; }
+        .indicator span {
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        #ph-val { color: #00ffcc; text-shadow: 0 0 12px rgba(0,255,204,0.4); }
+        #temp-val { color: #ff5533; text-shadow: 0 0 12px rgba(255,85,51,0.4); }
 
-        /* Simülasyon Alanı */
+        /* Simülasyon Ekranı */
         .canvas-container {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #121212;
+            background: radial-gradient(circle at center, #151922 0%, #08090c 90%);
             position: relative;
         }
         canvas {
-            background-color: #121212;
+            background-color: transparent;
             max-width: 100%;
             max-height: 100%;
         }
 
-        /* Kontrol Butonları Panel */
+        /* Bilgi Akış Çubuğu */
+        #log-panel {
+            background-color: #08090c;
+            color: #8f9cae;
+            font-size: 13px;
+            padding: 12px 20px;
+            text-align: center;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dokunmatik Buton Grubu */
         .controls {
-            background-color: #1a1a1a;
-            padding: 15px;
+            background-color: #11141a;
+            padding: 24px 20px;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            border-top: 1px solid #393E46;
+            gap: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 32px 32px 0 0;
+            box-shadow: 0 -15px 35px rgba(0,0,0,0.6);
         }
         button {
-            background-color: #393E46;
-            color: #eeeeee;
-            border: none;
-            padding: 14px;
+            background: linear-gradient(135deg, #232933 0%, #171b22 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: 18px;
             font-size: 14px;
-            font-weight: bold;
-            border-radius: 8px;
+            font-weight: 600;
+            border-radius: 16px;
             cursor: pointer;
-            active-opacity: 0.7;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+            transition: all 0.1s ease;
             -webkit-tap-highlight-color: transparent;
         }
-        button:active { background-color: #00ADB5; color: #121212; }
-        .btn-clear { grid-column: span 2; background-color: #D32F2F; color: white; }
-        .btn-clear:active { background-color: #b71c1c; }
-        
-        /* Sistem Günlüğü */
-        #log-panel {
-            background-color: #121212;
-            color: #00ADB5;
-            font-size: 12px;
-            padding: 8px 15px;
-            text-align: center;
-            border-top: 1px solid #222831;
-            font-family: monospace;
+        button:active {
+            transform: scale(0.95);
+            background: #ffffff;
+            color: #08090c;
+            box-shadow: 0 0 20px rgba(255,255,255,0.6);
+        }
+        .btn-clear {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #ff3b30 0%, #660000 100%);
+            color: #fff;
+            border: 1px solid rgba(255,59,48,0.2);
+        }
+        .btn-clear:active {
+            background: #ff3b30;
+            box-shadow: 0 0 25px rgba(255,59,48,0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- Üst Gösterge Paneli -->
     <div class="dashboard">
-        <div class="indicator">pH: <span id="ph-val">7.00</span></div>
-        <div class="indicator">Sıcaklık: <span id="temp-val">298.15 K</span></div>
+        <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
+        <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
     </div>
 
-    <!-- Kimya Kanvas Alanı -->
     <div class="canvas-container">
-        <canvas id="chemCanvas" width="400" height="400"></canvas>
+        <canvas id="chemCanvas" width="600" height="600"></canvas>
     </div>
 
-    <!-- Sistem Günlüğü Mesajı -->
-    <div id="log-panel">[Sistem]: Laboratuvar hazır. Madde ekleyin.</div>
+    <div id="log-panel">Sistem stabil. Deney için kimyasal eklenmesi bekleniyor...</div>
 
-    <!-- Mobil Butonlar -->
     <div class="controls">
         <button onclick="addWater()">Saf Su Ekle (H2O)</button>
         <button onclick="addSodium()">Sodyum Ekle (Na)</button>
         <button onclick="addHCl()">Asit Ekle (HCl)</button>
         <button onclick="addNaOH()">Baz Ekle (NaOH)</button>
-        <button onclick="addIndicator()">Fenolftalein Damlat</button>
+        <button onclick="addIndicator()">Fenolftalein İndikatörü</button>
         <button class="btn-clear" onclick="clearBeaker()">🗑️ Beheri Temizle / Sıfırla</button>
     </div>
 
@@ -118,67 +145,169 @@
         const canvas = document.getElementById('chemCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Simülasyon Durumu
+        // Laboratuvar Durum Hafızası
         let beakerContents = [];
         let mixedPh = 7.0;
         let maxTemp = 298.15;
         let hasIndicator = false;
-        let particles = [];
-        let liquidLevel = 0; // % olarak doluluk oranı
+        
+        let liquidLevel = 0; 
         let targetLiquidLevel = 0;
-        let currentLiquidColor = "transparent";
+        let waveWave = 0;
 
-        // Partikül Sınıfı
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 8;
-                this.vy = (Math.random() - 1) * 8;
-                this.radius = Math.random() * 3 + 2;
-                this.life = 1.0;
+        let particles = [];
+        let bubbles = [];
+
+        // Profesyonel Renk Paletleri (Sıvı Yoğunluk Degradeleri)
+        const COLORS = {
+            water: { top: "rgba(0, 180, 216, 0.35)", bottom: "rgba(3, 4, 94, 0.6)" },
+            baseIndicator: { top: "rgba(255, 0, 127, 0.55)", bottom: "rgba(150, 0, 80, 0.75)" },
+            saltSolution: { top: "rgba(220, 225, 233, 0.35)", bottom: "rgba(100, 110, 125, 0.55)" },
+            transparent: { top: "transparent", bottom: "transparent" }
+        };
+
+        class Bubble {
+            constructor() {
+                this.x = Math.random() * 220 + 190;
+                this.y = 475;
+                this.radius = Math.random() * 2.5 + 1;
+                this.vy = -(Math.random() * 1.2 + 0.6);
+                this.wobble = Math.random() * 100;
             }
             update() {
-                this.x += this.vx;
                 this.y += this.vy;
-                this.vy += 0.2; // Yerçekimi
-                this.life -= 0.03;
+                this.x += Math.sin(this.wobble / 12) * 0.4;
+                this.wobble++;
             }
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 76, 41, ${this.life})`;
+                ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
                 ctx.fill();
             }
         }
 
-        // Ana Döngü (FPS 60)
+        class Spark {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 12;
+                this.vy = (Math.random() - 0.9) * 14;
+                this.radius = Math.random() * 3.5 + 1.5;
+                this.life = 1.0;
+                this.decay = Math.random() * 0.025 + 0.015;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.28;
+                this.life -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = "#ff5533";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 90, 40, ${this.life})`;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Ana Grafik Çizim Döngüsü
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            waveWave += 0.07;
 
-            // Sıvı Seviyesi Yumuşak Geçiş (Animasyon)
             if (liquidLevel < targetLiquidLevel) liquidLevel += 0.01;
             if (liquidLevel > targetLiquidLevel) liquidLevel -= 0.01;
 
-            // 1. Beher Çizimi (Cam Yapı)
-            ctx.strokeStyle = "#393E46";
-            ctx.lineWidth = 5;
-            ctx.lineCap = "round";
-            ctx.beginPath();
-            ctx.moveTo(100, 80);
-            ctx.lineTo(100, 340); // Sol Duvar
-            ctx.lineTo(300, 340); // Taban
-            ctx.lineTo(300, 80);  // Sağ Duvar
-            ctx.stroke();
+            let bX = 180, bY = 120, bW = 240, bH = 360, bR = 20;
+            let currentHeight = bH * liquidLevel;
+            let surfaceY = (bY + bH) - currentHeight;
 
-            // 2. Dinamik Sıvı Çizimi
-            if (liquidLevel > 0) {
-                ctx.fillStyle = currentLiquidColor;
-                let liquidHeight = 260 * liquidLevel;
-                ctx.fillRect(103, 337 - liquidHeight, 194, liquidHeight);
+            // 1. DİNAMİK SIVI VE 3D REYALİSTİK MENİSKÜS ÇİZİMİ
+            if (liquidLevel > 0.01) {
+                ctx.save();
+                
+                // Sıvı Renk Gradiyenti Tanımlama
+                let liquidGrad = ctx.createLinearGradient(bX, surfaceY, bX, bY + bH);
+                let currentPalette = COLORS.water;
+                
+                if (hasIndicator && mixedPh > 8.3) currentPalette = COLORS.baseIndicator;
+                else if (beakerContents.length > 1 || beakerContents.includes("Na") || beakerContents.includes("HCl") || beakerContents.includes("NaOH")) currentPalette = COLORS.saltSolution;
+                
+                liquidGrad.addColorStop(0, currentPalette.top);
+                liquidGrad.addColorStop(1, currentPalette.bottom);
+                ctx.fillStyle = liquidGrad;
+
+                // Sıvı Kütlesi Maskesi
+                ctx.beginPath();
+                ctx.moveTo(bX + 4, bY + bH - 4);
+                ctx.lineTo(bX + 4, surfaceY);
+                
+                // Üst Sıvı Yüzeyi Akıcı Dalga Çizimi
+                for (let x = bX + 4; x <= bX + bW - 4; x++) {
+                    let waveY = surfaceY + Math.sin((x / 18) + waveWave) * 4.5 * liquidLevel;
+                    ctx.lineTo(x, waveY);
+                }
+                
+                ctx.lineTo(bX + bW - 4, bY + bH - 4);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+
+                // Kabarcık Frekansı Kontrolü
+                if (Math.random() < 0.12 + (maxTemp - 298) * 0.003) {
+                    bubbles.push(new Bubble());
+                }
             }
 
-            // 3. Reaksiyon Partikülleri Güncelleme ve Çizme
+            // 2. KABARCIK TAKİP VE SİLME
+            for (let i = bubbles.length - 1; i >= 0; i--) {
+                bubbles[i].update();
+                let waveAtX = surfaceY + Math.sin((bubbles[i].x / 18) + waveWave) * 4.5 * liquidLevel;
+                if (bubbles[i].y < waveAtX + 4 || liquidLevel === 0) {
+                    bubbles.splice(i, 1);
+                } else {
+                    bubbles[i].draw();
+                }
+            }
+
+            // 3. PROFESYONEL CAM BEHER VE YANSIMA EFEKTLERİ (THIX TARZI)
+            ctx.save();
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+            ctx.lineWidth = 4;
+            ctx.lineCap = "round";
+            
+            // Ana Cam Silüeti
+            ctx.beginPath();
+            ctx.moveTo(bX, bY);
+            ctx.lineTo(bX, bY + bH - bR);
+            ctx.arcTo(bX, bY + bH, bX + bR, bY + bH, bR);
+            ctx.lineTo(bX + bW - bR, bY + bH);
+            ctx.arcTo(bX + bW, bY + bH, bX + bW, bY + bH - bR, bR);
+            ctx.lineTo(bX + bW, bY);
+            ctx.stroke();
+
+            // Sol Cam Parlama Çizgisi (Kırılma Efekti)
+            let glassGlowLeft = ctx.createLinearGradient(bX + 8, bY, bX + 16, bY);
+            glassGlowLeft.addColorStop(0, "rgba(255, 255, 255, 0.25)");
+            glassGlowLeft.addColorStop(1, "rgba(255, 255, 255, 0.0)");
+            ctx.fillStyle = glassGlowLeft;
+            ctx.fillRect(bX + 4, bY + 10, 8, bH - 20);
+
+            // Sağ Cam İnce Parlama
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(bX + bW - 6, bY + 15);
+            ctx.lineTo(bX + bW - 6, bY + bH - 15);
+            ctx.stroke();
+            ctx.restore();
+
+            // 4. KIVILCIM MOTORU GÜNCELLEME
             for (let i = particles.length - 1; i >= 0; i--) {
                 particles[i].update();
                 if (particles[i].life <= 0) {
@@ -191,84 +320,73 @@
             requestAnimationFrame(animate);
         }
 
-        // Kimya Fonksiyonları
-        function updateDashboard() {
+        // Kimyasal Algoritmalar Paneli
+        function updateLayoutState() {
             document.getElementById('ph-val').innerText = mixedPh.toFixed(2);
             document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
-            
-            // Renk Yönetimi (İndikatör Koşulu)
-            if (hasIndicator && mixedPh > 8.3) {
-                currentLiquidColor = "rgba(255, 20, 147, 0.7)"; // Fenolftalein Baz Rengi (Fuşya)
-            } else if (beakerContents.includes("H2O") && beakerContents.length === 1) {
-                currentLiquidColor = "rgba(52, 131, 250, 0.5)"; // Sadece Su
-            } else if (beakerContents.length > 0) {
-                currentLiquidColor = "rgba(234, 234, 234, 0.6)"; // Diğer Kimyasal Karışımlar
-            } else {
-                currentLiquidColor = "transparent";
-            }
         }
 
         function log(msg) {
-            document.getElementById('log-panel').innerText = "[Sistem]: " + msg;
+            document.getElementById('log-panel').innerText = msg;
         }
 
         function addWater() {
             if (!beakerContents.includes("H2O")) beakerContents.push("H2O");
-            targetLiquidLevel = Math.min(targetLiquidLevel + 0.3, 0.8);
-            log("Behere Saf Su (H2O) eklendi.");
-            updateDashboard();
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.22, 0.85);
+            log("Sistem: Saf Su (H2O) eklendi. Nötr dengelenme.");
+            updateLayoutState();
         }
 
         function addSodium() {
-            targetLiquidLevel = Math.min(targetLiquidLevel + 0.1, 0.8);
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.08, 0.85);
             if (beakerContents.includes("H2O")) {
-                // Sodyum + Su Reaksiyonu Tetiklendi!
-                for (let i = 0; i < 40; i++) particles.push(new Particle(200, 300)); // Patlama Efekti
-                mixedPh = 13.0; // NaOH Oluştu
-                maxTemp = 350.15;
+                let currentSurfaceY = 480 - (360 * targetLiquidLevel);
+                for (let i = 0; i < 60; i++) {
+                    particles.push(new Spark(300, currentSurfaceY + 20));
+                }
+                mixedPh = 12.90; 
+                maxTemp = 354.15;
                 if (!beakerContents.includes("NaOH")) beakerContents.push("NaOH");
-                log("⚠️ REAKSİYON: 2Na + 2H2O -> 2NaOH + H2! Ekzotermik Patlama!");
+                log("Reaksiyon: 2Na(k) + 2H2O(s) -> 2NaOH(suda) + H2(g) (Ekzotermik)");
             } else {
                 beakerContents.push("Na");
-                log("Behere Sodyum (Na) metal parçası bırakıldı.");
+                log("Sistem: Sodyum susuz ortama eklendi. Aktivasyon yok.");
             }
-            updateDashboard();
+            updateLayoutState();
         }
 
         function addHCl() {
             beakerContents.push("HCl");
-            targetLiquidLevel = Math.min(targetLiquidLevel + 0.2, 0.8);
-            
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.15, 0.85);
             if (beakerContents.includes("NaOH")) {
-                mixedPh = 7.0; // Nötrleşti
-                maxTemp += 15;
-                log("⚡ NÖTRLEŞME: HCl + NaOH -> NaCl + H2O Isı Çıkışı Gözlendi.");
+                mixedPh = 7.00;
+                maxTemp += 21.0;
+                log("Nötrleşme: HCl + NaOH -> NaCl + H2O (Isı Enerjisi Açığa Çıktı)");
             } else {
-                mixedPh = 1.5;
-                log("Behere Hidroklorik Asit (HCl) eklendi.");
+                mixedPh = 1.20;
+                log("Sistem: Kuvvetli Hidroklorik Asit (HCl) ilave edildi.");
             }
-            updateDashboard();
+            updateLayoutState();
         }
 
         function addNaOH() {
             beakerContents.push("NaOH");
-            targetLiquidLevel = Math.min(targetLiquidLevel + 0.2, 0.8);
-
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.15, 0.85);
             if (beakerContents.includes("HCl")) {
-                mixedPh = 7.0; // Nötrleşti
-                maxTemp += 15;
-                log("⚡ NÖTRLEŞME: HCl + NaOH -> NaCl + H2O Isı Çıkışı Gözlendi.");
+                mixedPh = 7.00;
+                maxTemp += 21.0;
+                log("Nötrleşme: HCl + NaOH -> NaCl + H2O (Isı Enerjisi Açığa Çıktı)");
             } else {
-                mixedPh = 13.5;
-                log("Behere Sodyum Hidroksit (NaOH) baz çözeltisi eklendi.");
+                mixedPh = 13.60;
+                log("Sistem: Kuvvetli Sodyum Hidroksit (NaOH) bazı eklendi.");
             }
-            updateDashboard();
+            updateLayoutState();
         }
 
         function addIndicator() {
             hasIndicator = true;
-            log("Behere Fenolftalein indikatör damlatıldı.");
-            updateDashboard();
+            log("İndikatör: Fenolftalein entegre edildi. Renk skalası aktif.");
+            updateLayoutState();
         }
 
         function clearBeaker() {
@@ -277,12 +395,13 @@
             maxTemp = 298.15;
             hasIndicator = false;
             particles = [];
+            bubbles = [];
             targetLiquidLevel = 0;
-            log("Beher temizlendi. Yeni deneye hazır.");
-            updateDashboard();
+            log("Sistem: Beher deşarj edildi. Yeni reaksiyona hazır.");
+            updateLayoutState();
         }
 
-        // Başlat
+        // Simülasyonu Başlat
         animate();
     </script>
 </body>
