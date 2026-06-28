@@ -6,16 +6,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>QUANTUM LAB CORE</title>
-    <!-- Harika el yazısı estetiği için Great Vibes fontunu bağlıyoruz -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
         body {
             background-color: #05070a;
             color: #e0e6ed;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -23,73 +19,71 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 GİRİŞ EKRANI ANA ARKA PLANI */
+        /* 🌌 KESİN KONUMLANDIRMALI SAF GİRİŞ EKRANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('image_6.png') no-repeat center center;
+            background: url('image_5.png') no-repeat center center;
             background-size: cover;
             z-index: 9999;
             opacity: 1;
             transition: opacity 0.5s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
         
-        /* 💎 PREMIUM FLOATING GLASS PANEL (Kusursuz Çözüm) */
-        .glass-card {
-            background: rgba(10, 15, 26, 0.55);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 162, 255, 0.25);
-            border-radius: 32px;
-            width: 100%;
-            max-width: 360px;
-            padding: 30px 24px;
+        /* LOGO PANELİ (ÜST ORTA ALANDA SAKİNCE DURUYOR) */
+        .brand-wrapper {
+            position: absolute;
+            top: 7vh; 
+            left: 50vw;
+            transform: translateX(-50%);
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.1);
-            gap: 20px;
         }
-        
-        /* LOGO BÜYÜKLÜĞÜ */
         .user-logo-container {
             width: 130px; 
             height: 130px;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.8);
+            border-radius: 26px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: #05070a;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .user-logo-container img {
             width: 100%; height: 100%; object-fit: cover;
         }
 
-        /* UYUM İÇİNDEKİ BAŞLIK */
+        /* 🎛️ SAĞ ALT KÖŞEDE TOPLANAN MİNİMALİST KONTROL PANELİ BLOĞU */
+        .bottom-right-control-panel {
+            position: absolute;
+            right: 6vw;  /* Tam istediğin gibi iyice sağa kaydırıldı */
+            bottom: 6vh; /* Alt sınırda asil duruş */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* İçindeki tüm yazıları ve butonu sağa hizalar */
+            gap: 10px;
+            max-width: 280px;
+            text-align: right;
+        }
+
+        /* 🔬 KÜÇÜLTÜLMÜŞ SİSTEM BAŞLIĞI (BUTONUN ÜSTÜNDE) */
         .splash-title {
-            font-size: 15pt; 
-            font-weight: 700; 
-            letter-spacing: 3px; 
+            font-size: 11pt; /* İstediğin gibi boyutu küçültüldü */
+            font-weight: 800; 
+            letter-spacing: 4px; 
             color: #ffffff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
             white-space: nowrap;
+            opacity: 0.95;
         }
         
-        /* İKİ SATIRLI ŞIK NEON SLOGAN */
+        /* ✨ BUTONUN ÜSTÜNDEKİ KÜÇÜCÜK PREMİUM SLOGAN */
         .premium-slogan {
-            font-family: 'Great Vibes', cursive;
-            font-size: 25pt;
-            font-weight: normal;
+            font-size: 8.5pt; /* Minimalist şık boyut */
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             line-height: 1.4;
-            margin: 5px 0;
             
-            /* Renk Geçişleri */
+            /* Soft Renk Geçişleri */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -98,46 +92,31 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            /* Çift Taraflı Işıma */
-            filter: drop-shadow(-8px -3px 6px rgba(0, 162, 255, 0.5))  
-                    drop-shadow(8px 3px 6px rgba(255, 102, 0, 0.5));   
-            
-            animation: gentleGlow 2.5s ease-in-out infinite alternate;
+            filter: drop-shadow(-2px -1px 3px rgba(0, 162, 255, 0.3))  
+                    drop-shadow(2px 1px 3px rgba(255, 102, 0, 0.3));
         }
 
-        @keyframes gentleGlow {
-            0% {
-                filter: drop-shadow(-6px -2px 5px rgba(0, 162, 255, 0.4)) 
-                        drop-shadow(6px 2px 5px rgba(255, 102, 0, 0.4));
-                transform: scale(0.99);
-            }
-            100% {
-                filter: drop-shadow(-10px -4px 9px rgba(0, 162, 255, 0.6)) 
-                        drop-shadow(10px 4px 9px rgba(255, 102, 0, 0.6));
-                transform: scale(1.01);
-            }
-        }
-
-        /* SİSTEMİ BAŞLAT BUTONU */
+        /* 💎 KÜÇÜLTÜLMÜŞ SİSTEMİ BAŞLAT BUTONU */
         .start-btn {
-            background: linear-gradient(135deg, rgba(0, 162, 255, 0.2) 0%, rgba(0, 80, 255, 0.4) 100%);
-            border: 1px solid rgba(0, 162, 255, 0.6);
-            color: #ffffff;
-            padding: 14px 0; 
-            width: 100%;
-            font-size: 13px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 162, 255, 0.35);
+            color: #bceeff;
+            padding: 10px 30px; /* Buton boyutları kibarlaştırıldı */
+            font-size: 10.5px;   /* Yazısı biraz daha küçültüldü */
             font-weight: 700; 
-            border-radius: 18px; 
+            border-radius: 20px; 
             cursor: pointer; 
-            letter-spacing: 2px;
-            box-shadow: 0 4px 15px rgba(0, 162, 255, 0.2);
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.05);
             transition: all 0.2s ease;
+            margin-top: 4px;
         }
         .start-btn:active {
-            transform: scale(0.97);
-            background: rgba(0, 162, 255, 0.3);
+            transform: scale(0.96);
+            background: rgba(0, 162, 255, 0.12);
             border-color: #00a2ff;
-            box-shadow: 0 0 15px rgba(0, 162, 255, 0.4);
         }
 
         /* 🧪 ANA LABORATUVAR PANELİ VE SİMÜLASYON ALANI */
@@ -195,21 +174,29 @@
 
     <!-- 🌌 GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <!-- 💎 ARKA PLANDAN BAĞIMSIZ PREMIUM PANEL -->
-        <div class="glass-card">
+        <!-- LOGO (ÜST ORTA ALAN) -->
+        <div class="brand-wrapper">
             <div class="user-logo-container">
                 <img src="image_13.png" alt="Roni Logo">
             </div>
-            
+        </div>
+        
+        <!-- 🎛️ SAĞ ALT KÖŞEDE TOPLANAN METİN VE BUTON GRUBU -->
+        <div class="bottom-right-control-panel">
+            <!-- KÜÇÜLTÜLMÜŞ BAŞLIK -->
             <div class="splash-title">QUANTUM LAB CORE</div>
             
-            <h2 class="premium-slogan">Never Trust an Atom,<br>They Make up Everything</h2>
+            <!-- BAŞLIĞIN ALTINA ALINMIŞ MİNİMAL SLOGAN -->
+            <div class="premium-slogan">
+                Never Trust an Atom,<br>They Make up Everything
+            </div>
             
+            <!-- KÜÇÜLTÜLMÜŞ VE SAĞA KAYDIRILMIŞ BUTON -->
             <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
         </div>
     </div>
 
-    <!-- 📊 LAB PANELİ -->
+    <!-- 📊 LAB ARABİRİMİ -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
