@@ -6,6 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>QUANTUM LAB CORE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
         body {
@@ -19,7 +22,7 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🚀 SINEMATİK ARKA PLANLI GİRİŞ EKRANI */
+        /* 🌌 ELİT & MINIMALIST GİRİŞ EKRANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -30,96 +33,168 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 60px 24px 80px 24px;
+            padding: 50px 24px 70px 24px;
             opacity: 1;
             transition: opacity 0.5s ease;
         }
         
-        /* Depodan Çekilecek Kişisel Logonuz */
+        /* Üst Kurumsal Alan (Kibar ve Dengeli) */
+        .brand-wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: env(safe-area-inset-top, 20px);
+        }
         .user-logo-container {
-            width: 120px; height: 120px;
+            width: 75px; height: 75px;
             display: flex; justify-content: center; align-items: center;
-            animation: pulseGlow 2.5s infinite alternate;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 18px;
+            overflow: hidden;
         }
         .user-logo-container img {
-            width: 100%; height: 100%; object-fit: contain; border-radius: 20px;
+            width: 100%; height: 100%; object-fit: cover;
         }
-        
         .splash-title {
-            font-size: 24px; font-weight: 900; letter-spacing: 4px; color: #ffffff;
-            margin-top: 12px; text-shadow: 0 0 15px rgba(255,255,255,0.3);
-            text-align: center;
+            font-size: 14pt; font-weight: 600; letter-spacing: 4px; color: #ffffff;
+            margin-top: 12px; text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            opacity: 0.95;
         }
         
-        /* Ateş & Elektrik Skalalı Sloganınız */
-        .splash-quote {
-            font-size: 22px; font-weight: 900; text-align: center; max-width: 340px;
-            line-height: 1.5; text-transform: uppercase; letter-spacing: 1px;
-            transform: rotate(-3deg);
+        /* 🎭 SANATSAL DIAGONAL SLOGAN ALANI (Tam joje ve fullerene arasına) */
+        .slogan-positioner {
+            position: absolute;
+            top: 48%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-36deg); /* Işık çizgisine tam paralel eğiklik */
+            width: 95%;
+            text-align: center;
+            pointer-events: none;
         }
-        .fire-text {
-            background: linear-gradient(135deg, #FFE17D 0%, #F06221 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px #FF3A00);
-        }
-        .electric-text {
-            background: linear-gradient(135deg, #9CEBFF 0%, #3687FF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px #00A6FF);
+        .premium-slogan {
+            font-family: 'Great Vibes', cursive;
+            font-size: 27pt;
+            font-weight: normal;
+            white-space: nowrap;
+            display: inline-block;
+            
+            /* Yazı İçi Renk Geçişi (Sol Mavi -> Orta Geçiş -> Sağ Turuncu) */
+            background: linear-gradient(to right, 
+                #BCEEFF 0%,   /* Sol Mavi Yazı İçi */
+                #F7EAD7 50%,  /* Orta Geçiş */
+                #FFD59A 100%  /* Sağ Turuncu Yazı İçi */
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* Çift Taraflı Neon Işıma Filtresi */
+            filter: drop-shadow(-12px -4px 10px rgba(0, 162, 255, 0.65))  /* Sol Mavi Neon */
+                    drop-shadow(12px 4px 10px rgba(255, 102, 0, 0.65));   /* Sağ Turuncu Neon */
+            
+            animation: gentleGlow 2.5s ease-in-out infinite alternate;
         }
 
+        @keyframes gentleGlow {
+            0% {
+                filter: drop-shadow(-10px -3px 8px rgba(0, 162, 255, 0.5)) 
+                        drop-shadow(10px 3px 8px rgba(255, 102, 0, 0.5));
+                transform: scale(0.99);
+            }
+            100% {
+                filter: drop-shadow(-15px -5px 14px rgba(0, 162, 255, 0.8)) 
+                        drop-shadow(15px 5px 14px rgba(255, 102, 0, 0.8));
+                transform: scale(1.01);
+            }
+        }
+
+        /* 💎 BUZLU CAM (GLASSMORPHISM) PREMIUM BUTON */
         .start-btn {
-            background: linear-gradient(135deg, #9CEBFF 0%, #3687FF 100%);
-            color: #05070a; border: none; padding: 16px 50px; font-size: 14px;
-            font-weight: 900; border-radius: 14px; cursor: pointer; letter-spacing: 2px;
-            box-shadow: 0 0 25px #00A6FF;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 162, 255, 0.4);
+            color: #bceeff;
+            padding: 14px 44px; font-size: 12px;
+            font-weight: 700; border-radius: 25px; cursor: pointer; letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .start-btn:active {
+            transform: scale(0.96);
+            background: rgba(0, 162, 255, 0.15);
+            border-color: #00a2ff;
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.4);
         }
 
-        @keyframes pulseGlow {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.03); }
+        /* 🧪 ANA LABORATUVAR ARAYÜZÜ */
+        .dashboard {
+            display: flex; gap: 10px; padding: 16px 16px 6px 16px;
+            background: linear-gradient(to bottom, #0e1117, #05070a);
         }
-
-        /* 🧪 ANA UYGULAMA PANELİ KODLARI */
-        .dashboard { display: flex; gap: 10px; padding: 16px 16px 6px 16px; background: linear-gradient(to bottom, #0e1117, #05070a); }
-        .indicator { flex: 1; background: rgba(15, 19, 26, 0.7); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 10px; text-align: center; font-size: 11px; font-weight: 600; color: #8f9cae; }
+        .indicator {
+            flex: 1; background: rgba(15, 19, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px; padding: 10px; text-align: center;
+            font-size: 11px; font-weight: 600; color: #8f9cae;
+        }
         .indicator span { display: block; font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; margin-top: 2px; }
-        #ph-val { color: #00ffcc; } #temp-val { color: #ff5533; }
+        #ph-val { color: #00ffcc; }
+        #temp-val { color: #ff5533; }
+
         .tools-container { display: flex; gap: 10px; padding: 0 16px 10px 16px; }
-        .btn-tool { flex: 1; font-size: 12px; padding: 10px; font-weight: 700; border-radius: 10px; background: #12161f; border: 1px solid rgba(255,255,255,0.05); color: #8f9cae; cursor: pointer; }
+        .btn-tool {
+            flex: 1; font-size: 12px; padding: 10px; font-weight: 700; border-radius: 10px;
+            background: #12161f; border: 1px solid rgba(255,255,255,0.05); color: #8f9cae; cursor: pointer;
+        }
         .btn-tool.active-lid { background: linear-gradient(135deg, #00ffcc 0%, #00aa88 100%); color: #05070a; }
         .btn-tool.active-burner { background: linear-gradient(135deg, #ff5533 0%, #aa2200 100%); color: #fff; }
-        .canvas-container { flex: 1; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #11151f 0%, #05070a 90%); position: relative; }
+
+        .canvas-container {
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            background: radial-gradient(circle at center, #11151f 0%, #05070a 90%); position: relative;
+        }
         canvas { background-color: transparent; max-width: 100%; max-height: 100%; }
-        #reaction-monitor { background: rgba(10, 14, 20, 0.85); border: 1px solid rgba(0, 255, 204, 0.15); color: #00ffcc; font-family: 'Courier New', monospace; font-size: 13px; font-weight: bold; padding: 10px 16px; text-align: center; width: calc(100% - 32px); margin: 0 16px 6px 16px; border-radius: 10px; min-height: 38px; display: flex; align-items: center; justify-content: center; }
+
+        #reaction-monitor {
+            background: rgba(10, 14, 20, 0.85); border: 1px solid rgba(0, 255, 204, 0.15);
+            color: #00ffcc; font-family: 'Courier New', monospace; font-size: 13px; font-weight: bold;
+            padding: 10px 16px; text-align: center; width: calc(100% - 32px); margin: 0 16px 6px 16px;
+            border-radius: 10px; min-height: 38px; display: flex; align-items: center; justify-content: center;
+        }
+
         #log-panel { color: #6b7785; font-size: 11px; text-align: center; font-family: monospace; padding-bottom: 4px; }
-        .controls { background-color: #0e1117; padding: 16px 20px 24px 20px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255, 255, 255, 0.02); border-radius: 28px 28px 0 0; }
+
+        .controls {
+            background-color: #0e1117; padding: 16px 20px 24px 20px;
+            display: flex; flex-direction: column; gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02); border-radius: 28px 28px 0 0;
+        }
         .select-container { display: flex; gap: 10px; }
-        select { flex: 1; background: #151a24; color: #fff; border: 1px solid rgba(255,255,255,0.08); padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; outline: none; }
+        select {
+            flex: 1; background: #151a24; color: #fff; border: 1px solid rgba(255,255,255,0.08);
+            padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; outline: none;
+        }
         .btn-add { background: linear-gradient(135deg, #00ffcc 0%, #0088cc 100%); color: #05070a; font-weight: bold; padding: 0 22px; border: none; border-radius: 12px; }
         .btn-clear { background: linear-gradient(135deg, #ff3b30 0%, #5e0000 100%); border: none; color: white; padding: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <div class="brand-wrapper">
             <div class="user-logo-container">
-                <img src="image_13.png" alt="Quantum Lab Icon">
+                <img src="image_13.png" alt="Roni Logo">
             </div>
             <div class="splash-title">QUANTUM LAB CORE</div>
         </div>
         
-        <div class="splash-quote">
-            <span class="fire-text">Never Trust An Atom,</span><br>
-            <span class="electric-text">They Make Up Everything.</span>
+        <div class="slogan-positioner">
+            <h2 class="premium-slogan">Never Trust an Atom, They Make up Everything</h2>
         </div>
         
         <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
     </div>
 
-    <!-- ANA GÖSTERGELER -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
