@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Roni 3D Kimya Laboratuvarı Ultra</title>
+    <title>Roni 3D Kimya Laboratuvarı Pro</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
         body {
@@ -19,7 +19,6 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* Cyber Lab Göstergeleri */
         .dashboard {
             display: flex;
             gap: 15px;
@@ -47,7 +46,6 @@
         #ph-val { color: #00ffcc; text-shadow: 0 0 12px rgba(0,255,204,0.4); }
         #temp-val { color: #ff5533; text-shadow: 0 0 12px rgba(255,85,51,0.4); }
 
-        /* Simülasyon Ekranı */
         .canvas-container {
             flex: 1;
             display: flex;
@@ -69,9 +67,10 @@
             padding: 12px 20px;
             text-align: center;
             font-family: monospace;
+            height: 45px;
+            overflow: hidden;
         }
 
-        /* Profesyonel Kontrol Paneli */
         .controls {
             background-color: #11141a;
             padding: 20px;
@@ -98,6 +97,7 @@
             font-weight: 600;
             border-radius: 14px;
             outline: none;
+            -webkit-appearance: none;
         }
 
         .btn-add {
@@ -138,29 +138,173 @@
         <canvas id="chemCanvas" width="600" height="600"></canvas>
     </div>
 
-    <div id="log-panel">Laboratuvar reaktif seçimi için hazır.</div>
+    <div id="log-panel">Laboratuvar hazır. Eklemek istediğiniz reaktifi seçin.</div>
 
     <div class="controls">
         <div class="select-container">
             <select id="substanceSelect">
-                <optgroup label="Sıvılar & Çözücüler">
+                <!-- image_7.png: Sıvılar, Asitler ve Çözeltiler -->
+                <optgroup label="💧 Sıvılar & Çözeltiler (image_7.png)">
                     <option value="H2O">Saf Su (H2O)</option>
+                    <option value="Litmus">Turnusol Boyası (Litmus)</option>
+                    <option value="Br2">Bromlu Su (Br2)</option>
+                    <option value="NH3_H2O">Amonyak Çözeltisi (NH3·H2O)</option>
+                    <option value="CH3COOH">Asetik Asit (CH3COOH)</option>
+                    <option value="H2O2">Hidrojen Peroksit (H2O2)</option>
+                    <option value="SO3_liq">Kükürt Trioksit Sıvısı (SO3)</option>
+                    <option value="HNO3">Nitrik Asit (HNO3)</option>
+                    <option value="H2SO3">Kükürtlü Asit (H2SO3)</option>
+                    <option value="H2SO4">Sülfürik Asit (H2SO4)</option>
                     <option value="HCl">Hidroklorik Asit (HCl)</option>
-                    <option value="NaOH">Sodyum Hidroksit (NaOH)</option>
+                    <option value="HF">Hidroflorik Asit (HF)</option>
                 </optgroup>
-                <optgroup label="Metal & Katılar">
-                    <option value="Na">Sodyum Metal (Na)</option>
-                    <option value="NaCl">Sodyum Klorür (NaCl)</option>
+                
+                <!-- image_8.png: Katılar A-B -->
+                <optgroup label="🧱 Katılar (A - B) (image_8.png)">
+                    <option value="Ag">Gümüş (Ag)</option>
+                    <option value="Ag2S">Gümüş Sülfür (Ag2S)</option>
+                    <option value="Ag2SO4">Gümüş Sülfat (Ag2SO4)</option>
+                    <option value="AgCl">Gümüş Klorür (AgCl)</option>
+                    <option value="AgI">Gümüş İyodür (AgI)</option>
                     <option value="AgNO3">Gümüş Nitrat (AgNO3)</option>
+                    <option value="Al">Alüminyum Metal (Al)</option>
+                    <option value="Al2O3">Alüminyum Oksit (Al2O3)</option>
+                    <option value="Al2S3">Alüminyum Sülfür (Al2S3)</option>
+                    <option value="Al2_SO4_3">Alüminyum Sülfat [Al2(SO4)3]</option>
+                    <option value="AlBr3">Alüminyum Bromür (AlBr3)</option>
+                    <option value="AlCl3">Alüminyum Klorür (AlCl3)</option>
+                    <option value="Al_NO3_3">Alüminyum Nitrat [AlRef(NO3)3]</option>
+                    <option value="Al_OH_3">Alüminyum Hidroksit [Al(OH)3]</option>
+                    <option value="As">Arsenik (As)</option>
+                    <option value="Au">Altın (Au)</option>
+                    <option value="Ba">Baryum Metal (Ba)</option>
+                    <option value="BaCl2">Baryum Klorür (BaCl2)</option>
+                    <option value="BaCO3">Baryum Karbonat (BaCO3)</option>
                 </optgroup>
-                <optgroup label="Renkli Çözeltiler">
-                    <option value="CuSO4">Bakır Sülfat (CuSO4) - Mavi</option>
-                    <option value="KMnO4">Potasyum Permanganat (KMnO4) - Mor</option>
-                    <option value="FeCl3">Demir(III) Klorür (FeCl3) - Kehribar</option>
+
+                <!-- image_9.png: Katılar B-C-Cu -->
+                <optgroup label="🧱 Katılar (B - Cu) (image_9.png)">
+                    <option value="Ba_NO3_2">Baryum Nitrat [Ba(NO3)2]</option>
+                    <option value="BaO">Baryum Oksit (BaO)</option>
+                    <option value="Ba_OH_2">Baryum Hidroksit [Ba(OH)2]</option>
+                    <option value="BaSO4">Baryum Sülfat (BaSO4)</option>
+                    <option value="C">Karbon / Kömür (C)</option>
+                    <option value="Ca">Kalsiyum Metal (Ca)</option>
+                    <option value="CaC2">Kalsiyum Karbür (CaC2)</option>
+                    <option value="CaCl2">Kalsiyum Klorür (CaCl2)</option>
+                    <option value="CaCO3">Kalsiyum Karbonat (CaCO3)</option>
+                    <option value="Ca_NO3_2">Kalsiyum Nitrat [Ca(NO3)2]</option>
+                    <option value="CaO">Kalsiyum Oksit (CaO)</option>
+                    <option value="Ca_OH_2">Kalsiyum Hidroksit [Ca(OH)2]</option>
+                    <option value="CaSO4">Kalsiyum Sülfat (CaSO4)</option>
+                    <option value="Cr">Krom (Cr)</option>
+                    <option value="Cs">Sezyum Metal (Cs)</option>
+                    <option value="Cu">Bakır Metal (Cu)</option>
+                    <option value="Cu2S">Bakır(I) Sülfür (Cu2S)</option>
+                    <option value="CuCl2">Bakır(II) Klorür (CuCl2)</option>
+                    <option value="CuCO3">Bakır(II) Karbonat (CuCO3)</option>
+                    <option value="Cu_NO3_2">Bakır(II) Nitrat [Cu(NO3)2]</option>
                 </optgroup>
-                <optgroup label="İndikatörler">
-                    <option value="Phenol">Fenolftalein İndikatörü</option>
-                    <option value="Litmus">Turnusol Boyası çözeltisi</option>
+
+                <!-- image_10.png: Katılar Cu-Fe-I -->
+                <optgroup label="🧱 Katılar (Cu - I2) (image_10.png)">
+                    <option value="CuO">Bakır(II) Oksit (CuO)</option>
+                    <option value="Cu_OH_2">Bakır(II) Hidroksit [Cu(OH)2]</option>
+                    <option value="CuSO4">Bakır Sülfat (CuSO4)</option>
+                    <option value="Fe">Demir Metal (Fe)</option>
+                    <option value="Fe2O3">Demir(III) Oksit (Fe2O3)</option>
+                    <option value="Fe2_SO4_3">Demir(III) Sülfat [Fe2(SO4)3]</option>
+                    <option value="Fe3O4">Manyetit (Fe3O4)</option>
+                    <option value="FeCl2">Demir(II) Klorür (FeCl2)</option>
+                    <option value="FeCl3">Demir(III) Klorür (FeCl3)</option>
+                    <option value="Fe_NO3_2">Demir(II) Nitrat [Fe(NO3)2]</option>
+                    <option value="Fe_NO3_3">Demir(III) Nitrat [Fe(NO3)3]</option>
+                    <option value="FeO">Demir(II) Oksit (FeO)</option>
+                    <option value="Fe_OH_2">Demir(II) Hidroksit [Fe(OH)2]</option>
+                    <option value="Fe_OH_3">Demir(III) Hidroksit [Fe(OH)3]</option>
+                    <option value="FeSO4">Demir(II) Sülfat (FeSO4)</option>
+                    <option value="Hg_NO3_2">Cıva(II) Nitrat [Hg(NO3)2]</option>
+                    <option value="HgO">Cıva(II) Oksit (HgO)</option>
+                    <option value="I2">İyot Kristalleri (I2)</option>
+                </optgroup>
+
+                <!-- image_11.png: Katılar K-Mg-Mn -->
+                <optgroup label="🧱 Katılar (K - Mn) (image_11.png)">
+                    <option value="K">Potasyum Metal (K)</option>
+                    <option value="K2MnO4">Potasyum Manganat (K2MnO4)</option>
+                    <option value="K2O">Potasyum Oksit (K2O)</option>
+                    <option value="KCl">Potasyum Klorür (KCl)</option>
+                    <option value="KClO3">Potasyum Klorat (KClO3)</option>
+                    <option value="KH">Potasyum Hidrür (KH)</option>
+                    <option value="KI">Potasyum İyodür (KI)</option>
+                    <option value="KMnO4">Potasyum Permanganat (KMnO4)</option>
+                    <option value="KOH">Potasyum Hidroksit (KOH)</option>
+                    <option value="Li">Lityum Metal (Li)</option>
+                    <option value="Li3N">Lityum Nitrür (Li3N)</option>
+                    <option value="Mg">Magnezyum Metal (Mg)</option>
+                    <option value="MgCl2">Magnezyum Klorür (MgCl2)</option>
+                    <option value="Mg_NO3_2">Magnezyum Nitrat [Mg(NO3)2]</option>
+                    <option value="MgO">Magnezyum Oksit (MgO)</option>
+                    <option value="Mg_OH_2">Magnezyum Hidroksit [Mg(OH)2]</option>
+                    <option value="MgSO4">Magnezyum Sülfat (MgSO4)</option>
+                    <option value="Mn">Mangan (Mn)</option>
+                </optgroup>
+
+                <!-- image_12.png: Katılar Mn-Na-Pb -->
+                <optgroup label="🧱 Katılar (Mn - Pb) (image_12.png)">
+                    <option value="MnO2">Mangan Dioksit (MnO2)</option>
+                    <option value="Na">Sodyum Metal (Na)</option>
+                    <option value="Na2CO3">Sodyum Karbonat (Na2CO3)</option>
+                    <option value="Na2O">Sodyum Oksit (Na2O)</option>
+                    <option value="Na2O2">Sodyum Peroksit (Na2O2)</option>
+                    <option value="Na2SO4">Sodyum Sülfat (Na2SO4)</option>
+                    <option value="NaC2H3O2">Sodyum Asetat (NaC2H3O2)</option>
+                    <option value="NaCl">Sodyum Klorür (NaCl)</option>
+                    <option value="NaHCO3">Sodyum Bikarbonat (NaHCO3)</option>
+                    <option value="NaNO3">Sodyum Nitrat (NaNO3)</option>
+                    <option value="NaOH">Sodyum Hidroksit (NaOH)</option>
+                    <option value="NH4Cl">Amonyum Klorür (NH4Cl)</option>
+                    <option value="NH4NO3">Amonyum Nitrat (NH4NO3)</option>
+                    <option value="P">Fosfor (P)</option>
+                    <option value="P2O5">Difosfor Pentoksit (P2O5)</option>
+                    <option value="Pb">Kurşun Metal (Pb)</option>
+                    <option value="PbCl2">Kurşun(II) Klorür (PbCl2)</option>
+                    <option value="Pb_NO3_2">Kurşun(II) Nitrat [Pb(NO3)2]</option>
+                    <option value="PbO">Kurşun(II) Oksit (PbO)</option>
+                </optgroup>
+
+                <!-- image_13.png: Katılar Pb-Zn -->
+                <optgroup label="🧱 Katılar (Pb - Zn) (image_13.png)">
+                    <option value="PbO2">Kurşun(IV) Oksit (PbO2)</option>
+                    <option value="Pt">Platin (Pt)</option>
+                    <option value="S">Kükürt Kristalleri (S)</option>
+                    <option value="Si">Silisyum (Si)</option>
+                    <option value="Zn">Çinko Metal (Zn)</option>
+                    <option value="ZnCl2">Çinko Klorür (ZnCl2)</option>
+                    <option value="ZnO2">Çinko Peroksit (ZnO2)</option>
+                    <option value="ZnSO4">Çinko Sülfat (ZnSO4)</option>
+                </optgroup>
+
+                <!-- image_14.png: Gazlar -->
+                <optgroup label="💨 Gaz Reaktifler (image_14.png)">
+                    <option value="Ar">Argon (Ar)</option>
+                    <option value="C2H2">Asetilen (C2H2)</option>
+                    <option value="Cl2">Klor Gazı (Cl2)</option>
+                    <option value="CO">Karbonmonoksit (CO)</option>
+                    <option value="CO2">Karbondioksit (CO2)</option>
+                    <option value="F2">Flor Gazı (F2)</option>
+                    <option value="H2">Hidrojen Gazı (H2)</option>
+                    <option value="H2S">Hidrojen Sülfür (H2S)</option>
+                    <option value="He">Helyum (He)</option>
+                    <option value="N2">Azot Gazı (N2)</option>
+                    <option value="N2O">Diazot Monoksit / Kahkaha Gazı (N2O)</option>
+                    <option value="Ne">Neon Gazı (Ne)</option>
+                    <option value="NH3">Amonyak Gazı (NH3)</option>
+                    <option value="NO">Azot Monoksit (NO)</option>
+                    <option value="NO2">Azot Dioksit (NO2)</option>
+                    <option value="O2">Oksijen Gazı (O2)</option>
+                    <option value="O3">Ozon Gazı (O3)</option>
+                    <option value="SO2">Kükürtdioksit (SO2)</option>
                 </optgroup>
             </select>
             <button class="btn-add" onclick="handleAdd()">EKLE</button>
@@ -175,8 +319,8 @@
         let beakerContents = [];
         let mixedPh = 7.0;
         let maxTemp = 298.15;
-        let activeIndicators = { phenol: false, litmus: false };
-        let hasPrecipitate = false; // Çökelme var mı?
+        let activeIndicators = { litmus: false };
+        let hasPrecipitate = false; 
         
         let liquidLevel = 0; 
         let targetLiquidLevel = 0;
@@ -185,15 +329,25 @@
         let particles = [];
         let bubbles = [];
 
-        // Karışım Renk Algoritması (RGB ağırlıklı)
-        let currentRGB = { r: 0, g: 0, b: 0, a: 0 };
+        // BEAKER Temalı Renk Kütüphanesi
+        const PALETTES = {
+            water: { top: "rgba(0, 180, 216, 0.35)", bottom: "rgba(3, 4, 94, 0.6)" },
+            litmusAcid: { top: "rgba(242, 53, 53, 0.6)", bottom: "rgba(138, 12, 12, 0.75)" },
+            litmusBase: { top: "rgba(38, 72, 232, 0.6)", bottom: "rgba(14, 25, 133, 0.75)" },
+            CuSO4: { top: "rgba(0, 150, 255, 0.5)", bottom: "rgba(0, 48, 143, 0.8)" },
+            KKMnO4: { top: "rgba(186, 12, 186, 0.55)", bottom: "rgba(61, 2, 61, 0.85)" },
+            FeCl3: { top: "rgba(224, 131, 0, 0.5)", bottom: "rgba(102, 51, 0, 0.8)" },
+            Br2: { top: "rgba(186, 45, 11, 0.5)", bottom: "rgba(92, 18, 2, 0.75)" },
+            gasCloud: { top: "rgba(255, 255, 255, 0.08)", bottom: "rgba(200, 200, 200, 0.12)" },
+            defaultMix: { top: "rgba(215, 220, 228, 0.35)", bottom: "rgba(95, 105, 120, 0.6)" }
+        };
 
         class Bubble {
             constructor() {
-                this.x = Math.random() * 220 + 190;
+                this.x = Math.random() * 210 + 195;
                 this.y = 475;
                 this.radius = Math.random() * 2 + 0.8;
-                this.vy = -(Math.random() * 1.2 + 0.5);
+                this.vy = -(Math.random() * 1.3 + 0.5);
                 this.wobble = Math.random() * 100;
             }
             update() {
@@ -204,7 +358,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
                 ctx.fill();
             }
         }
@@ -212,17 +366,17 @@
         class Spark {
             constructor(x, y) {
                 this.x = x; this.y = y;
-                this.vx = (Math.random() - 0.5) * 12;
-                this.vy = (Math.random() - 0.9) * 14;
-                this.radius = Math.random() * 3.5 + 1.5;
+                this.vx = (Math.random() - 0.5) * 13;
+                this.vy = (Math.random() - 0.9) * 15;
+                this.radius = Math.random() * 3.5 + 1.2;
                 this.life = 1.0;
-                this.decay = Math.random() * 0.02 + 0.015;
+                this.decay = Math.random() * 0.022 + 0.016;
             }
-            update() { this.x += this.vx; this.y += this.vy; this.vy += 0.28; this.life -= this.decay; }
+            update() { this.x += this.vx; this.y += this.vy; this.vy += 0.3; this.life -= this.decay; }
             draw() {
                 ctx.save(); ctx.shadowBlur = 15; ctx.shadowColor = "#ff5533";
                 ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 90, 40, ${this.life})`; ctx.fill(); ctx.restore();
+                ctx.fillStyle = `rgba(255, 95, 35, ${this.life})`; ctx.fill(); ctx.restore();
             }
         }
 
@@ -237,11 +391,9 @@
             let currentHeight = bH * liquidLevel;
             let surfaceY = (bY + bH) - currentHeight;
 
-            // 1. SIVI VE DEGRADE ÇİZİMİ
             if (liquidLevel > 0.01) {
                 ctx.save();
-                
-                let colorBase = calculateLiquidColor();
+                let colorBase = getLiquidPalette();
                 let liquidGrad = ctx.createLinearGradient(bX, surfaceY, bX, bY + bH);
                 liquidGrad.addColorStop(0, colorBase.top);
                 liquidGrad.addColorStop(1, colorBase.bottom);
@@ -261,11 +413,11 @@
                 ctx.fill();
                 ctx.restore();
 
-                // 2. AGCL BEYAZ ÇÖKELTİ EFEKTİ (DİBTE BİRİKME)
+                // Çökelme Çizimi
                 if (hasPrecipitate) {
                     ctx.save();
                     let precipGrad = ctx.createLinearGradient(bX, bY + bH - 25, bX, bY + bH);
-                    precipGrad.addColorStop(0, "rgba(240, 240, 245, 0.2)");
+                    precipGrad.addColorStop(0, "rgba(240, 240, 245, 0.15)");
                     precipGrad.addColorStop(1, "rgba(255, 255, 255, 0.85)");
                     ctx.fillStyle = precipGrad;
                     ctx.beginPath();
@@ -276,10 +428,10 @@
                     ctx.restore();
                 }
 
-                if (Math.random() < 0.12 + (maxTemp - 298) * 0.003) bubbles.push(new Bubble());
+                if (Math.random() < 0.15 + (maxTemp - 298) * 0.003) bubbles.push(new Bubble());
             }
 
-            // KABARCIKLAR
+            // Kabarcıklar ve Parçacıklar
             for (let i = bubbles.length - 1; i >= 0; i--) {
                 bubbles[i].update();
                 let waveAtX = surfaceY + Math.sin((bubbles[i].x / 18) + waveWave) * 4.5 * liquidLevel;
@@ -287,7 +439,7 @@
                 else bubbles[i].draw();
             }
 
-            // 3. CAM BEHER VE BARKOD/YANSIMALAR
+            // Beher Çerçevesi
             ctx.save();
             ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
             ctx.lineWidth = 4;
@@ -299,7 +451,7 @@
             ctx.lineTo(bX + bW, bY);
             ctx.stroke();
 
-            // Cam Parlaması
+            // Parlama çizgisi
             let glassGlow = ctx.createLinearGradient(bX + 4, bY, bX + 14, bY);
             glassGlow.addColorStop(0, "rgba(255, 255, 255, 0.22)");
             glassGlow.addColorStop(1, "rgba(255, 255, 255, 0.0)");
@@ -307,7 +459,6 @@
             ctx.fillRect(bX + 4, bY + 10, 8, bH - 20);
             ctx.restore();
 
-            // KIVILCIM MOTORU
             for (let i = particles.length - 1; i >= 0; i--) {
                 particles[i].update();
                 if (particles[i].life <= 0) particles.splice(i, 1);
@@ -317,28 +468,21 @@
             requestAnimationFrame(animate);
         }
 
-        // Dinamik Renk Belirleme Lab Laboratuvarı
-        function calculateLiquidColor() {
-            // Turnusol Koşulu Kontrolü
+        function getLiquidPalette() {
             if (activeIndicators.litmus) {
-                return mixedPh < 7.0 
-                    ? { top: "rgba(230, 40, 40, 0.5)", bottom: "rgba(140, 15, 15, 0.7)" }  // Asidik Turnusol (Kırmızı)
-                    : { top: "rgba(40, 90, 230, 0.5)", bottom: "rgba(15, 30, 140, 0.7)" }; // Bazik/Nötr Turnusol (Mavi)
+                return mixedPh < 7.0 ? PALETTES.litmusAcid : PALETTES.litmusBase;
             }
+            if (beakerContents.includes("CuSO4")) return PALETTES.CuSO4;
+            if (beakerContents.includes("KMnO4")) return PALETTES.KKMnO4;
+            if (beakerContents.includes("FeCl3")) return PALETTES.FeCl3;
+            if (beakerContents.includes("Br2")) return PALETTES.Br2;
+            if (beakerContents.includes("H2O") && beakerContents.length === 1) return PALETTES.water;
             
-            // Fenolftalein Koşulu
-            if (activeIndicators.phenol && mixedPh > 8.3) {
-                return { top: "rgba(255, 0, 127, 0.55)", bottom: "rgba(150, 0, 80, 0.75)" };
-            }
+            // Eğer sadece gazlar ekliyse hafif duman bulutu
+            const hasLiquids = beakerContents.some(item => !["Ar","C2H2","Cl2","CO","CO2","F2","H2","H2S","He","N2","N2O","Ne","NH3","NO","NO2","O2","O3","SO2","Na","K","Mg","Al","Fe","Zn","Pt","Au","Ba","C","Ca","Cr","Cs","Pb","S","Si"].includes(item));
+            if (!hasLiquids && beakerContents.length > 0) return PALETTES.gasCloud;
 
-            // Baskın Kimyasal Renk Skalası
-            if (beakerContents.includes("CuSO4")) return { top: "rgba(0, 150, 255, 0.5)", bottom: "rgba(0, 50, 150, 0.75)" };
-            if (beakerContents.includes("KMnO4")) return { top: "rgba(180, 0, 180, 0.55)", bottom: "rgba(70, 0, 80, 0.8)" };
-            if (beakerContents.includes("FeCl3")) return { top: "rgba(218, 145, 0, 0.5)", bottom: "rgba(120, 60, 0, 0.75)" };
-            if (beakerContents.includes("H2O") && beakerContents.length === 1) return { top: "rgba(0, 180, 216, 0.35)", bottom: "rgba(3, 4, 94, 0.6)" };
-            
-            if (beakerContents.length > 0) return { top: "rgba(220, 225, 233, 0.35)", bottom: "rgba(100, 110, 125, 0.55)" };
-            return { top: "transparent", bottom: "transparent" };
+            return PALETTES.defaultMix;
         }
 
         function handleAdd() {
@@ -346,60 +490,54 @@
             const val = select.value;
             
             if (!beakerContents.includes(val)) beakerContents.push(val);
-            targetLiquidLevel = Math.min(targetLiquidLevel + 0.18, 0.88);
+            
+            // Gazlar seviyeyi çok az yükseltir, sıvılar ve katılar daha belirgin
+            let levelInc = ["Ar","C2H2","Cl2","CO","CO2","F2","H2","H2S","He","N2","N2O","Ne","NH3","NO","NO2","O2","O3","SO2"].includes(val) ? 0.03 : 0.16;
+            targetLiquidLevel = Math.min(targetLiquidLevel + levelInc, 0.90);
 
-            // Kimyasal Reaksiyon Matrisi
-            if (val === "Na") {
+            // Reaksiyon Algoritmaları
+            if (val === "Na" || val === "K" || val === "Cs") {
                 if (beakerContents.includes("H2O")) {
                     let currentSurfaceY = 480 - (360 * targetLiquidLevel);
-                    for (let i = 0; i < 55; i++) particles.push(new Spark(300, currentSurfaceY + 20));
-                    mixedPh = 12.80; maxTemp = 354.15;
-                    beakerContents.push("NaOH");
-                    log("Reaksiyon: Sodyum suyla şiddetle reaksiyona girdi! Patlama ve H2 gazı çıkışı.");
+                    for (let i = 0; i < 65; i++) particles.push(new Spark(300, currentSurfaceY + 20));
+                    mixedPh = val === "K" ? 13.50 : 12.80; 
+                    maxTemp = val === "Cs" ? 385.00 : 355.15;
+                    beakerContents.push(val === "K" ? "KOH" : "NaOH");
+                    log(`⚠️ REAKSİYON: Aktif metal (${val}) suyla şiddetle alevlendi! Ekzotermik patlama.`);
                 } else {
-                    log("Sistem: Sodyum metal parçası susuz ortama bırakıldı.");
+                    log(`Sistem: ${val} metali susuz behere bırakıldı.`);
                 }
             }
-            else if (val === "H2O") {
-                if (beakerContents.includes("Na")) {
-                    let currentSurfaceY = 480 - (360 * targetLiquidLevel);
-                    for (let i = 0; i < 55; i++) particles.push(new Spark(300, currentSurfaceY + 20));
-                    mixedPh = 12.80; maxTemp = 354.15;
-                    beakerContents.push("NaOH");
-                    log("Reaksiyon: Metalik Sodyum üzerine su eklenince şiddetle alevlendi!");
+            else if (val === "HCl" || val === "HNO3" || val === "H2SO4") {
+                if (beakerContents.includes("NaOH") || beakerContents.includes("KOH") || beakerContents.includes("NH3_H2O")) {
+                    mixedPh = 7.00; maxTemp += 25.0;
+                    log(`⚡ NÖTRLEŞME: Kuvvetli asit (${val}) ve baz nötrleşti, yüksek ısı yayıldı.`);
                 } else {
-                    log("Sistem: Behere Saf Su (H2O) ilave edildi.");
+                    mixedPh = val === "HCl" ? 1.10 : (val === "HNO3" ? 1.20 : 0.80);
+                    log(`Sistem: Asit çözeltisi (${val}) eklendi.`);
                 }
             }
-            else if (val === "HCl") {
-                if (beakerContents.includes("NaOH")) {
-                    mixedPh = 7.00; maxTemp += 22.0;
-                    log("Nötrleşme: HCl + NaOH -> NaCl + H2O Reaksiyonu (Ekzotermik Isı)");
+            else if (val === "NaOH" || val === "KOH" || val === "NH3_H2O") {
+                if (beakerContents.includes("HCl") || beakerContents.includes("HNO3") || beakerContents.includes("H2SO4")) {
+                    mixedPh = 7.00; maxTemp += 25.0;
+                    log(`⚡ NÖTRLEŞME: Baz çözeltisi (${val}) ortamdaki asidi nötrleştirdi.`);
                 } else {
-                    mixedPh = 1.10;
-                    log("Sistem: Güçlü Hidroklorik Asit çözeltisi eklendi.");
+                    mixedPh = val === "NaOH" ? 13.70 : (val === "KOH" ? 13.90 : 11.20);
+                    log(`Sistem: Baz çözeltisi (${val}) eklendi.`);
                 }
             }
-            else if (val === "NaOH") {
-                if (beakerContents.includes("HCl")) {
-                    mixedPh = 7.00; maxTemp += 22.0;
-                    log("Nötrleşme: HCl + NaOH -> NaCl + H2O Reaksiyonu (Ekzotermik Isı)");
-                } else {
-                    mixedPh = 13.70;
-                    log("Sistem: Güçlü Sodyum Hidroksit baz çözeltisi eklendi.");
-                }
-            }
-            // AgCl Beyaz Çökelme Reaksiyonu
+            // AgCl Beyaz Çökeleği
             else if ((val === "AgNO3" && beakerContents.includes("NaCl")) || (val === "NaCl" && beakerContents.includes("AgNO3"))) {
                 hasPrecipitate = true;
-                log("Çökelme: AgNO3 + NaCl -> AgCl(k) ⚪ + NaNO3 (Beyaz Gümüş Klorür çöktü!)");
+                log("Çökelme: Gümüş Nitrat ve Tuz reaksiyona girdi. Gümüş Klorür [AgCl(k)] beyaz çökeleği oluştu!");
             }
-            else if (val === "Phenol") { activeIndicators.phenol = true; log("İndikatör: Fenolftalein damlatıldı."); }
-            else if (val === "Litmus") { activeIndicators.litmus = true; log("İndikatör: Turnusol boyası damlatıldı. Renk pH'a duyarlı."); }
-            else if (val === "CuSO4") { log("Sistem: Bakır Sülfat çözeltisi eklendi. Hidratasyon mavisi."); }
-            else if (val === "KMnO4") { log("Sistem: Potasyum Permanganat eklendi. Güçlü mor renk."); }
-            else if (val === "FeCl3") { log("Sistem: Demir(III) Klorür eklendi. Yoğun kehribar/kahverengi."); }
-            else { log(`Sistem: ${val} başarıyla behere ilave edildi.`); }
+            else if (val === "Litmus") { activeIndicators.litmus = true; log("İndikatör: Turnusol boyası eklendi. Renk skalası asit/baz duyarlı."); }
+            else if (val === "H2O") { log("Sistem: Saf Su (H2O) eklendi."); }
+            else if (val === "CuSO4") { log("Sistem: Bakır Sülfat (CuSO4) eklendi. Çözelti açık mavi."); }
+            else if (val === "KMnO4") { log("Sistem: Potasyum Permanganat eklendi. Koyu mor/menekşe renk."); }
+            else if (val === "FeCl3") { log("Sistem: Demir(III) Klorür eklendi. Kehribar renkli asidik çözelti."); }
+            else if (val === "Cl2" || val === "NO2") { log(`Sistem: Renkli gaz (${val}) behere üflendi. Hafif dumanlanma.`); }
+            else { log(`Sistem: ${val} başarıyla laboratuvar ortamına eklendi.`); }
 
             document.getElementById('ph-val').innerText = mixedPh.toFixed(2);
             document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
@@ -407,9 +545,9 @@
 
         function clearBeaker() {
             beakerContents = []; mixedPh = 7.0; maxTemp = 298.15;
-            activeIndicators = { phenol: false, litmus: false };
+            activeIndicators = { litmus: false };
             hasPrecipitate = false; particles = []; bubbles = []; targetLiquidLevel = 0;
-            log("Sistem: Beher tahliye edildi ve tamamen temizlendi.");
+            log("Sistem: Tüm içerik tahliye edildi. Beher sterilize edildi.");
             document.getElementById('ph-val').innerText = "7.00";
             document.getElementById('temp-val').innerText = "298.15 K";
         }
