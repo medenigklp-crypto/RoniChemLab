@@ -11,7 +11,7 @@
         body {
             background-color: #05070a;
             color: #e0e6ed;
-            font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -19,159 +19,96 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🚀 SINEMATIK GİRİŞ EKRANI (SPLASH SCREEN) */
+        /* 🚀 SINEMATİK ARKA PLANLI GİRİŞ EKRANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            /* Arka plana sizin yüklediğiniz o sinematik görseli tam ekran yerleştiriyoruz */
             background: url('image_14.png') no-repeat center center;
             background-size: cover;
             z-index: 9999;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Elementleri yukarı, orta ve aşağı dengeli dağıtır */
+            justify-content: space-between;
             align-items: center;
-            transition: opacity 0.8s ease;
             padding: 60px 24px 80px 24px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
         
-        /* Ekranın En Üstü: Sizin Kurumsal Logonuz (image_13.png) */
+        /* Depodan Çekilecek Kişisel Logonuz */
         .user-logo-container {
-            width: 130px;
-            height: 130px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 120px; height: 120px;
+            display: flex; justify-content: center; align-items: center;
             animation: pulseGlow 2.5s infinite alternate;
         }
         .user-logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 20px;
+            width: 100%; height: 100%; object-fit: contain; border-radius: 20px;
         }
         
-        /* Ekranın Tam Ortası: ATEŞ VE ELEKTRİK NEON SÖZ TASARIMI (SLOGANINIZ) */
-        .splash-quote {
-            font-size: 24px;
-            font-weight: 900;
+        .splash-title {
+            font-size: 24px; font-weight: 900; letter-spacing: 4px; color: #ffffff;
+            margin-top: 12px; text-shadow: 0 0 15px rgba(255,255,255,0.3);
             text-align: center;
-            max-width: 340px;
-            line-height: 1.5;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transform: rotate(-3deg); /* Görseldeki diagonal ışık çizgisine uyum sağlaması için hafif eğik */
         }
         
-        /* Sol Taraf (Ateş / Sıcak Tonlar) -> #FFE17D - #F06221 ve #FF3A00 Işıma */
+        /* Ateş & Elektrik Skalalı Sloganınız */
+        .splash-quote {
+            font-size: 22px; font-weight: 900; text-align: center; max-width: 340px;
+            line-height: 1.5; text-transform: uppercase; letter-spacing: 1px;
+            transform: rotate(-3deg);
+        }
         .fire-text {
             background: linear-gradient(135deg, #FFE17D 0%, #F06221 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 15px #FF3A00);
         }
-        
-        /* Sağ Taraf (Elektrik / Soğuk Tonlar) -> #9CEBFF - #3687FF ve #00A6FF Işıma */
         .electric-text {
             background: linear-gradient(135deg, #9CEBFF 0%, #3687FF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 15px #00A6FF);
         }
 
-        /* Ekranın En Altı: Siber Başlat Butonu (Elektrik / Soğuk Tonlar) */
         .start-btn {
             background: linear-gradient(135deg, #9CEBFF 0%, #3687FF 100%);
-            color: #05070a;
-            border: none;
-            padding: 16px 50px;
-            font-size: 14px;
-            font-weight: 900;
-            border-radius: 14px;
-            cursor: pointer;
-            letter-spacing: 2px;
+            color: #05070a; border: none; padding: 16px 50px; font-size: 14px;
+            font-weight: 900; border-radius: 14px; cursor: pointer; letter-spacing: 2px;
             box-shadow: 0 0 25px #00A6FF;
-            transition: all 0.2s ease;
-        }
-        .start-btn:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 35px #00A6FF;
         }
 
         @keyframes pulseGlow {
-            0% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(240, 98, 33, 0.3)) drop-shadow(0 0 15px rgba(54, 135, 255, 0.3)); }
-            100% { transform: scale(1.03); filter: drop-shadow(0 0 25px rgba(240, 98, 33, 0.6)) drop-shadow(0 0 25px rgba(54, 135, 255, 0.6)); }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
         }
 
-        /* ANA LAB PROGRAMI REAKTİF KODLARI */
-        .dashboard {
-            display: flex; gap: 10px; padding: 16px 16px 6px 16px;
-            background: linear-gradient(to bottom, #0e1117, #05070a);
-        }
-        .indicator {
-            flex: 1; background: rgba(15, 19, 26, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px; padding: 10px; text-align: center;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            font-size: 11px; font-weight: 600; color: #8f9cae; letter-spacing: 0.5px;
-        }
+        /* 🧪 ANA UYGULAMA PANELİ KODLARI */
+        .dashboard { display: flex; gap: 10px; padding: 16px 16px 6px 16px; background: linear-gradient(to bottom, #0e1117, #05070a); }
+        .indicator { flex: 1; background: rgba(15, 19, 26, 0.7); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 10px; text-align: center; font-size: 11px; font-weight: 600; color: #8f9cae; }
         .indicator span { display: block; font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; margin-top: 2px; }
-        #ph-val { color: #00ffcc; text-shadow: 0 0 10px rgba(0,255,204,0.3); }
-        #temp-val { color: #ff5533; text-shadow: 0 0 10px rgba(255,85,51,0.3); }
-
+        #ph-val { color: #00ffcc; } #temp-val { color: #ff5533; }
         .tools-container { display: flex; gap: 10px; padding: 0 16px 10px 16px; }
-        .btn-tool {
-            flex: 1; font-size: 12px; padding: 10px; font-weight: 700; border-radius: 10px;
-            background: #12161f; border: 1px solid rgba(255,255,255,0.05); color: #8f9cae;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .btn-tool.active-lid { background: linear-gradient(135deg, #00ffcc 0%, #00aa88 100%); color: #05070a; box-shadow: 0 0 15px rgba(0,255,204,0.3); border: none; }
-        .btn-tool.active-burner { background: linear-gradient(135deg, #ff5533 0%, #aa2200 100%); color: #fff; box-shadow: 0 0 15px rgba(255,85,51,0.4); border: none; }
-
-        .canvas-container {
-            flex: 1; display: flex; justify-content: center; align-items: center;
-            background: radial-gradient(circle at center, #11151f 0%, #05070a 90%); position: relative;
-        }
+        .btn-tool { flex: 1; font-size: 12px; padding: 10px; font-weight: 700; border-radius: 10px; background: #12161f; border: 1px solid rgba(255,255,255,0.05); color: #8f9cae; cursor: pointer; }
+        .btn-tool.active-lid { background: linear-gradient(135deg, #00ffcc 0%, #00aa88 100%); color: #05070a; }
+        .btn-tool.active-burner { background: linear-gradient(135deg, #ff5533 0%, #aa2200 100%); color: #fff; }
+        .canvas-container { flex: 1; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #11151f 0%, #05070a 90%); position: relative; }
         canvas { background-color: transparent; max-width: 100%; max-height: 100%; }
-
-        #reaction-monitor {
-            background: rgba(10, 14, 20, 0.85);
-            border: 1px solid rgba(0, 255, 204, 0.15);
-            color: #00ffcc; font-family: 'Courier New', monospace;
-            font-size: 13px; font-weight: bold; padding: 10px 16px;
-            text-align: center; width: calc(100% - 32px); margin: 0 16px 6px 16px;
-            border-radius: 10px; box-shadow: inset 0 0 10px rgba(0,255,204,0.05);
-            min-height: 38px; display: flex; align-items: center; justify-content: center;
-        }
-
+        #reaction-monitor { background: rgba(10, 14, 20, 0.85); border: 1px solid rgba(0, 255, 204, 0.15); color: #00ffcc; font-family: 'Courier New', monospace; font-size: 13px; font-weight: bold; padding: 10px 16px; text-align: center; width: calc(100% - 32px); margin: 0 16px 6px 16px; border-radius: 10px; min-height: 38px; display: flex; align-items: center; justify-content: center; }
         #log-panel { color: #6b7785; font-size: 11px; text-align: center; font-family: monospace; padding-bottom: 4px; }
-
-        .controls {
-            background-color: #0e1117; padding: 16px 20px 24px 20px;
-            display: flex; flex-direction: column; gap: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 28px 28px 0 0; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-        }
+        .controls { background-color: #0e1117; padding: 16px 20px 24px 20px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255, 255, 255, 0.02); border-radius: 28px 28px 0 0; }
         .select-container { display: flex; gap: 10px; }
-        select {
-            flex: 1; background: #151a24; color: #fff; border: 1px solid rgba(255,255,255,0.08);
-            padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; outline: none; -webkit-appearance: none;
-        }
-        .btn-add { background: linear-gradient(135deg, #00ffcc 0%, #0088cc 100%); color: #05070a; font-weight: bold; padding: 0 22px; border: none; }
-        button {
-            background: linear-gradient(135deg, #1f2530 0%, #151a24 100%); color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.02); padding: 14px; font-size: 13px;
-            font-weight: 600; border-radius: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent;
-        }
-        button:active { transform: scale(0.98); }
-        .btn-clear { background: linear-gradient(135deg, #ff3b30 0%, #5e0000 100%); border: none; }
+        select { flex: 1; background: #151a24; color: #fff; border: 1px solid rgba(255,255,255,0.08); padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; outline: none; }
+        .btn-add { background: linear-gradient(135deg, #00ffcc 0%, #0088cc 100%); color: #05070a; font-weight: bold; padding: 0 22px; border: none; border-radius: 12px; }
+        .btn-clear { background: linear-gradient(135deg, #ff3b30 0%, #5e0000 100%); border: none; color: white; padding: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; }
     </style>
 </head>
 <body>
 
+    <!-- GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <div class="user-logo-container">
-            <img src="image_13.png" alt="Quantum Lab Icon">
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+            <div class="user-logo-container">
+                <img src="image_13.png" alt="Quantum Lab Icon">
+            </div>
+            <div class="splash-title">QUANTUM LAB CORE</div>
         </div>
         
         <div class="splash-quote">
@@ -182,6 +119,7 @@
         <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
     </div>
 
+    <!-- ANA GÖSTERGELER -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
@@ -197,7 +135,6 @@
     </div>
 
     <div id="reaction-monitor">Reaktif bekleniyor... TEPKİME YOK</div>
-
     <div id="log-panel">Laboratuvar terminali aktif.</div>
 
     <div class="controls">
@@ -281,42 +218,31 @@
             try {
                 let osc = audioCtx.createOscillator();
                 let gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
                 gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(); osc.stop(audioCtx.currentTime + duration);
             } catch(e){}
         }
 
         function initLab() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             document.getElementById('splash-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('splash-screen').style.display = 'none';
                 playBeepSound(523.25, 0.15, "triangle");
-            }, 800);
+            }, 500);
         }
 
         class LiquidDrop {
             constructor(color) {
-                this.x = 300 + (Math.random() * 20 - 10);
-                this.y = 20;
-                this.speed = 11;
-                this.color = color;
-                this.length = 14;
+                this.x = 300 + (Math.random() * 20 - 10); this.y = 20;
+                this.speed = 11; this.color = color; this.length = 14;
             }
             update(surfaceY) {
                 this.y += this.speed;
-                if (this.y >= surfaceY) {
-                    playBeepSound(600, 0.08, "sine");
-                    return true;
-                }
+                if (this.y >= surfaceY) { playBeepSound(600, 0.08, "sine"); return true; }
                 return false;
             }
             draw() {
@@ -329,10 +255,8 @@
 
         class Bubble {
             constructor() {
-                this.x = Math.random() * 210 + 195;
-                this.y = 475;
-                this.radius = Math.random() * 2 + 0.8;
-                this.vy = -(Math.random() * 1.3 + 0.5);
+                this.x = Math.random() * 210 + 195; this.y = 475;
+                this.radius = Math.random() * 2 + 0.8; this.vy = -(Math.random() * 1.3 + 0.5);
                 this.wobble = Math.random() * 100;
             }
             update() { this.y += this.vy; this.x += Math.sin(this.wobble / 12) * 0.4; this.wobble++; }
@@ -345,10 +269,8 @@
         class Spark {
             constructor(x, y, color="#ff5533") {
                 this.x = x; this.y = y;
-                this.vx = (Math.random() - 0.5) * 14;
-                this.vy = (Math.random() - 0.9) * 16;
-                this.radius = Math.random() * 3.5 + 1.2;
-                this.life = 1.0; this.decay = Math.random() * 0.025 + 0.018;
+                this.vx = (Math.random() - 0.5) * 14; this.vy = (Math.random() - 0.9) * 16;
+                this.radius = Math.random() * 3.5 + 1.2; this.life = 1.0; this.decay = Math.random() * 0.025 + 0.018;
                 this.color = color;
             }
             update() { this.x += this.vx; this.y += this.vy; this.vy += 0.3; this.life -= this.decay; }
@@ -362,27 +284,19 @@
             isLidClosed = !isLidClosed;
             const btn = document.getElementById('lidToggle');
             playBeepSound(400, 0.05);
-            if (isLidClosed) {
-                btn.className = "btn-tool active-lid"; btn.innerText = "🔒 LID (KAPAK KAPALI)";
-            } else {
-                btn.className = "btn-tool"; btn.innerText = "🔓 LID (KAPAK AÇIK)";
-            }
+            if (isLidClosed) { btn.className = "btn-tool active-lid"; btn.innerText = "🔒 LID (KAPAK KAPALI)"; }
+            else { btn.className = "btn-tool"; btn.innerText = "🔓 LID (KAPAK AÇIK)"; }
         }
 
         function toggleBurner() {
             isBurnerOn = !isBurnerOn;
             const btn = document.getElementById('burnerToggle');
             playBeepSound(isBurnerOn ? 700 : 300, 0.08, "triangle");
-            if (isBurnerOn) {
-                btn.className = "btn-tool active-burner"; btn.innerText = "🔥 BURNER (ISITICI AÇIK)";
-            } else {
-                btn.className = "btn-tool"; btn.innerText = "🔥 BURNER (KAPALI)";
-            }
+            if (isBurnerOn) { btn.className = "btn-tool active-burner"; btn.innerText = "🔥 BURNER (ISITICI AÇIK)"; }
+            else { btn.className = "btn-tool"; btn.innerText = "🔥 BURNER (KAPALI)"; }
         }
 
-        function updateMonitor(text) {
-            document.getElementById('reaction-monitor').innerText = text;
-        }
+        function updateMonitor(text) { document.getElementById('reaction-monitor').innerText = text; }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -405,12 +319,8 @@
 
             for (let i = liquidDrops.length - 1; i >= 0; i--) {
                 let hit = liquidDrops[i].update(surfaceY);
-                if (hit) {
-                    liquidDrops.splice(i, 1);
-                    targetLiquidLevel = Math.min(targetLiquidLevel + 0.15, 0.90);
-                } else {
-                    liquidDrops[i].draw();
-                }
+                if (hit) { liquidDrops.splice(i, 1); targetLiquidLevel = Math.min(targetLiquidLevel + 0.15, 0.90); }
+                else { liquidDrops[i].draw(); }
             }
 
             if (liquidLevel > 0.01) {
@@ -421,9 +331,7 @@
                 liquidGrad.addColorStop(1, colorBase.bottom);
                 ctx.fillStyle = liquidGrad;
 
-                ctx.beginPath();
-                ctx.moveTo(bX + 4, bY + bH - 4);
-                ctx.lineTo(bX + 4, surfaceY);
+                ctx.beginPath(); ctx.moveTo(bX + 4, bY + bH - 4); ctx.lineTo(bX + 4, surfaceY);
                 for (let x = bX + 4; x <= bX + bW - 4; x++) {
                     let waveY = surfaceY + Math.sin((x / 18) + waveWave) * 4.5 * liquidLevel;
                     ctx.lineTo(x, waveY);
@@ -449,16 +357,14 @@
 
             ctx.save();
             ctx.strokeStyle = "rgba(255, 255, 255, 0.18)"; ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.moveTo(bX, bY); ctx.lineTo(bX, bY + bH - bR);
-            ctx.arcTo(bX, bY + bH, bX + bR, bY + bH, bR);
-            ctx.lineTo(bX + bW - bR, bY + bH);
-            ctx.arcTo(bX + bW, bY + bH, bX + bW, bY + bH - bR, bR);
-            ctx.lineTo(bX + bW, bY); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(bX, bY); ctx.lineTo(bX, bY + bH - bR);
+            ctx.arcTo(bX, bY + bH, bX + bR, bY + bH, bR); ctx.lineTo(bX + bW - bR, bY + bH);
+            ctx.arcTo(bX + bW, bY + bH, bX + bW, bY + bH - bR, bR); ctx.lineTo(bX + bW, bY);
+            ctx.stroke();
 
             if (isLidClosed) {
                 ctx.strokeStyle = "#00ffcc"; ctx.lineWidth = 6;
-                ctx.beginPath(); ctx.moveTo(bX - 6, bY); ctx.lineTo(bX + bW + 6, bY); stroke();
+                ctx.beginPath(); ctx.moveTo(bX - 6, bY); ctx.lineTo(bX + bW + 6, bY); ctx.stroke();
             }
 
             if (isBurnerOn) {
@@ -503,40 +409,26 @@
                     let currentSurfaceY = 480 - (360 * targetLiquidLevel);
                     let flashColor = ["K","Rb","Cs"].includes(val) ? "#cc00ff" : "#ff5533";
                     for (let i = 0; i < 70; i++) particles.push(new Spark(300, currentSurfaceY, flashColor));
-                    
-                    mixedPh = 13.40; maxTemp += 55.0;
-                    playBeepSound(140, 0.45, "sawtooth");
-
+                    mixedPh = 13.40; maxTemp += 55.0; playBeepSound(140, 0.45, "sawtooth");
                     updateMonitor(`⚠️ PATLAMA! 2${val}(k) + 2H₂O(s) → 2${val}OH(suda) + H₂(g)`);
-                } else {
-                    updateMonitor(`Metal İlavesi: Behere ${val}(k) eklendi.`);
-                }
+                } else { updateMonitor(`Metal İlavesi: Behere ${val}(k) eklendi.`); }
             }
             else if (["Mg", "Ca", "Ba", "Be"].includes(val)) {
                 if (beakerContents.includes("H2O")) {
                     mixedPh = 11.20; maxTemp += 15.0;
                     updateMonitor(`Tepkime: ${val}(k) + 2H₂O(s) → ${val}(OH)₂(suda) + H₂(g)`);
-                } else {
-                    updateMonitor(`Metal İlavesi: ${val}(k) eklendi.`);
-                }
+                } else { updateMonitor(`Metal İlavesi: ${val}(k) eklendi.`); }
             }
-            else if (val === "Al") {
-                updateMonitor(`Amfoter Metal: Al eklendi. Kuvvetli asit veya baz bekliyor.`);
-            }
+            else if (val === "Al") { updateMonitor(`Amfoter Metal: Al eklendi. Kuvvetli asit veya baz bekliyor.`); }
             else if (["LiOH", "NaOH", "KOH", "Mg_OH_2", "Ca_OH_2"].includes(val)) {
                 mixedPh = ["LiOH", "NaOH", "KOH"].includes(val) ? 13.80 : 11.00;
                 if (beakerContents.some(r => ["HCl","HNO3","H2SO4"].includes(r))) {
-                    mixedPh = 7.00; maxTemp += 32.0;
-                    updateMonitor(`⚡ NÖTRLEŞME: Asit + Baz Tepkimesi (Tuz + H₂O oluştu)`);
-                } else {
-                    updateMonitor(`Baz İlavesi: Çözelti bazikleşti.`);
-                }
+                    mixedPh = 7.00; maxTemp += 32.0; updateMonitor(`⚡ NÖTRLEŞME: Asit + Baz Tepkimesi`);
+                } else { updateMonitor(`Baz İlavesi: Çözelti bazikleşti.`); }
             }
             else if ((val === "AgNO3" && beakerContents.includes("NaCl")) || (val === "NaCl" && beakerContents.includes("AgNO3"))) {
-                hasPrecipitate = true;
-                updateMonitor(`Çökelme: Ag⁺(suda) + Cl⁻(suda) → AgCl(k) ⚪ (Beyaz Çökelek)`);
+                hasPrecipitate = true; updateMonitor(`Çökelme: Ag⁺ + Cl⁻ → AgCl(k) ⚪ (Beyaz Çökelek)`);
             }
-            else if (val === "Litmus") { activeIndicators.litmus = true; updateMonitor(`Turnusol indikatörü entegre edildi.`); }
             else { updateMonitor(`Sistem: ${val} başarıyla behere aktarıldı.`); }
 
             document.getElementById('ph-val').innerText = mixedPh.toFixed(2);
