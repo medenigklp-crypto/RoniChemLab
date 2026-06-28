@@ -48,8 +48,8 @@
             width: 100%;
         }
         .user-logo-container {
-            width: 105px; /* İkon tam istediğin büyüklükte */
-            height: 105px;
+            width: 135px; /* Logo isteğin üzerine daha da büyütüldü */
+            height: 135px;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 12px 35px rgba(0,0,0,0.6);
             border-radius: 24px;
@@ -65,12 +65,12 @@
             opacity: 0.95;
         }
         
-        /* 3. İKİ SATIRLI VE MOLEKÜLDEN KURTARILMIŞ SLOGAN KONUMU */
+        /* 3. İKİ SATIRLI VE YUKARIYA ALINMIŞ EN OKUNAKLI SLOGAN KONUMU */
         .slogan-positioner {
             position: absolute;
-            top: 57%; /* Fulleren taneciğinin altına inmesi için dikey koordinat aşağı çekildi */
+            top: 48%; /* İsteğin doğrultusunda tam orta koridora, yukarıya kaydırıldı */
             left: 50%;
-            transform: translate(-50%, -50%); /* Eğiklik yok, pürüzsüz ortalandı */
+            transform: translate(-50%, -50%);
             width: 90%;
             text-align: center;
             pointer-events: none;
@@ -111,19 +111,19 @@
             }
         }
 
-        /* 2. BUTONU BALON JOJEDEN TAMAMEN KURTARAN SAĞA KAYDIRMA */
+        /* 2. BUTONU SAĞ ALT KÖŞEYE SIFIRLAYAN YENİ DÜZEN */
         .start-btn-container {
             width: 100%;
             display: flex;
             justify-content: flex-end; /* Butonu tamamen sağ tarafa yaslar */
-            padding-right: 32px; /* Balon jojenin üzerinden tamamen sıyrılması için sağ boşluk artırıldı */
+            padding-right: 16px; /* Ekranın sağ kenarına tam uyum için */
             margin-bottom: env(safe-area-inset-bottom, 20px);
         }
         .start-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(0, 162, 255, 0.45);
             color: #bceeff;
-            padding: 14px 42px; font-size: 12px;
+            padding: 14px 42px; font-size: 13px;
             font-weight: 700; border-radius: 25px; cursor: pointer; letter-spacing: 2px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
