@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Roni 3D Kimya Laboratuvarı Pro</title>
+    <title>RONI QUANTUM LAB CORE</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
         body {
-            background-color: #08090c;
+            background-color: #05070a;
             color: #e0e6ed;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
@@ -19,154 +19,126 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* Daha Kibar ve Mobil Uyumlu Göstergeler */
-        .dashboard {
-            display: flex;
-            gap: 10px;
-            padding: 16px 16px 6px 16px;
-            background: linear-gradient(to bottom, #11141a, #08090c);
-        }
-        .indicator {
-            flex: 1;
-            background: rgba(20, 24, 33, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        .indicator span {
-            display: block;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 2px;
-        }
-        #ph-val { color: #00ffcc; text-shadow: 0 0 12px rgba(0,255,204,0.4); }
-        #temp-val { color: #ff5533; text-shadow: 0 0 12px rgba(255,85,51,0.4); }
-
-        /* Optimize Edilmiş Küçük Üst Araç Butonları */
-        .tools-container {
-            display: flex;
-            gap: 10px;
-            padding: 0 16px 10px 16px;
-            background-color: #08090c;
-        }
-        .btn-tool {
-            flex: 1;
-            font-size: 12px;
-            padding: 10px;
-            font-weight: 700;
-            border-radius: 10px;
-            background: #171b22;
-            border: 1px solid rgba(255,255,255,0.06);
-            color: #8f9cae;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .btn-tool.active-lid {
-            background: linear-gradient(135deg, #00ffcc 0%, #00aa88 100%);
-            color: #08090c;
-            box-shadow: 0 0 15px rgba(0,255,204,0.4);
-            border: none;
-        }
-        .btn-tool.active-burner {
-            background: linear-gradient(135deg, #ff5533 0%, #aa2200 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(255,85,51,0.5);
-            border: none;
-        }
-
-        /* Simülasyon Alanı */
-        .canvas-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at center, #151922 0%, #08090c 90%);
-            position: relative;
-        }
-        canvas {
-            background-color: transparent;
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        #log-panel {
-            background-color: #08090c;
-            color: #8f9cae;
-            font-size: 12px;
-            padding: 8px 16px;
-            text-align: center;
-            font-family: monospace;
-            height: 36px;
-            overflow: hidden;
-        }
-
-        /* Alt Kontrol Paneli */
-        .controls {
-            background-color: #11141a;
-            padding: 20px;
+        /* 🚀 PROFESYONEL GİRİŞ EKRANI (SPLASH SCREEN) */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #0f131a 0%, #05070a 100%);
+            z-index: 9999;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 32px 32px 0 0;
-            box-shadow: 0 -15px 35px rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
         }
-        
-        .select-container {
-            display: flex;
-            gap: 10px;
+        .splash-icon {
+            width: 90px; height: 90px;
+            background: linear-gradient(135deg, #00ffcc 0%, #0077ff 100%);
+            border-radius: 24px;
+            box-shadow: 0 0 35px rgba(0, 255, 204, 0.4);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 42px; color: #05070a; font-weight: bold;
+            margin-bottom: 25px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        .splash-title {
+            font-size: 22px; font-weight: 800; letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 30%, #8f9cae 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 6px; text-align: center;
+        }
+        .splash-subtitle {
+            font-size: 11px; color: #00ffcc; letter-spacing: 4px; font-weight: 700; margin-bottom: 40px;
+        }
+        .start-btn {
+            background: linear-gradient(135deg, #00ffcc 0%, #00aa88 100%);
+            color: #05070a; border: none; padding: 14px 35px; font-size: 14px;
+            font-weight: 700; border-radius: 12px; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
+            transition: transform 0.2s;
+        }
+        .start-btn:active { transform: scale(0.95); }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 25px rgba(0, 255, 204, 0.3); }
+            100% { transform: scale(1.05); box-shadow: 0 0 45px rgba(0, 255, 204, 0.6); }
         }
 
+        /* ANA UI GÖSTERGELERİ */
+        .dashboard {
+            display: flex; gap: 10px; padding: 16px 16px 6px 16px;
+            background: linear-gradient(to bottom, #0e1117, #05070a);
+        }
+        .indicator {
+            flex: 1; background: rgba(15, 19, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px; padding: 10px; text-align: center;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            font-size: 11px; font-weight: 600; color: #8f9cae; letter-spacing: 0.5px;
+        }
+        .indicator span { display: block; font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; margin-top: 2px; }
+        #ph-val { color: #00ffcc; text-shadow: 0 0 10px rgba(0,255,204,0.3); }
+        #temp-val { color: #ff5533; text-shadow: 0 0 10px rgba(255,85,51,0.3); }
+
+        .tools-container { display: flex; gap: 10px; padding: 0 16px 10px 16px; }
+        .btn-tool {
+            flex: 1; font-size: 12px; padding: 10px; font-weight: 700; border-radius: 10px;
+            background: #12161f; border: 1px solid rgba(255,255,255,0.05); color: #8f9cae;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .btn-tool.active-lid { background: linear-gradient(135deg, #00ffcc 0%, #00aa88 100%); color: #05070a; box-shadow: 0 0 15px rgba(0,255,204,0.3); border: none; }
+        .btn-tool.active-burner { background: linear-gradient(135deg, #ff5533 0%, #aa2200 100%); color: #fff; box-shadow: 0 0 15px rgba(255,85,51,0.4); border: none; }
+
+        /* SIMÜLASYON ALANI */
+        .canvas-container {
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            background: radial-gradient(circle at center, #11151f 0%, #05070a 90%); position: relative;
+        }
+        canvas { background-color: transparent; max-width: 100%; max-height: 100%; }
+
+        /* REAKSİYON ALTYAZI PANELİ (KABIN TAM ALTINDA) */
+        #reaction-monitor {
+            background: rgba(10, 14, 20, 0.85);
+            border: 1px solid rgba(0, 255, 204, 0.15);
+            color: #00ffcc; font-family: 'Courier New', monospace;
+            font-size: 13px; font-weight: bold; padding: 10px 16px;
+            text-align: center; width: calc(100% - 32px); margin: 0 16px 6px 16px;
+            border-radius: 10px; box-shadow: inset 0 0 10px rgba(0,255,204,0.05);
+            min-height: 38px; display: flex; align-items: center; justify-content: center;
+        }
+
+        #log-panel { color: #6b7785; font-size: 11px; text-align: center; font-family: monospace; padding-bottom: 4px; }
+
+        /* ALT KONTROL PANELİ */
+        .controls {
+            background-color: #0e1117; padding: 16px 20px 24px 20px;
+            display: flex; flex-direction: column; gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 28px 28px 0 0; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+        .select-container { display: flex; gap: 10px; }
         select {
-            flex: 1;
-            background: #171b22;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 16px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 14px;
-            outline: none;
-            -webkit-appearance: none;
+            flex: 1; background: #151a24; color: #fff; border: 1px solid rgba(255,255,255,0.08);
+            padding: 14px; font-size: 14px; font-weight: 600; border-radius: 12px; outline: none; -webkit-appearance: none;
         }
-
-        .btn-add {
-            background: linear-gradient(135deg, #00ffcc 0%, #0088cc 100%);
-            color: #08090c;
-            font-weight: bold;
-            padding: 0 25px;
-        }
-
+        .btn-add { background: linear-gradient(135deg, #00ffcc 0%, #0088cc 100%); color: #05070a; font-weight: bold; padding: 0 22px; border: none; }
         button {
-            background: linear-gradient(135deg, #232933 0%, #171b22 100%);
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.03);
-            padding: 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 14px;
-            cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-            -webkit-tap-highlight-color: transparent;
+            background: linear-gradient(135deg, #1f2530 0%, #151a24 100%); color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.02); padding: 14px; font-size: 13px;
+            font-weight: 600; border-radius: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent;
         }
-        button:active { transform: scale(0.97); }
-        
-        .btn-clear {
-            background: linear-gradient(135deg, #ff3b30 0%, #660000 100%);
-            border: 1px solid rgba(255,59,48,0.2);
-        }
+        button:active { transform: scale(0.98); }
+        .btn-clear { background: linear-gradient(135deg, #ff3b30 0%, #5e0000 100%); border: none; }
     </style>
 </head>
 <body>
+
+    <div id="splash-screen">
+        <div class="splash-icon">⚛️</div>
+        <div class="splash-title">RONI QUANTUM LAB CORE</div>
+        <div class="splash-subtitle">VERSION 4.0 PRO</div>
+        <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
+    </div>
 
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
@@ -182,41 +154,48 @@
         <canvas id="chemCanvas" width="600" height="600"></canvas>
     </div>
 
-    <div id="log-panel">Laboratuvar hazır. Reaktif seçip deneye başlayın.</div>
+    <div id="reaction-monitor">Reaktif bekleniyor... TEPKİME YOK</div>
+
+    <div id="log-panel">Laboratuvar terminali aktif.</div>
 
     <div class="controls">
         <div class="select-container">
             <select id="substanceSelect">
-                <optgroup label="💧 Sıvılar & Çözeltiler">
+                <optgroup label="💧 Çözeltiler & Sıvılar">
                     <option value="H2O">Saf Su (H2O)</option>
                     <option value="Litmus">Turnusol Boyası (Litmus)</option>
-                    <option value="Br2">Bromlu Su (Br2)</option>
-                    <option value="NH3_H2O">Amonyak Çözeltisi (NH3·H2O)</option>
-                    <option value="CH3COOH">Asetik Asit (CH3COOH)</option>
-                    <option value="H2O2">Hidrojen Peroksit (H2O2)</option>
                     <option value="HNO3">Nitrik Asit (HNO3)</option>
                     <option value="H2SO4">Sülfürik Asit (H2SO4)</option>
                     <option value="HCl">Hidroklorik Asit (HCl)</option>
-                    <option value="HF">Hidroforik Asit (HF)</option>
                 </optgroup>
-                <optgroup label="🧱 Katılar">
+                <optgroup label="🧱 Katı Metaller (1A - 2A - 3A)">
+                    <option value="Li">Lityum Metal (Li)</option>
                     <option value="Na">Sodyum Metal (Na)</option>
                     <option value="K">Potasyum Metal (K)</option>
-                    <option value="NaCl">Sodyum Klorür (NaCl)</option>
-                    <option value="AgNO3">Gümüş Nitrat (AgNO3)</option>
-                    <option value="CuSO4">Bakır Sülfat (CuSO4)</option>
-                    <option value="KMnO4">Potasyum Permanganat (KMnO4)</option>
-                    <option value="FeCl3">Demir(III) Klorür (FeCl3)</option>
+                    <option value="Rb">Rubidyum Metal (Rb)</option>
+                    <option value="Cs">Sezyum Metal (Cs)</option>
+                    <option value="Be">Berilyum Metal (Be)</option>
+                    <option value="Mg">Magnezyum Metal (Mg)</option>
+                    <option value="Ca">Kalsiyum Metal (Ca)</option>
+                    <option value="Ba">Baryum Metal (Ba)</option>
+                    <option value="Al">Alüminyum Metal (Al)</option>
                 </optgroup>
-                <optgroup label="💨 Gaz Reaktifler">
-                    <option value="Ar">Argon (Ar)</option>
-                    <option value="C2H2">Asetilen (C2H2)</option>
-                    <option value="Cl2">Klor Gazı (Cl2)</option>
-                    <option value="CO2">Karbondioksit (CO2)</option>
-                    <option value="H2">Hidrojen Gazı (H2)</option>
-                    <option value="NH3">Amonyak Gazı (NH3)</option>
-                    <option value="O2">Oksijen Gazı (O2)</option>
-                    <option value="SO2">Kükürtdioksit (SO2)</option>
+                <optgroup label="🧱 Diğer Katı Metaller">
+                    <option value="Fe">Demir Metal (Fe)</option>
+                    <option value="Pb">Kurşun Metal (Pb)</option>
+                    <option value="Ag">Gümüş Metal (Ag)</option>
+                    <option value="Cu">Bakır Metal (Cu)</option>
+                    <option value="Hg">Cıva Sıvı Metal (Hg)</option>
+                    <option value="Au">Altın Metal (Au)</option>
+                    <option value="NaCl">Sodyum Klorür / Tuz (NaCl)</option>
+                    <option value="AgNO3">Gümüş Nitrat (AgNO3)</option>
+                </optgroup>
+                <optgroup label="🧪 Güçlü & Zayıf Bazlar">
+                    <option value="LiOH">Lityum Hidroksit (LiOH)</option>
+                    <option value="NaOH">Sodyum Hidroksit (NaOH)</option>
+                    <option value="KOH">Potasyum Hidroksit (KOH)</option>
+                    <option value="Mg_OH_2">Magnezyum Hidroksit [Mg(OH)2]</option>
+                    <option value="Ca_OH_2">Kalsiyum Hidroksit [Ca(OH)2]</option>
                 </optgroup>
             </select>
             <button class="btn-add" onclick="handleAdd()">EKLE</button>
@@ -228,6 +207,7 @@
         const canvas = document.getElementById('chemCanvas');
         const ctx = canvas.getContext('2d');
 
+        let audioCtx = null;
         let beakerContents = [];
         let mixedPh = 7.0;
         let maxTemp = 298.15;
@@ -243,18 +223,75 @@
 
         let particles = [];
         let bubbles = [];
+        let liquidDrops = []; // Damla Dizisi
 
         const PALETTES = {
             water: { top: "rgba(0, 180, 216, 0.35)", bottom: "rgba(3, 4, 94, 0.6)" },
             litmusAcid: { top: "rgba(242, 53, 53, 0.6)", bottom: "rgba(138, 12, 12, 0.75)" },
             litmusBase: { top: "rgba(38, 72, 232, 0.6)", bottom: "rgba(14, 25, 133, 0.75)" },
-            CuSO4: { top: "rgba(0, 150, 255, 0.5)", bottom: "rgba(0, 48, 143, 0.8)" },
-            KKMnO4: { top: "rgba(186, 12, 186, 0.55)", bottom: "rgba(61, 2, 61, 0.85)" },
-            FeCl3: { top: "rgba(224, 131, 0, 0.5)", bottom: "rgba(102, 51, 0, 0.8)" },
-            Br2: { top: "rgba(186, 45, 11, 0.5)", bottom: "rgba(92, 18, 2, 0.75)" },
-            gasCloud: { top: "rgba(255, 255, 255, 0.08)", bottom: "rgba(200, 200, 200, 0.12)" },
+            CuMix: { top: "rgba(0, 160, 220, 0.5)", bottom: "rgba(0, 50, 130, 0.75)" },
+            FeMix: { top: "rgba(200, 110, 10, 0.5)", bottom: "rgba(90, 45, 0, 0.75)" },
             defaultMix: { top: "rgba(215, 220, 228, 0.35)", bottom: "rgba(95, 105, 120, 0.6)" }
         };
+
+        // 🔊 WEB AUDIO API SES SENTEZLEYİCİSİ (Dosyasız bip üretir)
+        function playBeepSound(freq, duration, type="sine") {
+            if (!audioCtx) return;
+            try {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e){}
+        }
+
+        // Giriş Ekranını Kapatıp Ses Motorunu Tetikleme
+        function initLab() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                playBeepSound(523.25, 0.15, "triangle"); // Açılış sesi
+            }, 800);
+        }
+
+        // 💧 YUKARIDAN DÜŞEN DAMLA SINIFI
+        class LiquidDrop {
+            constructor(color) {
+                this.x = 300 + (Math.random() * 20 - 10);
+                this.y = 20;
+                this.speed = 11;
+                this.color = color;
+                this.length = 14;
+            }
+            update(surfaceY) {
+                this.y += this.speed;
+                if (this.y >= surfaceY) {
+                    playBeepSound(600, 0.08, "sine"); // Damlama sesi
+                    return true; // Çarptı
+                }
+                return false;
+            }
+            draw() {
+                ctx.save();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 3.5;
+                ctx.lineCap = "round";
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x, this.y + this.length);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
 
         class Bubble {
             constructor() {
@@ -264,62 +301,53 @@
                 this.vy = -(Math.random() * 1.3 + 0.5);
                 this.wobble = Math.random() * 100;
             }
-            update() {
-                this.y += this.vy;
-                this.x += Math.sin(this.wobble / 12) * 0.4;
-                this.wobble++;
-            }
+            update() { this.y += this.vy; this.x += Math.sin(this.wobble / 12) * 0.4; this.wobble++; }
             draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.18)"; ctx.fill();
             }
         }
 
         class Spark {
-            constructor(x, y) {
+            constructor(x, y, color="#ff5533") {
                 this.x = x; this.y = y;
-                this.vx = (Math.random() - 0.5) * 13;
-                this.vy = (Math.random() - 0.9) * 15;
+                this.vx = (Math.random() - 0.5) * 14;
+                this.vy = (Math.random() - 0.9) * 16;
                 this.radius = Math.random() * 3.5 + 1.2;
-                this.life = 1.0;
-                this.decay = Math.random() * 0.022 + 0.016;
+                this.life = 1.0; this.decay = Math.random() * 0.025 + 0.018;
+                this.color = color;
             }
             update() { this.x += this.vx; this.y += this.vy; this.vy += 0.3; this.life -= this.decay; }
             draw() {
-                ctx.save(); ctx.shadowBlur = 15; ctx.shadowColor = "#ff5533";
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 95, 35, ${this.life})`; ctx.fill(); ctx.restore();
+                ctx.save(); ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.fill(); ctx.restore();
             }
         }
 
         function toggleLid() {
             isLidClosed = !isLidClosed;
             const btn = document.getElementById('lidToggle');
+            playBeepSound(400, 0.05);
             if (isLidClosed) {
-                btn.className = "btn-tool active-lid";
-                btn.innerText = "🔒 LID (KAPAK KAPALI)";
-                log("Sistem: Beher kapağı kapatıldı. Gazlar hapsediliyor.");
+                btn.className = "btn-tool active-lid"; btn.innerText = "🔒 LID (KAPAK KAPALI)";
             } else {
-                btn.className = "btn-tool";
-                btn.innerText = "🔓 LID (KAPAK AÇIK)";
-                log("Sistem: Beher kapağı açıldı. Gazlar atmosfere yayılıyor.");
+                btn.className = "btn-tool"; btn.innerText = "🔓 LID (KAPAK AÇIK)";
             }
         }
 
         function toggleBurner() {
             isBurnerOn = !isBurnerOn;
             const btn = document.getElementById('burnerToggle');
+            playBeepSound(isBurnerOn ? 700 : 300, 0.08, "triangle");
             if (isBurnerOn) {
-                btn.className = "btn-tool active-burner";
-                btn.innerText = "🔥 BURNER (ISITICI AÇIK)";
-                log("Sistem: Isıtıcı bek alevi aktif. Termal enerji artıyor.");
+                btn.className = "btn-tool active-burner"; btn.innerText = "🔥 BURNER (ISITICI AÇIK)";
             } else {
-                btn.className = "btn-tool";
-                btn.innerText = "🔥 BURNER (KAPALI)";
-                log("Sistem: Isıtıcı kapatıldı.");
+                btn.className = "btn-tool"; btn.innerText = "🔥 BURNER (KAPALI)";
             }
+        }
+
+        function updateMonitor(text) {
+            document.getElementById('reaction-monitor').innerText = text;
         }
 
         function animate() {
@@ -327,20 +355,11 @@
             waveWave += 0.07;
 
             if (isBurnerOn) {
-                maxTemp = Math.min(maxTemp + 0.5, 650.00);
+                maxTemp = Math.min(maxTemp + 0.6, 680.00);
                 document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
             } else if (maxTemp > 298.15) {
-                maxTemp = Math.max(maxTemp - 0.15, 298.15);
+                maxTemp = Math.max(maxTemp - 0.18, 298.15);
                 document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
-            }
-
-            if (!isLidClosed && targetLiquidLevel > 0) {
-                const hasGases = beakerContents.some(item => ["Cl2","CO2","H2","NH3","SO2"].includes(item));
-                if (hasGases && Math.random() < 0.008) {
-                    beakerContents = beakerContents.filter(item => !["Cl2","CO2","H2","NH3","SO2"].includes(item));
-                    targetLiquidLevel = Math.max(targetLiquidLevel - 0.06, 0);
-                    log("Fizik: Kapak açık olduğundan gaz fazı serbest kalarak atmosfere karıştı.");
-                }
             }
 
             if (liquidLevel < targetLiquidLevel) liquidLevel += 0.01;
@@ -350,6 +369,20 @@
             let currentHeight = bH * liquidLevel;
             let surfaceY = (bY + bH) - currentHeight;
 
+            // Damlaları Güncelle ve Çiz
+            let dropColor = getLiquidPalette().top;
+            for (let i = liquidDrops.length - 1; i >= 0; i--) {
+                let hit = liquidDrops[i].update(surfaceY);
+                if (hit) {
+                    liquidDrops.splice(i, 1);
+                    // Sıvı seviyesini kademeli arttır
+                    targetLiquidLevel = Math.min(targetLiquidLevel + 0.15, 0.90);
+                } else {
+                    liquidDrops[i].draw();
+                }
+            }
+
+            // Sıvı Çizimi
             if (liquidLevel > 0.01) {
                 ctx.save();
                 let colorBase = getLiquidPalette();
@@ -361,32 +394,22 @@
                 ctx.beginPath();
                 ctx.moveTo(bX + 4, bY + bH - 4);
                 ctx.lineTo(bX + 4, surfaceY);
-                
                 for (let x = bX + 4; x <= bX + bW - 4; x++) {
                     let waveY = surfaceY + Math.sin((x / 18) + waveWave) * 4.5 * liquidLevel;
                     ctx.lineTo(x, waveY);
                 }
-                
                 ctx.lineTo(bX + bW - 4, bY + bH - 4);
-                ctx.closePath();
-                ctx.fill();
-                ctx.restore();
+                ctx.closePath(); ctx.fill(); ctx.restore();
 
                 if (hasPrecipitate) {
                     ctx.save();
-                    let precipGrad = ctx.createLinearGradient(bX, bY + bH - 25, bX, bY + bH);
-                    precipGrad.addColorStop(0, "rgba(240, 240, 245, 0.15)");
-                    precipGrad.addColorStop(1, "rgba(255, 255, 255, 0.85)");
-                    ctx.fillStyle = precipGrad;
+                    ctx.fillStyle = "rgba(240, 240, 245, 0.85)";
                     ctx.beginPath();
-                    ctx.moveTo(bX + 6, bY + bH - 4);
-                    ctx.ellipse(bX + bW/2, bY + bH - 8, bW/2 - 8, 12, 0, 0, Math.PI, true);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.restore();
+                    ctx.ellipse(bX + bW/2, bY + bH - 8, bW/2 - 8, 10, 0, 0, Math.PI * 2);
+                    ctx.fill(); ctx.restore();
                 }
 
-                if (Math.random() < 0.15 + (maxTemp - 298) * 0.003) bubbles.push(new Bubble());
+                if (Math.random() < 0.12 + (maxTemp - 298) * 0.004) bubbles.push(new Bubble());
             }
 
             for (let i = bubbles.length - 1; i >= 0; i--) {
@@ -396,40 +419,27 @@
                 else bubbles[i].draw();
             }
 
+            // Beher Gövdesi Çizimi
             ctx.save();
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.18)";
             ctx.lineWidth = 4;
             ctx.beginPath();
             ctx.moveTo(bX, bY); ctx.lineTo(bX, bY + bH - bR);
             ctx.arcTo(bX, bY + bH, bX + bR, bY + bH, bR);
             ctx.lineTo(bX + bW - bR, bY + bH);
             ctx.arcTo(bX + bW, bY + bH, bX + bW, bY + bH - bR, bR);
-            ctx.lineTo(bX + bW, bY);
-            ctx.stroke();
+            ctx.lineTo(bX + bW, bY); ctx.stroke();
 
             if (isLidClosed) {
-                ctx.strokeStyle = "rgba(0, 255, 204, 0.7)";
-                ctx.lineWidth = 6;
-                ctx.beginPath();
-                ctx.moveTo(bX - 5, bY);
-                ctx.lineTo(bX + bW + 5, bY);
-                ctx.stroke();
+                ctx.strokeStyle = "#00ffcc"; ctx.lineWidth = 6;
+                ctx.beginPath(); ctx.moveTo(bX - 6, bY); ctx.lineTo(bX + bW + 6, bY); ctx.stroke();
             }
 
             if (isBurnerOn) {
-                ctx.save();
-                ctx.shadowBlur = 22;
-                ctx.shadowColor = "#ff5533";
-                ctx.fillStyle = "rgba(255, 85, 51, 0.28)";
-                ctx.fillRect(bX + 15, bY + bH + 4, bW - 30, 16);
-                ctx.restore();
+                ctx.save(); ctx.shadowBlur = 20; ctx.shadowColor = "#ff5533";
+                ctx.fillStyle = "rgba(255, 85, 51, 0.3)";
+                ctx.fillRect(bX + 20, bY + bH + 4, bW - 40, 14); ctx.restore();
             }
-
-            let glassGlow = ctx.createLinearGradient(bX + 4, bY, bX + 14, bY);
-            glassGlow.addColorStop(0, "rgba(255, 255, 255, 0.22)");
-            glassGlow.addColorStop(1, "rgba(255, 255, 255, 0.0)");
-            ctx.fillStyle = glassGlow;
-            ctx.fillRect(bX + 4, bY + 10, 8, bH - 20);
             ctx.restore();
 
             for (let i = particles.length - 1; i >= 0; i--) {
@@ -442,18 +452,10 @@
         }
 
         function getLiquidPalette() {
-            if (activeIndicators.litmus) {
-                return mixedPh < 7.0 ? PALETTES.litmusAcid : PALETTES.litmusBase;
-            }
-            if (beakerContents.includes("CuSO4")) return PALETTES.CuSO4;
-            if (beakerContents.includes("KMnO4")) return PALETTES.KKMnO4;
-            if (beakerContents.includes("FeCl3")) return PALETTES.FeCl3;
-            if (beakerContents.includes("Br2")) return PALETTES.Br2;
+            if (activeIndicators.litmus) return mixedPh < 7.0 ? PALETTES.litmusAcid : PALETTES.litmusBase;
+            if (beakerContents.includes("Cu") || beakerContents.includes("CuSO4")) return PALETTES.CuMix;
+            if (beakerContents.includes("Fe")) return PALETTES.FeMix;
             if (beakerContents.includes("H2O") && beakerContents.length === 1) return PALETTES.water;
-            
-            const hasLiquids = beakerContents.some(item => !["Ar","C2H2","Cl2","CO2","F2","H2","H2S","He","N2","NH3","NO2","O2","SO2","Na","K","NaCl","AgNO3"].includes(item));
-            if (!hasLiquids && beakerContents.length > 0) return PALETTES.gasCloud;
-
             return PALETTES.defaultMix;
         }
 
@@ -461,51 +463,77 @@
             const select = document.getElementById('substanceSelect');
             const val = select.value;
             
-            if (!beakerContents.includes(val)) beakerContents.push(val);
-            
-            let levelInc = ["Ar","C2H2","Cl2","CO2","F2","H2","H2S","He","N2","NH3","NO2","O2","SO2"].includes(val) ? 0.04 : 0.16;
-            targetLiquidLevel = Math.min(targetLiquidLevel + levelInc, 0.90);
+            // Sıvı reaktifler için yukarıdan damlama animasyonunu başlat
+            if (["H2O", "HCl", "HNO3", "H2SO4", "Litmus"].includes(val)) {
+                liquidDrops.push(new LiquidDrop(val === "H2O" ? "rgba(0,180,216,0.8)" : "rgba(255,255,255,0.7)"));
+            } else {
+                // Katı ve metaller anında çöker/eklenir
+                targetLiquidLevel = Math.min(targetLiquidLevel + 0.12, 0.90);
+                playBeepSound(280, 0.1, "triangle");
+            }
 
-            if (val === "Na" || val === "K") {
+            if (!beakerContents.includes(val)) beakerContents.push(val);
+
+            // 🛠️ GELİŞMİŞ REAKSİYON VE DENKLEM ALGORİTMASI
+            // 1A METALLERİ (Suyla şiddetli reaksiyon)
+            if (["Li", "Na", "K", "Rb", "Cs"].includes(val)) {
                 if (beakerContents.includes("H2O")) {
                     let currentSurfaceY = 480 - (360 * targetLiquidLevel);
-                    for (let i = 0; i < 65; i++) particles.push(new Spark(300, currentSurfaceY + 20));
-                    mixedPh = val === "K" ? 13.50 : 12.80; 
-                    maxTemp = 360.00;
-                    beakerContents.push(val === "K" ? "KOH" : "NaOH");
-                    log(`⚠️ REAKSİYON: Aktif metal (${val}) suyla reaksiyona girdi! Patlama oluştu.`);
+                    let flashColor = val === "K" || val === "Rb" ? "#cc00ff" : "#ff5533";
+                    for (let i = 0; i < 70; i++) particles.push(new Spark(300, currentSurfaceY, flashColor));
+                    
+                    mixedPh = 13.20; maxTemp += 50.0;
+                    playBeepSound(150, 0.4, "sawtooth"); // Patlama efekti sesi
+
+                    let equation = `2${val}(k) + 2H₂O(s) → 2${val}OH(suda) + H₂(g) + ISI`;
+                    updateMonitor(`⚠️ PATLAMA! \n ${equation}`);
                 } else {
-                    log(`Sistem: ${val} metal parçası behere eklendi.`);
+                    updateMonitor(`Metal İlavesi: Behere ${val}(k) eklendi. Reaksiyon için su gerekiyor.`);
                 }
             }
-            else if (val === "HCl" || val === "HNO3" || val === "H2SO4") {
-                if (beakerContents.includes("NaOH") || beakerContents.includes("KOH")) {
-                    mixedPh = 7.00; maxTemp += 25.0;
-                    log(`⚡ NÖTRLEŞME: Asit (${val}) ve baz nötrleşti. Reaksiyon ısısı yayıldı.`);
+            // 2A METALLERİ (Mg, Ca, Ba suyla ve asitle tepkimeler)
+            else if (["Mg", "Ca", "Ba"].includes(val)) {
+                if (beakerContents.includes("H2O")) {
+                    mixedPh = 11.50; maxTemp += 15.0;
+                    updateMonitor(`Tepkime: ${val}(k) + 2H₂O(s) → ${val}(OH)₂(suda) + H₂(g)`);
                 } else {
-                    mixedPh = 1.10;
-                    log(`Sistem: Asit çözeltisi (${val}) eklendi.`);
+                    updateMonitor(`Metal İlavesi: ${val}(k) hazneye eklendi.`);
                 }
             }
-            else if (val === "NaOH" || val === "KOH") {
-                if (beakerContents.includes("HCl") || beakerContents.includes("HNO3")) {
-                    mixedPh = 7.00; maxTemp += 25.0;
-                    log(`⚡ NÖTRLEŞME: Baz (${val}) ortamdaki asiti nötrleştirdi.`);
+            // AMFOTER METAL (Al)
+            else if (val === "Al") {
+                updateMonitor(`Amfoter Metal: Alüminyum (Al) ilave edildi. Güçlü asit veya bazlarla reaksiyona girer.`);
+            }
+            // SOY VE YARI SOY METALLER (Cu, Ag, Au, Hg, Pb)
+            else if (["Cu", "Ag", "Au", "Hg", "Pb"].includes(val)) {
+                if (val === "Au") {
+                    updateMonitor(`Tam Soy Metal: Altın (Au) eklendi. Hiçbir saf asitle tepkimeye girmez.`);
                 } else {
-                    mixedPh = 13.70;
-                    log(`Sistem: Baz çözeltisi (${val}) eklendi.`);
+                    updateMonitor(`Metal İlavesi: ${val} elementi eklendi.`);
                 }
             }
+            // BAZLAR (LiOH, NaOH, KOH, Mg(OH)2, Ca(OH)2)
+            else if (["LiOH", "NaOH", "KOH", "Mg_OH_2", "Ca_OH_2"].includes(val)) {
+                mixedPh = ["LiOH", "NaOH", "KOH"].includes(val) ? 13.80 : 11.20;
+                if (beakerContents.some(r => ["HCl","HNO3","H2SO4"].includes(r))) {
+                    mixedPh = 7.00; maxTemp += 30.0;
+                    updateMonitor(`⚡ NÖTRLEŞME: Asit + Baz Tepkimesi oluştu. Tuz ve H₂O açığa çıktı.`);
+                } else {
+                    updateMonitor(`Baz Çözeltisi: Ortama OH⁻ iyonları salındı. pH yükseldi.`);
+                }
+            }
+            // ASİTLER VE ÇÖKELME
             else if ((val === "AgNO3" && beakerContents.includes("NaCl")) || (val === "NaCl" && beakerContents.includes("AgNO3"))) {
                 hasPrecipitate = true;
-                log("Çökelme: Gümüş Nitrat ve Tuz reaksiyona girdi. Gümüş Klorür [AgCl(k)] beyaz çökeleği oluştu.");
+                updateMonitor(`Net İyon Denklemi: Ag⁺(suda) + Cl⁻(suda) → AgCl(k) (Beyaz Çökelek)`);
             }
-            else if (val === "Litmus") { activeIndicators.litmus = true; log("İndikatör: Turnusol boyası damlatıldı."); }
-            else if (val === "H2O") { log("Sistem: Saf Su (H2O) eklendi."); }
-            else if (val === "CuSO4") { log("Sistem: Bakır Sülfat (CuSO4) eklendi."); }
-            else if (val === "KMnO4") { log("Sistem: Potasyum Permanganat eklendi."); }
-            else if (val === "FeCl3") { log("Sistem: Demir(III) Klorür eklendi."); }
-            else { log(`Sistem: ${val} laboratuvara ilave edildi.`); }
+            else if (val === "Litmus") {
+                activeIndicators.litmus = true;
+                updateMonitor(`İndikatör: Turnusol boyası aktif.`);
+            }
+            else {
+                updateMonitor(`Sistem: ${val} behere başarıyla aktarıldı.`);
+            }
 
             document.getElementById('ph-val').innerText = mixedPh.toFixed(2);
             document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
@@ -513,11 +541,12 @@
 
         function clearBeaker() {
             beakerContents = []; mixedPh = 7.0; maxTemp = 298.15;
-            activeIndicators = { litmus: false }; // Yazım hatası düzeltildi (: kullanıldı)
-            hasPrecipitate = false; particles = []; bubbles = []; targetLiquidLevel = 0;
-            log("Sistem: Beher tamamen boşaltıldı ve temizlendi.");
+            activeIndicators = { litmus: false }; hasPrecipitate = false;
+            particles = []; bubbles = []; liquidDrops = []; targetLiquidLevel = 0;
+            updateMonitor("Reaktif bekleniyor... TEPKİME YOK");
             document.getElementById('ph-val').innerText = "7.00";
             document.getElementById('temp-val').innerText = "298.15 K";
+            playBeepSound(180, 0.12, "sine");
         }
 
         animate();
