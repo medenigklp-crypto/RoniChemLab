@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- 📱 TELEFON ANA EKRAN VE OTOMATİK KISAYOL İKON KODLARI -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Quantum Lab Core">
+    <!-- iPhone için otomatik turuncu beher kısayol ikonu bağlantısı -->
+    <link rel="apple-touch-icon" href="logo_shortcut.png">
+    <!-- Android için otomatik turuncu beher kısayol ikonu bağlantısı -->
+    <link rel="icon" type="image/png" href="logo_shortcut.png">
+    
     <title>QUANTUM LAB CORE</title>
     <!-- Slogan fontu için Great Vibes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +37,7 @@
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #05070a;
-            background-image: url('image_5.png'); /* Arka plan görseliniz */
+            background-image: url('image_5.png'); 
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
@@ -37,7 +45,6 @@
             opacity: 1;
             transition: opacity 0.4s ease;
             
-            /* Tüm içeriği hem yatayda hem dikeyde tam ekranın merkezine kilitleyen modern esnek düzen */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -53,12 +60,12 @@
             width: 100%;
             max-width: 450px;
             text-align: center;
-            gap: 16px; /* Elemanların arasındaki dikey boşluğu mükemmel dengeler */
+            gap: 16px; 
         }
 
         /* 👑 1. EN ÜSTTEKİ MEDENİ GÖKALP YAZAN LOGO GÖRSELİ (image_13.png) */
         .teacher-brand-logo {
-            width: 175px; /* Mobil cihazlarda daha net ve okunaklı olması için boyutu büyütüldü */
+            width: 175px; 
             height: auto;
             object-fit: contain;
             filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.8));
@@ -78,13 +85,13 @@
 
         /* 🎯 3. ORTADA YUVARLAK OLAN GÖRSEL (image_11.png) */
         .user-logo-container {
-            width: 160px; /* Üst logoyla uyumlu olacak şekilde boyutu dengelendi */
+            width: 160px; 
             height: 160px;
             display: flex; 
             justify-content: center; 
             align-items: center;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.95);
-            border-radius: 50%; /* Kusursuz yuvarlak hat */
+            border-radius: 50%; 
             overflow: hidden;
             border: 2px solid rgba(255, 255, 255, 0.2);
             background: transparent;
@@ -103,7 +110,6 @@
             white-space: nowrap; 
             display: block;
             
-            /* Renk Geçişi: Sol Mavi (#BCEEFF) -> Orta (#F7EAD7) -> Sağ Turuncu (#FFD59A) */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -112,12 +118,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* Sol Mavi Işıma (#00A2FF) ve Sağ Turuncu Işıma (#FF6600) Filtreleri */
             filter: drop-shadow(-8px 2px 5px rgba(0, 162, 255, 0.75)) 
                     drop-shadow(8px 2px 5px rgba(255, 102, 0, 0.75))
                     drop-shadow(0px 4px 10px rgba(0,0,0,0.9));
             padding: 2px 10px;
-            margin-bottom: 40px; /* Alttaki giriş butonuna asil bir mesafe bırakır */
+            margin-bottom: 40px; 
         }
         @media(min-width: 600px) {
             .premium-slogan-one-line { font-size: 21pt; }
@@ -186,25 +191,15 @@
 
     <!-- 🌌 GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <!-- Ekranın Tam Merkezinde Toplanan Hizalama Grubu -->
         <div class="brand-container-block">
-            <!-- 1. En Üstteki Logo Görseli (Genişliği büyütüldü) -->
             <img src="image_13.png" class="teacher-brand-logo" alt="Medeni Gökalp Logo">
-            
-            <!-- 2. Sistem Başlığı -->
             <div class="main-title">QUANTUM LAB CORE</div>
-            
-            <!-- 3. Ortadaki Yuvarlak Görsel (Boyutu üst logoyla dengelendi) -->
             <div class="user-logo-container">
                 <img src="image_11.png" alt="Yuvarlak Sanat Görseli">
             </div>
-            
-            <!-- 4. Premium Karakteristik Slogan -->
             <div class="premium-slogan-one-line">
                 Never Trust an Atom, They Make up Everything
             </div>
-            
-            <!-- 5. Tam Ortalanmış Giriş Butonu -->
             <div class="btn-bottom-center-positioner">
                 <button class="start-btn-round" onclick="initLab()">SİSTEMİ BAŞLAT</button>
             </div>
@@ -454,7 +449,7 @@
 
             if (isLidClosed) {
                 ctx.strokeStyle = "#00ffcc"; ctx.lineWidth = 6;
-                ctx.beginPath(); ctx.moveTo(bX - 6, bY); ctx.lineTo(bX + bW + 6, bY); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(bX - 6, bY); ctx.lineTo(bX + bW + 6, bY); stroke();
             }
             if (isBurnerOn) {
                 ctx.save(); ctx.shadowBlur = 20; ctx.shadowColor = "#ff5533";
@@ -509,8 +504,8 @@
             else if (["LiOH", "NaOH", "KOH", "Mg_OH_2", "Ca_OH_2"].includes(val)) {
                 mixedPh = ["LiOH", "NaOH", "KOH"].includes(val) ? 13.80 : 11.00;
                 if (beakerContents.some(r => ["HCl","HNO3","H2SO4"].includes(r))) {
-                    mixedPh = 7.00; maxTemp += 32.0; updateMonitor(`⚡ NÖTRLEŞME: Asit + Base Tepkimesi`);
-                } else { updateMonitor(`Base İlavesi: Çözelti bazikleşti.`); }
+                    mixedPh = 7.00; maxTemp += 32.0; updateMonitor(`⚡ NÖTRLEŞME: Asit + Baz Tepkimesi`);
+                } else { updateMonitor(`Baz İlavesi: Çözelti bazikleşti.`); }
             }
             else if ((val === "AgNO3" && beakerContents.includes("NaCl")) || (val === "NaCl" && beakerContents.includes("AgNO3"))) {
                 hasPrecipitate = true; updateMonitor(`Çökelme: Ag⁺ + Cl⁻ → AgCl(k) ⚪ (Beyaz Çökelek)`);
