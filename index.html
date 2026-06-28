@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Roni 3D Kimya Laboratuvarı</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body {
+            background-color: #121212;
+            color: #eeeeee;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background-color: #1a1a1a;
+        }
+        .indicator {
+            flex: 1;
+            background-color: #222831;
+            border: 2px solid #393E46;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #ph-val { color: #00FF66; }
+        #temp-val { color: #FF3333; }
+
+        /* Simülasyon Alanı */
+        .canvas-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212;
+            position: relative;
+        }
+        canvas {
+            background-color: #121212;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Kontrol Butonları Panel */
+        .controls {
+            background-color: #1a1a1a;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            border-top: 1px solid #393E46;
+        }
+        button {
+            background-color: #393E46;
+            color: #eeeeee;
+            border: none;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            active-opacity: 0.7;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:active { background-color: #00ADB5; color: #121212; }
+        .btn-clear { grid-column: span 2; background-color: #D32F2F; color: white; }
+        .btn-clear:active { background-color: #b71c1c; }
+        
+        /* Sistem Günlüğü */
+        #log-panel {
+            background-color: #121212;
+            color: #00ADB5;
+            font-size: 12px;
+            padding: 8px 15px;
+            text-align: center;
+            border-top: 1px solid #222831;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Gösterge Paneli -->
+    <div class="dashboard">
+        <div class="indicator">pH: <span id="ph-val">7.00</span></div>
+        <div class="indicator">Sıcaklık: <span id="temp-val">298.15 K</span></div>
+    </div>
+
+    <!-- Kimya Kanvas Alanı -->
+    <div class="canvas-container">
+        <canvas id="chemCanvas" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Sistem Günlüğü Mesajı -->
+    <div id="log-panel">[Sistem]: Laboratuvar hazır. Madde ekleyin.</div>
+
+    <!-- Mobil Butonlar -->
+    <div class="controls">
+        <button onclick="addWater()">Saf Su Ekle (H2O)</button>
+        <button onclick="addSodium()">Sodyum Ekle (Na)</button>
+        <button onclick="addHCl()">Asit Ekle (HCl)</button>
+        <button onclick="addNaOH()">Baz Ekle (NaOH)</button>
+        <button onclick="addIndicator()">Fenolftalein Damlat</button>
+        <button class="btn-clear" onclick="clearBeaker()">🗑️ Beheri Temizle / Sıfırla</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('chemCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Simülasyon Durumu
+        let beakerContents = [];
+        let mixedPh = 7.0;
+        let maxTemp = 298.15;
+        let hasIndicator = false;
+        let particles = [];
+        let liquidLevel = 0; // % olarak doluluk oranı
+        let targetLiquidLevel = 0;
+        let currentLiquidColor = "transparent";
+
+        // Partikül Sınıfı
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 8;
+                this.vy = (Math.random() - 1) * 8;
+                this.radius = Math.random() * 3 + 2;
+                this.life = 1.0;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.2; // Yerçekimi
+                this.life -= 0.03;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 76, 41, ${this.life})`;
+                ctx.fill();
+            }
+        }
+
+        // Ana Döngü (FPS 60)
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Sıvı Seviyesi Yumuşak Geçiş (Animasyon)
+            if (liquidLevel < targetLiquidLevel) liquidLevel += 0.01;
+            if (liquidLevel > targetLiquidLevel) liquidLevel -= 0.01;
+
+            // 1. Beher Çizimi (Cam Yapı)
+            ctx.strokeStyle = "#393E46";
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(100, 80);
+            ctx.lineTo(100, 340); // Sol Duvar
+            ctx.lineTo(300, 340); // Taban
+            ctx.lineTo(300, 80);  // Sağ Duvar
+            ctx.stroke();
+
+            // 2. Dinamik Sıvı Çizimi
+            if (liquidLevel > 0) {
+                ctx.fillStyle = currentLiquidColor;
+                let liquidHeight = 260 * liquidLevel;
+                ctx.fillRect(103, 337 - liquidHeight, 194, liquidHeight);
+            }
+
+            // 3. Reaksiyon Partikülleri Güncelleme ve Çizme
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                } else {
+                    particles[i].draw();
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Kimya Fonksiyonları
+        function updateDashboard() {
+            document.getElementById('ph-val').innerText = mixedPh.toFixed(2);
+            document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
+            
+            // Renk Yönetimi (İndikatör Koşulu)
+            if (hasIndicator && mixedPh > 8.3) {
+                currentLiquidColor = "rgba(255, 20, 147, 0.7)"; // Fenolftalein Baz Rengi (Fuşya)
+            } else if (beakerContents.includes("H2O") && beakerContents.length === 1) {
+                currentLiquidColor = "rgba(52, 131, 250, 0.5)"; // Sadece Su
+            } else if (beakerContents.length > 0) {
+                currentLiquidColor = "rgba(234, 234, 234, 0.6)"; // Diğer Kimyasal Karışımlar
+            } else {
+                currentLiquidColor = "transparent";
+            }
+        }
+
+        function log(msg) {
+            document.getElementById('log-panel').innerText = "[Sistem]: " + msg;
+        }
+
+        function addWater() {
+            if (!beakerContents.includes("H2O")) beakerContents.push("H2O");
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.3, 0.8);
+            log("Behere Saf Su (H2O) eklendi.");
+            updateDashboard();
+        }
+
+        function addSodium() {
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.1, 0.8);
+            if (beakerContents.includes("H2O")) {
+                // Sodyum + Su Reaksiyonu Tetiklendi!
+                for (let i = 0; i < 40; i++) particles.push(new Particle(200, 300)); // Patlama Efekti
+                mixedPh = 13.0; // NaOH Oluştu
+                maxTemp = 350.15;
+                if (!beakerContents.includes("NaOH")) beakerContents.push("NaOH");
+                log("⚠️ REAKSİYON: 2Na + 2H2O -> 2NaOH + H2! Ekzotermik Patlama!");
+            } else {
+                beakerContents.push("Na");
+                log("Behere Sodyum (Na) metal parçası bırakıldı.");
+            }
+            updateDashboard();
+        }
+
+        function addHCl() {
+            beakerContents.push("HCl");
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.2, 0.8);
+            
+            if (beakerContents.includes("NaOH")) {
+                mixedPh = 7.0; // Nötrleşti
+                maxTemp += 15;
+                log("⚡ NÖTRLEŞME: HCl + NaOH -> NaCl + H2O Isı Çıkışı Gözlendi.");
+            } else {
+                mixedPh = 1.5;
+                log("Behere Hidroklorik Asit (HCl) eklendi.");
+            }
+            updateDashboard();
+        }
+
+        function addNaOH() {
+            beakerContents.push("NaOH");
+            targetLiquidLevel = Math.min(targetLiquidLevel + 0.2, 0.8);
+
+            if (beakerContents.includes("HCl")) {
+                mixedPh = 7.0; // Nötrleşti
+                maxTemp += 15;
+                log("⚡ NÖTRLEŞME: HCl + NaOH -> NaCl + H2O Isı Çıkışı Gözlendi.");
+            } else {
+                mixedPh = 13.5;
+                log("Behere Sodyum Hidroksit (NaOH) baz çözeltisi eklendi.");
+            }
+            updateDashboard();
+        }
+
+        function addIndicator() {
+            hasIndicator = true;
+            log("Behere Fenolftalein indikatör damlatıldı.");
+            updateDashboard();
+        }
+
+        function clearBeaker() {
+            beakerContents = [];
+            mixedPh = 7.0;
+            maxTemp = 298.15;
+            hasIndicator = false;
+            particles = [];
+            targetLiquidLevel = 0;
+            log("Beher temizlendi. Yeni deneye hazır.");
+            updateDashboard();
+        }
+
+        // Başlat
+        animate();
+    </script>
+</body>
+</html>
