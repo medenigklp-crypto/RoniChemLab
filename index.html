@@ -34,20 +34,19 @@
             transition: opacity 0.5s ease;
         }
         
-        /* 1. LOGO BÜYÜTME VE ÜST SABİT ALAN */
+        /* LOGO ALANI (SABİT ÜST MERKEZ) */
         .brand-wrapper {
             position: absolute;
-            top: 6%; /* Ekranın üstünden şık bir boşluk */
+            top: 6%; 
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .user-logo-container {
-            width: 160px; /* İstediğin gibi logo belirgin şekilde büyütüldü */
+            width: 160px; /* Büyük premium logo boyutu */
             height: 160px;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 12px 35px rgba(0,0,0,0.6);
@@ -58,16 +57,26 @@
         .user-logo-container img {
             width: 100%; height: 100%; object-fit: cover;
         }
+
+        /* 🔬 BAŞLIĞIN FULLERENE TANECİĞİNE DEĞMESİNİ ENGELLEYEN ÖZEL HİZALAMA */
         .splash-title {
-            font-size: 15pt; font-weight: 600; letter-spacing: 4px; color: #ffffff;
-            margin-top: 14px; text-shadow: 0 4px 12px rgba(0,0,0,0.7);
+            position: absolute;
+            top: 255px; /* Logonun hemen altında sabit dikey konum */
+            left: 42%;  /* Sağdaki fulleren taneciğinden kaçırmak için sola kaydırıldı */
+            transform: translateX(-50%);
+            font-size: 15pt; 
+            font-weight: 600; 
+            letter-spacing: 4px; 
+            color: #ffffff;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            white-space: nowrap;
             opacity: 0.95;
         }
         
-        /* 3. YUKARIYA KAYDIRILMIŞ İKİ SATIRLI SLOGAN */
+        /* 🎭 YUKARIYA KAYDIRILMIŞ İKİ SATIRLI SLOGAN PANELİ */
         .slogan-positioner {
             position: absolute;
-            top: 43%; /* İstediğin gibi dikeyde yukarıya kaydırıldı, net boşluğa alındı */
+            top: 43%; /* Tam istediğin gibi yukarıda, dikeyde pürüzsüz boşlukta */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
@@ -81,7 +90,7 @@
             line-height: 1.45;
             display: inline-block;
             
-            /* Renk Geçişi (Sol Mavi -> Orta Geçiş -> Sağ Turuncu) */
+            /* Belirttiğin Renk Geçişleri */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -90,7 +99,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            /* Çift Taraflı Neon Işıma Filtresi */
+            /* İstediğin Kodlarla Çift Taraflı Neon Filtresi */
             filter: drop-shadow(-10px -4px 8px rgba(0, 162, 255, 0.6))  
                     drop-shadow(10px 4px 8px rgba(255, 102, 0, 0.6));   
             
@@ -110,11 +119,11 @@
             }
         }
 
-        /* 2. BUTONU BALON JOJEDEN TAMAMEN KURTARIP SAĞA ÇİVİLEYEN ALAN */
+        /* 💎 BUTONU BALON JOJEDEN TAMAMEN KURTARIP SAĞA SIFIRLAYAN PANEL */
         .start-btn-container {
             position: absolute;
-            right: 30px; /* Kesin olarak sağ tarafa konumlandırıldı */
-            bottom: 80px; /* Dikeyde de balon jojenin gövdesinden yukarı alındı */
+            right: 30px; /* Kesin sağ kenar sabitlemesi */
+            bottom: 80px; /* Dikeyde jojenin şişkin tabanından yukarıda */
         }
         .start-btn {
             background: rgba(255, 255, 255, 0.03);
@@ -194,10 +203,12 @@
             <div class="user-logo-container">
                 <img src="image_13.png" alt="Roni Logo">
             </div>
-            <div class="splash-title">QUANTUM LAB CORE</div>
         </div>
         
-        <!-- İki satır halinde, üst boşluğa tam istediğin gibi kaydırılmış asil slogan -->
+        <!-- Sola kaydırılarak sağdaki fulleren taneciğinden tamamen kaçırılan kesin konumlu başlık -->
+        <div class="splash-title">QUANTUM LAB CORE</div>
+        
+        <!-- İki satır halinde, üst boşluğa tam istediğin gibi yerleşen asil slogan -->
         <div class="slogan-positioner">
             <h2 class="premium-slogan">Never Trust an Atom,<br>They Make up Everything</h2>
         </div>
@@ -315,7 +326,6 @@
             } catch(e){}
         }
 
-        // Giriş ekranı kapatma fonksiyonu
         function initLab() {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             document.getElementById('splash-screen').style.opacity = '0';
