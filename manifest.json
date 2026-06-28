@@ -1,0 +1,21 @@
+{
+  "name": "Ronya Kimya",
+  "short_name": "Ronya",
+  "description": "Kimya Laboratuvarı Uygulaması",
+  "start_url": "/Ronya/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#16213e",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
