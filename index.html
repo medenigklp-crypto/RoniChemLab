@@ -8,6 +8,7 @@
     <title>QUANTUM LAB CORE</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+        
         body {
             background-color: #05070a;
             color: #e0e6ed;
@@ -19,18 +20,23 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 KESİN KONUMLANDIRMALI SAF GİRİŞ EKRANI */
+        /* 🌌 GİRİŞ EKRANI (TAM EKRAN VE GÖRSELİ KORUYAN KATMAN) */
         #splash-screen {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
             background: url('image_5.png') no-repeat center center;
             background-size: cover;
-            z-index: 9999;
+            z-index: 99999; /* En üst katmanda kalması için sabitledik */
             opacity: 1;
-            transition: opacity 0.5s ease;
+            pointer-events: auto;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            visibility: visible;
         }
         
-        /* LOGO PANELİ (ÜST ORTA ALANDA SAKİNCE DURUYOR) */
+        /* LOGO PANELİ (ÜST ORTA ALAN) */
         .brand-wrapper {
             position: absolute;
             top: 7vh; 
@@ -39,11 +45,11 @@
             text-align: center;
         }
         .user-logo-container {
-            width: 130px; 
-            height: 130px;
+            width: 125px; 
+            height: 125px;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 12px 35px rgba(0,0,0,0.8);
-            border-radius: 26px;
+            border-radius: 24px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.08);
         }
@@ -51,39 +57,39 @@
             width: 100%; height: 100%; object-fit: cover;
         }
 
-        /* 🎛️ SAĞ ALT KÖŞEDE TOPLANAN MİNİMALİST KONTROL PANELİ BLOĞU */
+        /* 🎛️ SAĞ ALT KÖŞEDE TOPLANAN MİNİMALİST METİN VE BUTON PANELİ */
         .bottom-right-control-panel {
             position: absolute;
-            right: 6vw;  /* Tam istediğin gibi iyice sağa kaydırıldı */
-            bottom: 6vh; /* Alt sınırda asil duruş */
+            right: 6vw;  
+            bottom: 7vh; 
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* İçindeki tüm yazıları ve butonu sağa hizalar */
-            gap: 10px;
+            align-items: flex-end; 
+            gap: 8px;
             max-width: 280px;
             text-align: right;
         }
 
-        /* 🔬 KÜÇÜLTÜLMÜŞ SİSTEM BAŞLIĞI (BUTONUN ÜSTÜNDE) */
+        /* 🔬 KÜÇÜLTÜLMÜŞ SİSTEM BAŞLIĞI */
         .splash-title {
-            font-size: 11pt; /* İstediğin gibi boyutu küçültüldü */
+            font-size: 11pt; 
             font-weight: 800; 
-            letter-spacing: 4px; 
+            letter-spacing: 3.5px; 
             color: #ffffff;
             text-shadow: 0 2px 8px rgba(0,0,0,0.9);
             white-space: nowrap;
             opacity: 0.95;
         }
         
-        /* ✨ BUTONUN ÜSTÜNDEKİ KÜÇÜCÜK PREMİUM SLOGAN */
+        /* ✨ BUTONUN ÜSTÜNDEKİ MİNİMAL SLOGAN */
         .premium-slogan {
-            font-size: 8.5pt; /* Minimalist şık boyut */
+            font-size: 8.5pt; 
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.8px;
             line-height: 1.4;
+            margin-bottom: 2px;
             
-            /* Soft Renk Geçişleri */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -91,20 +97,19 @@
             );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-
             filter: drop-shadow(-2px -1px 3px rgba(0, 162, 255, 0.3))  
                     drop-shadow(2px 1px 3px rgba(255, 102, 0, 0.3));
         }
 
         /* 💎 KÜÇÜLTÜLMÜŞ SİSTEMİ BAŞLAT BUTONU */
         .start-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(0, 162, 255, 0.35);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 162, 255, 0.4);
             color: #bceeff;
-            padding: 10px 30px; /* Buton boyutları kibarlaştırıldı */
-            font-size: 10.5px;   /* Yazısı biraz daha küçültüldü */
+            padding: 9px 26px; 
+            font-size: 10px;   
             font-weight: 700; 
-            border-radius: 20px; 
+            border-radius: 18px; 
             cursor: pointer; 
             letter-spacing: 1.5px;
             backdrop-filter: blur(10px);
@@ -115,7 +120,7 @@
         }
         .start-btn:active {
             transform: scale(0.96);
-            background: rgba(0, 162, 255, 0.12);
+            background: rgba(0, 162, 255, 0.15);
             border-color: #00a2ff;
         }
 
@@ -172,31 +177,24 @@
 </head>
 <body>
 
-    <!-- 🌌 GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <!-- LOGO (ÜST ORTA ALAN) -->
         <div class="brand-wrapper">
             <div class="user-logo-container">
                 <img src="image_13.png" alt="Roni Logo">
             </div>
         </div>
         
-        <!-- 🎛️ SAĞ ALT KÖŞEDE TOPLANAN METİN VE BUTON GRUBU -->
         <div class="bottom-right-control-panel">
-            <!-- KÜÇÜLTÜLMÜŞ BAŞLIK -->
             <div class="splash-title">QUANTUM LAB CORE</div>
             
-            <!-- BAŞLIĞIN ALTINA ALINMIŞ MİNİMAL SLOGAN -->
             <div class="premium-slogan">
                 Never Trust an Atom,<br>They Make up Everything
             </div>
             
-            <!-- KÜÇÜLTÜLMÜŞ VE SAĞA KAYDIRILMIŞ BUTON -->
             <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
         </div>
     </div>
 
-    <!-- 📊 LAB ARABİRİMİ -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
@@ -299,11 +297,16 @@
             } catch(e){}
         }
 
+        // 🛠️ Giriş ekranını ve elemanlarını laboratuvardan tamamen izole eden güvenli tetikleyici
         function initLab() {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            document.getElementById('splash-screen').style.opacity = '0';
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            splash.style.pointerEvents = 'none'; // Alt katmandaki butonların tıklanmasını engellemesin
+            
             setTimeout(() => {
-                document.getElementById('splash-screen').style.display = 'none';
+                splash.style.display = 'none';
+                splash.style.visibility = 'hidden';
                 playBeepSound(523.25, 0.15, "triangle");
             }, 500);
         }
