@@ -1,127 +1,72 @@
-# ui/main_window.py
-from PyQt6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QTextEdit, QLabel
-from config.settings import APP_NAME, VERSION, THEME
-from core.engine import SimulationEngine
+# core/engine.py
 from core.substances import Chemical
-from features.ai_assistant import ChemAIAssistant
-from features.reporter import ChemReporter
-from features.voice_control import ChemVoiceController  # Sesli kontrolü içe aktardık
-from ui.canvas import ChemCanvas
 
-class MainWindow(QMainWindow):
+class SimulationEngine:
     def __init__(self):
-        super().__init__()
-        self.engine = SimulationEngine()
-        self.ai = ChemAIAssistant()
-        self.reporter = ChemReporter()
-        self.voice_controller = ChemVoiceController(self)  # Sesli kontrol motorunu tanımladık
-        self.reaction_history = []
-        self.init_ui()
+        self.beaker_contents = []
+        self.total_volume = 0.0
+        self.mixed_ph = 7.0
+        self.has_indicator = False  # Fenolftalein var mı kontrolü
 
-    def init_ui(self):
-        self.setWindowTitle(f"{APP_NAME} - v{VERSION}")
-        self.resize(1100, 700)
+    def add_substance(self, substance: Chemical):
+        """Behere yeni bir kimyasal madde ekler ve anlık reaksiyonları hesaplar."""
+        self.beaker_contents.append(substance)
+        self.total_volume += substance.volume
         
-        main_widget = QWidget()
-        main_layout = QHBoxLayout(main_widget)
-        
-        # SOL TARAF: Simülasyon Kontrol ve Dinamik Beher Alanı
-        sim_layout = QVBoxLayout()
-        self.canvas = ChemCanvas()
-        
-        btn_add_water = QPushButton("Saf Su Ekle (H2O)")
-        btn_add_sodium = QPushButton("Sodyum Ekle (Na)")
-        
-        btn_add_water.clicked.connect(self.add_water)
-        btn_add_sodium.clicked.connect(self.add_sodium)
-        
-        sim_layout.addWidget(self.canvas, stretch=4)
-        sim_layout.addWidget(btn_add_water)
-        sim_layout.addWidget(btn_add_sodium)
-        
-        # SAĞ TARAF: AI Sohbet Paneli, Raporlama ve Sesli Kontrol
-        ai_layout = QVBoxLayout()
-        ai_title = QLabel("AI Kimya Asistanı & Akıllı Laboratuvar")
-        ai_title.setStyleSheet(f"color: {THEME['primary']}; font-weight: bold; font-size: 14px;")
-        
-        self.ai_output = QTextEdit()
-        self.ai_output.setReadOnly(True)
-        self.ai_output.setStyleSheet(f"background-color: {THEME['surface']}; color: {THEME['text_main']}; border: 1px solid {THEME['secondary']};")
-        
-        btn_analyze = QPushButton("Beheri AI ile Analiz Et")
-        btn_report = QPushButton("📄 Profesyonel Deney Raporu Üret")
-        btn_voice = QPushButton("🎤 Sesli Komut Modunu Aç")  # Yeni Ses Butonu
-        
-        btn_analyze.clicked.connect(self.trigger_ai_analysis)
-        btn_report.clicked.connect(self.trigger_report_generation)
-        btn_voice.clicked.connect(self.trigger_voice_control)  # Ses fonksiyonuna bağladık
-        
-        ai_layout.addWidget(ai_title)
-        ai_layout.addWidget(self.ai_output)
-        ai_layout.addWidget(btn_analyze)
-        ai_layout.addWidget(btn_report)
-        ai_layout.addWidget(btn_voice)  # Butonu arayüze yerleştirdik
-        
-        main_layout.addLayout(sim_layout, stretch=2)
-        main_layout.addLayout(ai_layout, stretch=1)
-        
-        self.setCentralWidget(main_widget)
-        self.apply_global_styles()
+        # pH ve indikatör kontrolü
+        if substance.formula == "Phenolphthalein":
+            self.has_indicator = True
+            
+        # Dinamik pH hesabı (Basitleştirilmiş logaritmik yaklaşım)
+        self.recalculate_ph()
 
-    def apply_global_styles(self):
-        self.setStyleSheet(f"""
-            QMainWindow {{ background-color: {THEME['background']}; }}
-            QPushButton {{
-                background-color: {THEME['secondary']};
-                color: {THEME['text_main']};
-                border: 1px solid #444;
-                padding: 10px;
-                border-radius: 5px;
-                font-weight: bold;
-            }}
-            QPushButton:hover {{
-                background-color: {THEME['primary']};
-                color: #121212;
-            }}
-        """)
+        # 1. ETKİLEŞİM: Sodyum + Su Reaksiyonu
+        formulas = [c.formula for c in self.beaker_contents]
+        if "Na" in formulas and "H2O" in formulas:
+            # Reaksiyon gerçekleştikten sonra elementleri tüket ve ürünü ekle
+            self.remove_substance("Na")
+            self.remove_substance("H2O")
+            
+            # Ürün olarak Sodyum Hidroksit çözeltisi (Baz) ekle
+            naoh = Chemical("NaOH", "Sodyum Hidroksit Çözeltisi", "liquid", "#EAEAEA", 0.5, 13.0, 350.15)
+            self.beaker_contents.append(naoh)
+            self.recalculate_ph()
+            
+            return {"triggered": True, "reaction": "2Na + 2H2O -> 2NaOH + H2", "temp_rise": 52.0}
+            
+        # 2. ETKİLEŞİM: Asit + Baz Nötrleşme Reaksiyonu (HCl + NaOH -> NaCl + H2O)
+        if "HCl" in formulas and "NaOH" in formulas:
+            self.remove_substance("HCl")
+            self.remove_substance("NaOH")
+            
+            # Tuzlu su oluşumu (Nötr ortam)
+            nacl = Chemical("NaCl", "Tuzlu Su", "liquid", "#3483FA", 0.6, 7.0, 315.15)
+            self.beaker_contents.append(nacl)
+            self.recalculate_ph()
+            
+            return {"triggered": True, "reaction": "HCl + NaOH -> NaCl + H2O (Nötrleşme)", "temp_rise": 15.0}
 
-    def add_water(self):
-        water = Chemical("H2O", "Saf Su", "liquid", "#3483FA", 1.0, 7.0, 298.15)
-        res = self.engine.add_substance(water)
-        self.canvas.set_liquid(0.4, THEME["accent_bio"])
-        self.update_log("Behere Saf Su (H2O) eklendi.")
+        return {"triggered": False, "reaction": None, "temp_rise": 0.0}
 
-    def add_sodium(self):
-        sodium = Chemical("Na", "Sodyum Metal", "solid", "#C0C0C0", 0.97, 7.0, 298.15)
-        res = self.engine.add_substance(sodium)
+    def remove_substance(self, formula: str):
+        self.beaker_contents = [c for c in self.beaker_contents if c.formula != formula]
+
+    def recalculate_ph(self):
+        """Beherdeki maddelere göre genel pH değerini dengeler."""
+        if not self.beaker_contents:
+            self.mixed_ph = 7.0
+            return
+            
+        total_ph_weight = sum([c.ph * c.volume for c in self.beaker_contents])
+        self.mixed_ph = total_ph_weight / self.total_volume
+
+    def get_canvas_color(self) -> str:
+        """İndikatör durumuna göre kanvasın alacağı sıvı rengini belirler."""
+        # Eğer ortamda fenolftalein indikatörü varsa ve ortam BAZİK (pH > 8.3) ise renk PEMBE olur
+        if self.has_indicator and self.mixed_ph > 8.3:
+            return "#FF1493"  # Canlı Pembe / Fuşya
         
-        if res['triggered']:
-            self.canvas.add_explosion_particles()
-            self.canvas.set_liquid(0.5, "#EAEAEA")
-            log_msg = f"REAKSİYON: {res['reaction']} - Sıcaklık Artışı: +{res['temp_rise']}K"
-            self.reaction_history.append(log_msg)
-            self.update_log(f"⚠️ {log_msg}")
-        else:
-            self.update_log("Behere Sodyum (Na) metal parçası bırakıldı.")
-
-    def trigger_ai_analysis(self):
-        self.ai_output.setText("AI analiz ediyor, lütfen bekleyin...")
-        report = self.ai.analyze_beaker(self.engine.beaker_contents)
-        self.ai_output.setText(report)
-
-    def trigger_report_generation(self):
-        report_content = self.reporter.generate_markdown_report(
-            self.engine.beaker_contents, 
-            self.reaction_history
-        )
-        self.ai_output.setText(report_content)
-
-    def trigger_voice_control(self):
-        """Sesli kontrolü başlatır ve dinleme durumunu ekrana basar."""
-        self.update_log("🎤 Sesli komut dinleniyor... (Konuşun: 'saf su ekle', 'sodyum ekle' vb.)")
-        result = self.voice_controller.listen_and_execute()
-        self.update_log(f"[Ses Sistemi]: {result}")
-
-    def update_log(self, text):
-        self.ai_output.append(f"\n[Sistem]: {text}")
-
+        # İndikatör yoksa veya asidik/nötr ise en baskın sıvının orijinal rengini döndür
+        if self.beaker_contents:
+            return self.beaker_contents[-1].color_hex
+        return "#3483FA"
