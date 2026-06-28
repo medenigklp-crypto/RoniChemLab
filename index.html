@@ -19,47 +19,50 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* Cyber Lab Göstergeleri */
+        /* Daha Kibar ve Mobil Uyumlu Göstergeler */
         .dashboard {
             display: flex;
-            gap: 12px;
-            padding: 20px 16px 8px 16px;
+            gap: 10px;
+            padding: 16px 16px 6px 16px;
             background: linear-gradient(to bottom, #11141a, #08090c);
         }
         .indicator {
             flex: 1;
             background: rgba(20, 24, 33, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 10px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         .indicator span {
             display: block;
             font-family: 'Courier New', monospace;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         #ph-val { color: #00ffcc; text-shadow: 0 0 12px rgba(0,255,204,0.4); }
         #temp-val { color: #ff5533; text-shadow: 0 0 12px rgba(255,85,51,0.4); }
 
-        /* image_15.png Tabanlı Laboratuvar Araçları ÜST PANEL (Asla Gizlenmez) */
+        /* Optimize Edilmiş Küçük Üst Araç Butonları */
         .tools-container {
             display: flex;
             gap: 10px;
-            padding: 0 16px 12px 16px;
+            padding: 0 16px 10px 16px;
             background-color: #08090c;
         }
         .btn-tool {
             flex: 1;
-            font-size: 13px;
-            padding: 14px;
+            font-size: 12px;
+            padding: 10px;
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 10px;
             background: #171b22;
             border: 1px solid rgba(255,255,255,0.06);
             color: #8f9cae;
@@ -80,7 +83,7 @@
             border: none;
         }
 
-        /* Simülasyon Ekranı */
+        /* Simülasyon Alanı */
         .canvas-container {
             flex: 1;
             display: flex;
@@ -98,15 +101,15 @@
         #log-panel {
             background-color: #08090c;
             color: #8f9cae;
-            font-size: 13px;
-            padding: 10px 16px;
+            font-size: 12px;
+            padding: 8px 16px;
             text-align: center;
             font-family: monospace;
-            height: 40px;
+            height: 36px;
             overflow: hidden;
         }
 
-        /* Profesyonel Alt Kontrol Paneli */
+        /* Alt Kontrol Paneli */
         .controls {
             background-color: #11141a;
             padding: 20px;
@@ -184,7 +187,7 @@
     <div class="controls">
         <div class="select-container">
             <select id="substanceSelect">
-                <optgroup label="💧 Sıvılar & Çözeltiler (image_7.png)">
+                <optgroup label="💧 Sıvılar & Çözeltiler">
                     <option value="H2O">Saf Su (H2O)</option>
                     <option value="Litmus">Turnusol Boyası (Litmus)</option>
                     <option value="Br2">Bromlu Su (Br2)</option>
@@ -196,74 +199,22 @@
                     <option value="HCl">Hidroklorik Asit (HCl)</option>
                     <option value="HF">Hidroforik Asit (HF)</option>
                 </optgroup>
-                
-                <optgroup label="🧱 Katılar (A - B) (image_8.png)">
-                    <option value="Ag">Gümüş (Ag)</option>
-                    <option value="Ag2S">Gümüş Sülfür (Ag2S)</option>
-                    <option value="AgCl">Gümüş Klorür (AgCl)</option>
-                    <option value="AgNO3">Gümüş Nitrat (AgNO3)</option>
-                    <option value="Al">Alüminyum Metal (Al)</option>
-                    <option value="BaCl2">Baryum Klorür (BaCl2)</option>
-                    <option value="BaCO3">Baryum Karbonat (BaCO3)</option>
-                </optgroup>
-                <optgroup label="🧱 Katılar (B - Cu) (image_9.png)">
-                    <option value="Ba_OH_2">Baryum Hidroksit [Ba(OH)2]</option>
-                    <option value="BaSO4">Baryum Sülfat (BaSO4)</option>
-                    <option value="C">Karbon / Kömür (C)</option>
-                    <option value="Ca">Kalsiyum Metal (Ca)</option>
-                    <option value="CaCl2">Kalsiyum Klorür (CaCl2)</option>
-                    <option value="CaCO3">Kalsiyum Karbonat (CaCO3)</option>
-                    <option value="CaO">Kalsiyum Oksit (CaO)</option>
-                    <option value="Ca_OH_2">Kalsiyum Hidroksit [Ca(OH)2]</option>
-                    <option value="Cu">Bakır Metal (Cu)</option>
-                    <option value="CuCl2">Bakır(II) Klorür (CuCl2)</option>
-                </optgroup>
-                <optgroup label="🧱 Katılar (Cu - I2) (image_10.png)">
-                    <option value="CuO">Bakır(II) Oksit (CuO)</option>
-                    <option value="CuSO4">Bakır Sülfat (CuSO4)</option>
-                    <option value="Fe">Demir Metal (Fe)</option>
-                    <option value="Fe2O3">Demir(III) Oksit (Fe2O3)</option>
-                    <option value="FeCl2">Demir(II) Klorür (FeCl2)</option>
-                    <option value="FeCl3">Demir(III) Klorür (FeCl3)</option>
-                    <option value="FeSO4">Demir(II) Sülfat (FeSO4)</option>
-                    <option value="I2">İyot Kristalleri (I2)</option>
-                </optgroup>
-                <optgroup label="🧱 Katılar (K - Mn) (image_11.png)">
-                    <option value="K">Potasyum Metal (K)</option>
-                    <option value="KCl">Potasyum Klorür (KCl)</option>
-                    <option value="KI">Potasyum İyodür (KI)</option>
-                    <option value="KMnO4">Potasyum Permanganat (KMnO4)</option>
-                    <option value="KOH">Potasyum Hidroksit (KOH)</option>
-                    <option value="Li">Lityum Metal (Li)</option>
-                    <option value="Mg">Magnezyum Metal (Mg)</option>
-                    <option value="MgO">Magnezyum Oksit (MgO)</option>
-                    <option value="MgSO4">Magnezyum Sülfat (MgSO4)</option>
-                </optgroup>
-                <optgroup label="🧱 Katılar (Mn - Pb) (image_12.png)">
-                    <option value="MnO2">Mangan Dioksit (MnO2)</option>
+                <optgroup label="🧱 Katılar">
                     <option value="Na">Sodyum Metal (Na)</option>
-                    <option value="Na2CO3">Sodyum Karbonat (Na2CO3)</option>
+                    <option value="K">Potasyum Metal (K)</option>
                     <option value="NaCl">Sodyum Klorür (NaCl)</option>
-                    <option value="NaHCO3">Sodyum Bikarbonat (NaHCO3)</option>
-                    <option value="NaOH">Sodyum Hidroksit (NaOH)</option>
-                    <option value="NH4Cl">Amonyum Klorür (NH4Cl)</option>
-                    <option value="S">Kükürt Kristalleri (S)</option>
-                    <option value="Zn">Çinko Metal (Zn)</option>
-                    <option value="ZnSO4">Çinko Sülfat (ZnSO4)</option>
+                    <option value="AgNO3">Gümüş Nitrat (AgNO3)</option>
+                    <option value="CuSO4">Bakır Sülfat (CuSO4)</option>
+                    <option value="KMnO4">Potasyum Permanganat (KMnO4)</option>
+                    <option value="FeCl3">Demir(III) Klorür (FeCl3)</option>
                 </optgroup>
-
-                <optgroup label="💨 Gaz Reaktifler (image_14.png)">
+                <optgroup label="💨 Gaz Reaktifler">
                     <option value="Ar">Argon (Ar)</option>
                     <option value="C2H2">Asetilen (C2H2)</option>
                     <option value="Cl2">Klor Gazı (Cl2)</option>
                     <option value="CO2">Karbondioksit (CO2)</option>
-                    <option value="F2">Flor Gazı (F2)</option>
                     <option value="H2">Hidrojen Gazı (H2)</option>
-                    <option value="H2S">Hidrojen Sülfür (H2S)</option>
-                    <option value="He">Helyum (He)</option>
-                    <option value="N2">Azot Gazı (N2)</option>
                     <option value="NH3">Amonyak Gazı (NH3)</option>
-                    <option value="NO2">Azot Dioksit (NO2)</option>
                     <option value="O2">Oksijen Gazı (O2)</option>
                     <option value="SO2">Kükürtdioksit (SO2)</option>
                 </optgroup>
@@ -283,7 +234,6 @@
         let activeIndicators = { litmus: false };
         let hasPrecipitate = false; 
         
-        // Araç Durum Algoritmaları
         let isLidClosed = false;
         let isBurnerOn = false;
 
@@ -344,7 +294,6 @@
             }
         }
 
-        // Üst Araç Çubuğu Kontrolleri (image_15.png)
         function toggleLid() {
             isLidClosed = !isLidClosed;
             const btn = document.getElementById('lidToggle');
@@ -355,7 +304,7 @@
             } else {
                 btn.className = "btn-tool";
                 btn.innerText = "🔓 LID (KAPAK AÇIK)";
-                log("Sistem: Beher kapağı açıldı. Gazlar havaya uçuyor.");
+                log("Sistem: Beher kapağı açıldı. Gazlar atmosfere yayılıyor.");
             }
         }
 
@@ -365,7 +314,7 @@
             if (isBurnerOn) {
                 btn.className = "btn-tool active-burner";
                 btn.innerText = "🔥 BURNER (ISITICI AÇIK)";
-                log("Sistem: Isıtıcı bek alevi aktif. Sıcaklık artıyor.");
+                log("Sistem: Isıtıcı bek alevi aktif. Termal enerji artıyor.");
             } else {
                 btn.className = "btn-tool";
                 btn.innerText = "🔥 BURNER (KAPALI)";
@@ -377,7 +326,6 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             waveWave += 0.07;
 
-            // Isıtıcı Açık Mantığı
             if (isBurnerOn) {
                 maxTemp = Math.min(maxTemp + 0.5, 650.00);
                 document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
@@ -386,7 +334,6 @@
                 document.getElementById('temp-val').innerText = maxTemp.toFixed(2) + " K";
             }
 
-            // Kapak Açıksa Gazların Uçma Fiziği
             if (!isLidClosed && targetLiquidLevel > 0) {
                 const hasGases = beakerContents.some(item => ["Cl2","CO2","H2","NH3","SO2"].includes(item));
                 if (hasGases && Math.random() < 0.008) {
@@ -403,7 +350,6 @@
             let currentHeight = bH * liquidLevel;
             let surfaceY = (bY + bH) - currentHeight;
 
-            // Sıvı Katmanı
             if (liquidLevel > 0.01) {
                 ctx.save();
                 let colorBase = getLiquidPalette();
@@ -450,7 +396,6 @@
                 else bubbles[i].draw();
             }
 
-            // Cam Beher Çizimi
             ctx.save();
             ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
             ctx.lineWidth = 4;
@@ -462,7 +407,6 @@
             ctx.lineTo(bX + bW, bY);
             ctx.stroke();
 
-            // Kapak Kapalıysa Üst Kapak Çizgisi
             if (isLidClosed) {
                 ctx.strokeStyle = "rgba(0, 255, 204, 0.7)";
                 ctx.lineWidth = 6;
@@ -472,7 +416,6 @@
                 ctx.stroke();
             }
 
-            // Isıtıcı Alttan Ateş Parlaması
             if (isBurnerOn) {
                 ctx.save();
                 ctx.shadowBlur = 22;
@@ -570,7 +513,7 @@
 
         function clearBeaker() {
             beakerContents = []; mixedPh = 7.0; maxTemp = 298.15;
-            activeIndicators = { litmus = false };
+            activeIndicators = { litmus: false }; // Yazım hatası düzeltildi (: kullanıldı)
             hasPrecipitate = false; particles = []; bubbles = []; targetLiquidLevel = 0;
             log("Sistem: Beher tamamen boşaltıldı ve temizlendi.");
             document.getElementById('ph-val').innerText = "7.00";
