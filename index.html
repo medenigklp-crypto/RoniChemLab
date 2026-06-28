@@ -6,6 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>QUANTUM LAB CORE</title>
+    <!-- Harika el yazısı estetiği için Great Vibes fontunu bağlıyoruz -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
@@ -22,37 +23,35 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         
-        /* 🌌 ELİT, SADE VE DENGELİ GİRİŞ EKRANI */
+        /* 🌌 KESİN KONUMLANDIRMALI GİRİŞ EKRANI */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: url('image_14.png') no-repeat center center;
             background-size: cover;
             z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 45px 24px 60px 24px;
             opacity: 1;
             transition: opacity 0.5s ease;
         }
         
-        /* 1. İKON BÜYÜTME VE ÜST ALAN DÜZENİ */
+        /* 1. LOGO BÜYÜTME VE ÜST SABİT ALAN */
         .brand-wrapper {
+            position: absolute;
+            top: 6%; /* Ekranın üstünden şık bir boşluk */
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: env(safe-area-inset-top, 20px);
-            width: 100%;
         }
         .user-logo-container {
-            width: 135px; /* Logo isteğin üzerine daha da büyütüldü */
-            height: 135px;
+            width: 160px; /* İstediğin gibi logo belirgin şekilde büyütüldü */
+            height: 160px;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 12px 35px rgba(0,0,0,0.6);
-            border-radius: 24px;
+            border-radius: 28px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
         }
@@ -65,10 +64,10 @@
             opacity: 0.95;
         }
         
-        /* 3. İKİ SATIRLI VE YUKARIYA ALINMIŞ EN OKUNAKLI SLOGAN KONUMU */
+        /* 3. YUKARIYA KAYDIRILMIŞ İKİ SATIRLI SLOGAN */
         .slogan-positioner {
             position: absolute;
-            top: 48%; /* İsteğin doğrultusunda tam orta koridora, yukarıya kaydırıldı */
+            top: 43%; /* İstediğin gibi dikeyde yukarıya kaydırıldı, net boşluğa alındı */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
@@ -77,23 +76,23 @@
         }
         .premium-slogan {
             font-family: 'Great Vibes', cursive;
-            font-size: 26pt; /* İki satır için ideal, asil boyut */
+            font-size: 26pt;
             font-weight: normal;
-            line-height: 1.45; /* Satırların zarafetle açılması için */
+            line-height: 1.45;
             display: inline-block;
             
-            /* Muazzam Renk Geçişi (Sol Mavi -> Orta Geçiş -> Sağ Turuncu) */
+            /* Renk Geçişi (Sol Mavi -> Orta Geçiş -> Sağ Turuncu) */
             background: linear-gradient(to right, 
-                #BCEEFF 0%,   /* Sol Mavi Yazı İçi */
-                #F7EAD7 50%,  /* Orta Geçiş */
-                #FFD59A 100%  /* Sağ Turuncu Yazı İçi */
+                #BCEEFF 0%,   
+                #F7EAD7 50%,  
+                #FFD59A 100%  
             );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
             /* Çift Taraflı Neon Işıma Filtresi */
-            filter: drop-shadow(-10px -4px 8px rgba(0, 162, 255, 0.6))  /* Sol Mavi Neon */
-                    drop-shadow(10px 4px 8px rgba(255, 102, 0, 0.6));   /* Sağ Turuncu Neon */
+            filter: drop-shadow(-10px -4px 8px rgba(0, 162, 255, 0.6))  
+                    drop-shadow(10px 4px 8px rgba(255, 102, 0, 0.6));   
             
             animation: gentleGlow 2.5s ease-in-out infinite alternate;
         }
@@ -111,13 +110,11 @@
             }
         }
 
-        /* 2. BUTONU SAĞ ALT KÖŞEYE SIFIRLAYAN YENİ DÜZEN */
+        /* 2. BUTONU BALON JOJEDEN TAMAMEN KURTARIP SAĞA ÇİVİLEYEN ALAN */
         .start-btn-container {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end; /* Butonu tamamen sağ tarafa yaslar */
-            padding-right: 16px; /* Ekranın sağ kenarına tam uyum için */
-            margin-bottom: env(safe-area-inset-bottom, 20px);
+            position: absolute;
+            right: 30px; /* Kesin olarak sağ tarafa konumlandırıldı */
+            bottom: 80px; /* Dikeyde de balon jojenin gövdesinden yukarı alındı */
         }
         .start-btn {
             background: rgba(255, 255, 255, 0.03);
@@ -191,6 +188,7 @@
 </head>
 <body>
 
+    <!-- 🌌 ELİT & MINIMALIST GİRİŞ EKRANI -->
     <div id="splash-screen">
         <div class="brand-wrapper">
             <div class="user-logo-container">
@@ -199,15 +197,18 @@
             <div class="splash-title">QUANTUM LAB CORE</div>
         </div>
         
+        <!-- İki satır halinde, üst boşluğa tam istediğin gibi kaydırılmış asil slogan -->
         <div class="slogan-positioner">
             <h2 class="premium-slogan">Never Trust an Atom,<br>They Make up Everything</h2>
         </div>
         
+        <!-- Kesin koordinatla sağ alt köşeye çivilenen buton ünitesi -->
         <div class="start-btn-container">
             <button class="start-btn" onclick="initLab()">SİSTEMİ BAŞLAT</button>
         </div>
     </div>
 
+    <!-- 📊 ANA GÖSTERGELER -->
     <div class="dashboard">
         <div class="indicator">HİDROJEN İNDEKSİ <span id="ph-val">7.00</span></div>
         <div class="indicator">TERMAL ENERJİ <span id="temp-val">298.15 K</span></div>
@@ -314,6 +315,7 @@
             } catch(e){}
         }
 
+        // Giriş ekranı kapatma fonksiyonu
         function initLab() {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             document.getElementById('splash-screen').style.opacity = '0';
