@@ -29,35 +29,40 @@
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #05070a;
-            background-image: url('image_5.png'); /* Muazzam sinematik arka plan görseliniz */
+            background-image: url('image_5.png'); /* Arka plan görseliniz */
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
             z-index: 999999;
             opacity: 1;
             transition: opacity 0.4s ease;
+            
+            /* Tüm içeriği hem yatayda hem dikeyde tam ekranın merkezine kilitleyen modern esnek düzen */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
         /* MERKEZİ DİKEY YERLEŞİM BLOKU */
         .brand-container-block {
-            position: absolute;
-            top: 5vh;
-            left: 50vw;
-            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 95vw;
+            width: 100%;
+            max-width: 450px;
             text-align: center;
+            gap: 16px; /* Elemanların arasındaki dikey boşluğu mükemmel dengeler */
         }
 
         /* 👑 1. EN ÜSTTEKİ MEDENİ GÖKALP YAZAN LOGO GÖRSELİ (image_13.png) */
         .teacher-brand-logo {
-            width: 130px; /* Okunabilir ve kibar premium logo boyutu */
+            width: 175px; /* Mobil cihazlarda daha net ve okunaklı olması için boyutu büyütüldü */
             height: auto;
             object-fit: contain;
             filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.8));
-            margin-bottom: 8px;
+            margin-bottom: 2px;
         }
 
         /* 🏛️ 2. HEMEN ALTINDAKİ QUANTUM LAB CORE YAZISI */
@@ -68,22 +73,22 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             text-shadow: 0 2px 8px rgba(0,0,0,0.95);
-            margin-bottom: 25px; /* Ortadaki görsele asil bir boşluk bırakır */
+            margin-bottom: 12px;
         }
 
         /* 🎯 3. ORTADA YUVARLAK OLAN GÖRSEL (image_11.png) */
         .user-logo-container {
-            width: 140px; 
-            height: 140px;
+            width: 160px; /* Üst logoyla uyumlu olacak şekilde boyutu dengelendi */
+            height: 160px;
             display: flex; 
             justify-content: center; 
             align-items: center;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
-            border-radius: 50%; /* Tam yuvarlak hat */
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.95);
+            border-radius: 50%; /* Kusursuz yuvarlak hat */
             overflow: hidden;
             border: 2px solid rgba(255, 255, 255, 0.2);
             background: transparent;
-            margin-bottom: 20px; /* Slogana geçiş boşluğu */
+            margin-bottom: 8px;
         }
         .user-logo-container img {
             width: 100%; height: 100%; object-fit: cover;
@@ -92,13 +97,13 @@
         /* 💎 4. ONUN ALTINDAKİ PREMIUM NEON SLOGAN */
         .premium-slogan-one-line {
             font-family: 'Great Vibes', cursive;
-            font-size: 5.5vw;
-            max-font-size: 22pt;
+            font-size: 5.6vw;
+            max-font-size: 23pt;
             font-weight: normal;
             white-space: nowrap; 
             display: block;
             
-            /* İstenen Renk Geçişi: Sol Mavi (#BCEEFF) -> Orta (#F7EAD7) -> Sağ Turuncu (#FFD59A) */
+            /* Renk Geçişi: Sol Mavi (#BCEEFF) -> Orta (#F7EAD7) -> Sağ Turuncu (#FFD59A) */
             background: linear-gradient(to right, 
                 #BCEEFF 0%,   
                 #F7EAD7 50%,  
@@ -112,28 +117,25 @@
                     drop-shadow(8px 2px 5px rgba(255, 102, 0, 0.75))
                     drop-shadow(0px 4px 10px rgba(0,0,0,0.9));
             padding: 2px 10px;
+            margin-bottom: 40px; /* Alttaki giriş butonuna asil bir mesafe bırakır */
         }
         @media(min-width: 600px) {
-            .premium-slogan-one-line { font-size: 20pt; }
+            .premium-slogan-one-line { font-size: 21pt; }
         }
 
-        /* 🔘 5. EN ALTA ALINAN VE TAM ORTALANAN SİSTEME GİRİŞ BUTONU */
+        /* 🔘 5. EN ALTTA VE YATAYDA TAM ORTALANAN SİSTEME GİRİŞ BUTONU */
         .btn-bottom-center-positioner {
-            position: absolute;
-            left: 50vw;
-            transform: translateX(-50%);
-            bottom: 8vh; /* Tam alt-orta koridorda güvenli hizalama */
+            width: auto;
             display: flex;
             justify-content: center;
-            width: auto;
         }
 
         .start-btn-round {
-            background: rgba(10, 15, 25, 0.75);
-            border: 1.5px solid rgba(0, 162, 255, 0.6);
+            background: rgba(10, 15, 25, 0.8);
+            border: 1.5px solid rgba(0, 162, 255, 0.65);
             color: #bceeff;
-            padding: 15px 45px; 
-            font-size: 11px;   
+            padding: 16px 50px; 
+            font-size: 11.5px;   
             font-weight: 800; 
             border-radius: 25px; 
             cursor: pointer; 
@@ -184,15 +186,15 @@
 
     <!-- 🌌 GİRİŞ EKRANI -->
     <div id="splash-screen">
-        <!-- Kusursuz Simetri ve Hizalamaya Sahip Taşıyıcı Blok -->
+        <!-- Ekranın Tam Merkezinde Toplanan Hizalama Grubu -->
         <div class="brand-container-block">
-            <!-- 1. En Üstteki Logo Görseli -->
+            <!-- 1. En Üstteki Logo Görseli (Genişliği büyütüldü) -->
             <img src="image_13.png" class="teacher-brand-logo" alt="Medeni Gökalp Logo">
             
             <!-- 2. Sistem Başlığı -->
             <div class="main-title">QUANTUM LAB CORE</div>
             
-            <!-- 3. Ortadaki Yuvarlak Görsel -->
+            <!-- 3. Ortadaki Yuvarlak Görsel (Boyutu üst logoyla dengelendi) -->
             <div class="user-logo-container">
                 <img src="image_11.png" alt="Yuvarlak Sanat Görseli">
             </div>
@@ -201,11 +203,11 @@
             <div class="premium-slogan-one-line">
                 Never Trust an Atom, They Make up Everything
             </div>
-        </div>
-        
-        <!-- 5. En Altta ve Yatayda Tam Ortalanmış Giriş Butonu -->
-        <div class="btn-bottom-center-positioner">
-            <button class="start-btn-round" onclick="initLab()">SİSTEMİ BAŞLAT</button>
+            
+            <!-- 5. Tam Ortalanmış Giriş Butonu -->
+            <div class="btn-bottom-center-positioner">
+                <button class="start-btn-round" onclick="initLab()">SİSTEMİ BAŞLAT</button>
+            </div>
         </div>
     </div>
 
@@ -240,7 +242,7 @@
                 <optgroup label="🧱 Katı Metaller (1A - 2A - 3A)">
                     <option value="Li">Lityum Metal (Li)</option>
                     <option value="Na">Sodyum Metal (Na)</option>
-                    <option value="K">Potanyum Metal (K)</option>
+                    <option value="K">Potasyum Metal (K)</option>
                     <option value="Rb">Rubidyum Metal (Rb)</option>
                     <option value="Cs">Sezyum Metal (Cs)</option>
                     <option value="Be">Berilyum Metal (Be)</option>
@@ -507,8 +509,8 @@
             else if (["LiOH", "NaOH", "KOH", "Mg_OH_2", "Ca_OH_2"].includes(val)) {
                 mixedPh = ["LiOH", "NaOH", "KOH"].includes(val) ? 13.80 : 11.00;
                 if (beakerContents.some(r => ["HCl","HNO3","H2SO4"].includes(r))) {
-                    mixedPh = 7.00; maxTemp += 32.0; updateMonitor(`⚡ NÖTRLEŞME: Asit + Baz Tepkimesi`);
-                } else { updateMonitor(`Baz İlavesi: Çözelti bazikleşti.`); }
+                    mixedPh = 7.00; maxTemp += 32.0; updateMonitor(`⚡ NÖTRLEŞME: Asit + Base Tepkimesi`);
+                } else { updateMonitor(`Base İlavesi: Çözelti bazikleşti.`); }
             }
             else if ((val === "AgNO3" && beakerContents.includes("NaCl")) || (val === "NaCl" && beakerContents.includes("AgNO3"))) {
                 hasPrecipitate = true; updateMonitor(`Çökelme: Ag⁺ + Cl⁻ → AgCl(k) ⚪ (Beyaz Çökelek)`);
